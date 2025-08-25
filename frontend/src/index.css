@@ -1,0 +1,342 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-background: 248 250 252;
+    --color-foreground: 31 41 55;
+    --color-muted: 148 163 184;
+    --color-muted-foreground: 100 116 139;
+    --color-border: 226 232 240;
+    --color-input: 255 255 255;
+    --color-primary: 59 130 246;
+    --color-primary-foreground: 255 255 255;
+    --color-secondary: 100 116 139;
+    --color-secondary-foreground: 255 255 255;
+    --color-accent: 59 130 246;
+    --color-accent-foreground: 255 255 255;
+    --color-destructive: 239 68 68;
+    --color-destructive-foreground: 255 255 255;
+    --color-ring: 59 130 246;
+    --color-radius: 0.5rem;
+    
+    /* StyleGuide Colors */
+    --color-accent-primary: 198 247 40;
+    --color-accent-secondary: 76 201 240;
+    --color-success: 74 222 128;
+    --color-warning: 251 191 36;
+    --color-error: 248 113 113;
+    --color-surface-primary: 255 255 255;
+    --color-surface-secondary: 248 250 252;
+    --color-surface-tertiary: 241 245 249;
+    --color-surface-elevated: 255 255 255;
+    --color-border-primary: 226 232 240;
+    --color-border-secondary: 203 213 225;
+  }
+
+  .dark {
+    --color-background: 13 27 42;
+    --color-foreground: 224 230 237;
+    --color-muted: 170 186 205;
+    --color-muted-foreground: 148 163 184;
+    --color-border: 27 38 59;
+    --color-input: 27 38 59;
+    --color-primary: 59 130 246;
+    --color-primary-foreground: 255 255 255;
+    --color-secondary: 100 116 139;
+    --color-secondary-foreground: 255 255 255;
+    --color-accent: 59 130 246;
+    --color-accent-foreground: 255 255 255;
+    --color-destructive: 239 68 68;
+    --color-destructive-foreground: 255 255 255;
+    --color-ring: 59 130 246;
+    --color-radius: 0.5rem;
+    
+    /* StyleGuide Colors - Dark Mode */
+    --color-accent-primary: 198 247 40;
+    --color-accent-secondary: 76 201 240;
+    --color-success: 74 222 128;
+    --color-warning: 251 191 36;
+    --color-error: 239 68 68;
+    
+    /* Dark Mode Specific Colors */
+    --color-background: 10 14 26;
+    --color-surface-primary: 19 26 44;
+    --color-surface-secondary: 19 26 44;
+    --color-surface-tertiary: 25 35 60;
+    --color-foreground: 255 255 255;
+    --color-muted-foreground: 156 163 175;
+    --color-border-primary: 198 247 40;
+    --color-border-secondary: 76 201 240;
+    
+    /* Force border colors in dark mode */
+    --color-border: 198 247 40;
+    
+    /* Enhanced Dark Mode Shadows and Glows */
+    --shadow-dark: 0 4px 20px rgba(0, 0, 0, 0.6);
+    --shadow-dark-lg: 0 8px 32px rgba(0, 0, 0, 0.8);
+    --glow-accent: 0 0 20px rgba(198, 247, 40, 0.3);
+    --glow-accent-strong: 0 0 30px rgba(198, 247, 40, 0.5);
+    --glow-secondary: 0 0 20px rgba(76, 201, 240, 0.2);
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    background-color: rgb(var(--color-background));
+    color: rgb(var(--color-foreground));
+  }
+
+  html {
+    background-color: rgb(var(--color-background));
+  }
+}
+
+@layer utilities {
+  .bg-background {
+    background-color: rgb(var(--color-background));
+  }
+  
+  .bg-surface-primary {
+    background-color: rgb(var(--color-surface-primary));
+  }
+  
+  .bg-surface-secondary {
+    background-color: rgb(var(--color-surface-secondary));
+  }
+  
+  .bg-surface-tertiary {
+    background-color: rgb(var(--color-surface-tertiary));
+  }
+  
+  .bg-surface-elevated {
+    background-color: rgb(var(--color-surface-elevated));
+  }
+  
+  .bg-accent-primary {
+    background-color: rgb(var(--color-accent-primary));
+  }
+  
+  .bg-accent-secondary {
+    background-color: rgb(var(--color-accent-secondary));
+  }
+  
+  .bg-success {
+    background-color: rgb(var(--color-success));
+  }
+  
+  .bg-warning {
+    background-color: rgb(var(--color-warning));
+  }
+  
+  .bg-error {
+    background-color: rgb(var(--color-error));
+  }
+  
+  .text-accent-primary {
+    color: rgb(var(--color-accent-primary));
+  }
+  
+  .text-accent-secondary {
+    color: rgb(var(--color-accent-secondary));
+  }
+  
+  .text-success {
+    color: rgb(var(--color-success));
+  }
+  
+  .text-warning {
+    color: rgb(var(--color-warning));
+  }
+  
+  .text-error {
+    color: rgb(var(--color-error));
+  }
+  
+  .border-accent-primary {
+    border-color: rgb(var(--color-accent-primary));
+  }
+  
+  .border-accent-secondary {
+    border-color: rgb(var(--color-accent-secondary));
+  }
+  
+  .border-border-primary {
+    border-color: rgb(var(--color-accent-primary));
+  }
+  
+  .dark .border-border-primary {
+    border-color: rgb(var(--color-accent-primary)) !important;
+  }
+  
+  .dark .border-border {
+    border-color: rgb(var(--color-accent-primary)) !important;
+  }
+  
+  /* Ensure dark mode border colors are applied */
+  html.dark .border-border-primary,
+  html.dark .border-border {
+    border-color: rgb(var(--color-accent-primary)) !important;
+  }
+  
+
+  
+  .border-border-secondary {
+    border-color: rgb(var(--color-border-secondary));
+  }
+  
+  .hover\:bg-accent-primary\/10:hover {
+    background-color: rgb(var(--color-accent-primary) / 0.1);
+  }
+  
+  .hover\:bg-accent-primary\/20:hover {
+    background-color: rgb(var(--color-accent-primary) / 0.2);
+  }
+  
+  .hover\:bg-success\/20:hover {
+    background-color: rgb(var(--color-success) / 0.2);
+  }
+  
+  .hover\:bg-error\/20:hover {
+    background-color: rgb(var(--color-error) / 0.2);
+  }
+  
+  .bg-accent-primary\/10 {
+    background-color: rgb(var(--color-accent-primary) / 0.1);
+  }
+  
+  .bg-accent-primary\/20 {
+    background-color: rgb(var(--color-accent-primary) / 0.2);
+  }
+  
+  .border-accent-primary\/20 {
+    border-color: rgb(var(--color-accent-primary) / 0.2);
+  }
+  
+  .border-accent-primary\/30 {
+    border-color: rgb(var(--color-accent-primary) / 0.3);
+  }
+  
+  .text-accent-secondary\/60 {
+    color: rgb(var(--color-accent-secondary) / 0.6);
+  }
+  
+  .text-accent-primary-on-bg {
+    color: rgb(13 27 42);
+  }
+  
+  .text-accent-primary-on-bg\/90 {
+    color: rgb(13 27 42 / 0.9);
+  }
+  
+  /* Line clamp utilities */
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  .focus\:ring-accent-primary\/20:focus {
+    --tw-ring-color: rgb(var(--color-accent-primary) / 0.2);
+  }
+  
+  .focus\:ring-error\/20:focus {
+    --tw-ring-color: rgb(var(--color-error) / 0.2);
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-accent-primary text-accent-primary-on-bg hover:bg-accent-primary h-10 px-4 py-2 inline-flex items-center justify-center rounded-xl text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-background shadow-md hover:shadow-lg;
+  }
+  
+  .btn-primary:hover {
+    box-shadow: var(--glow-accent);
+  }
+  
+  .dark .btn-primary:hover {
+    box-shadow: var(--glow-accent-strong);
+  }
+
+  .btn-secondary {
+    @apply bg-surface-secondary text-foreground hover:bg-surface-tertiary h-10 px-4 py-2 inline-flex items-center justify-center rounded-xl text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-background;
+  }
+
+  .btn-outline {
+    @apply border border-accent-primary text-accent-primary hover:bg-accent-primary hover:text-accent-primary-on-bg h-10 px-4 py-2 inline-flex items-center justify-center rounded-xl text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-background;
+  }
+  
+  .btn-outline:hover {
+    box-shadow: var(--glow-accent);
+  }
+  
+  .dark .btn-outline:hover {
+    box-shadow: var(--glow-accent-strong);
+  }
+
+  .btn-ghost {
+    @apply text-foreground hover:bg-surface-secondary h-10 px-4 py-2 inline-flex items-center justify-center rounded-xl text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-background;
+  }
+
+  .btn-destructive {
+    @apply bg-error text-white hover:bg-error h-10 px-4 py-2 inline-flex items-center justify-center rounded-xl text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-error/20 focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-background;
+  }
+
+  .input {
+    @apply flex h-10 w-full rounded-xl border-2 border-accent-primary px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50;
+    background-color: rgb(var(--color-surface-primary));
+    color: rgb(var(--color-foreground));
+  }
+  
+  .dark .input:focus {
+    box-shadow: var(--glow-accent);
+  }
+
+  .textarea {
+    @apply flex min-h-[80px] w-full rounded-xl border-2 border-accent-primary px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50;
+    background-color: rgb(var(--color-surface-primary));
+    color: rgb(var(--color-foreground));
+  }
+  
+  .dark .textarea:focus {
+    box-shadow: var(--glow-accent);
+  }
+
+  .card {
+    @apply rounded-2xl border-2 border-accent-primary bg-surface-primary text-foreground shadow-md;
+  }
+  
+  .dark .card {
+    box-shadow: var(--shadow-dark), var(--glow-accent);
+  }
+  
+  .dark .card:hover {
+    box-shadow: var(--shadow-dark-lg), var(--glow-accent-strong);
+    transform: translateY(-2px);
+  }
+
+  .card-header {
+    @apply flex flex-col space-y-1.5 p-6;
+  }
+
+  .card-title {
+    @apply text-2xl font-semibold leading-none tracking-tight;
+  }
+
+  .card-content {
+    @apply p-6 pt-0;
+  }
+}

@@ -1,0 +1,154 @@
+name: 💡 Feature Request
+description: Suggest an idea for PromptVault
+title: '[FEATURE] '
+labels: ['enhancement']
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to suggest a feature for PromptVault! 💡
+        
+        Please provide as much detail as possible to help us understand your needs.
+  
+  - type: textarea
+    id: problem-statement
+    attributes:
+      label: 🎯 Problem Statement
+      description: A clear and concise description of what problem this feature would solve
+      placeholder: |
+        For example:
+        - "I'm always frustrated when I need to..."
+        - "It's currently difficult to..."
+        - "I want to be able to..."
+    validations:
+      required: true
+  
+  - type: textarea
+    id: proposed-solution
+    attributes:
+      label: 💡 Proposed Solution
+      description: A clear and concise description of what you want to happen
+      placeholder: Describe your proposed solution in detail...
+    validations:
+      required: true
+  
+  - type: textarea
+    id: alternative-solutions
+    attributes:
+      label: 🔄 Alternative Solutions
+      description: A clear and concise description of any alternative solutions or features you've considered
+      placeholder: What alternatives have you considered?
+  
+  - type: textarea
+    id: use-cases
+    attributes:
+      label: 📋 Use Cases
+      description: Describe specific scenarios where this feature would be useful
+      placeholder: |
+        1. Use Case 1: [Description]
+        2. Use Case 2: [Description]
+        3. Use Case 3: [Description]
+    validations:
+      required: true
+  
+  - type: markdown
+    attributes:
+      value: |
+        ## 🎨 Mockups/Design Ideas
+        
+        If applicable, add mockups, screenshots, or design ideas to help illustrate your feature request.
+  
+  - type: textarea
+    id: technical-considerations
+    attributes:
+      label: 🔧 Technical Considerations
+      description: Any technical details or considerations that might be relevant
+      placeholder: |
+        - Frontend Changes: What UI components would need to be modified/added?
+        - Backend Changes: What API endpoints would need to be created/modified?
+        - Database Changes: Any schema modifications required?
+        - Performance Impact: Any potential performance considerations?
+        - Security Implications: Any security considerations?
+  
+  - type: textarea
+    id: user-experience
+    attributes:
+      label: 📱 User Experience
+      description: How would this feature improve the user experience?
+      placeholder: |
+        - Efficiency: Does it save time or clicks?
+        - Accessibility: Does it improve accessibility for certain users?
+        - Discoverability: Is it easy to find and understand?
+        - Consistency: Does it follow existing UI patterns?
+  
+  - type: checkboxes
+    id: priority
+    attributes:
+      label: 🏷️ Priority
+      description: How important is this feature to you?
+      options:
+        - label: Low Priority - Nice to have, but not essential
+        - label: Medium Priority - Would be helpful for my workflow
+        - label: High Priority - Significantly improves my experience
+        - label: Critical - Essential for my use case
+    validations:
+      required: true
+  
+  - type: textarea
+    id: impact-assessment
+    attributes:
+      label: 📊 Impact Assessment
+      description: Additional impact considerations
+      placeholder: |
+        - Target Users: Who would benefit from this feature?
+        - Usage Frequency: How often would users interact with this feature?
+        - Learning Curve: How easy would it be for users to learn this feature?
+  
+  - type: textarea
+    id: related-features
+    attributes:
+      label: 🔗 Related Features
+      description: How does this feature relate to existing or planned features?
+      placeholder: |
+        - Does this feature relate to any existing features?
+        - Are there any similar features in other applications we could learn from?
+        - Does this feature complement or conflict with any planned features?
+  
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: 📝 Additional Context
+      description: Add any other context, screenshots, or examples about the feature request here
+      placeholder: Any additional information that might be helpful...
+  
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: 📋 Checklist
+      description: Please confirm the following
+      options:
+        - label: I have searched existing issues to avoid duplicates
+        - label: I have provided a clear problem statement
+        - label: I have described the proposed solution
+        - label: I have considered alternatives
+        - label: I have provided use cases and examples
+        - label: I have considered technical implications
+    validations:
+      required: true
+  
+  - type: textarea
+    id: related-issues
+    attributes:
+      label: 🏷️ Related Issues
+      description: Link any related issues here using the # symbol (e.g., #123)
+      placeholder: #123, #456
+  
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        
+        Note: Feature requests help us understand what the community needs most. Thank you for taking the time to share your ideas! 🚀
+        
+        Tip: The more detailed and well-thought-out your feature request is, the more likely it is to be implemented!
