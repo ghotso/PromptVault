@@ -2,7 +2,7 @@
 
 A self-hosted, privacy-friendly vault for AI prompts with advanced features including tagging, versioning, team sharing, and full-text search.
 
-![PromptVault](frontend/public/PromptVault_Icon_No_BG.png)
+![PromptVault](frontend/public/PromptVault_Icon_No_BG.svg)
 
 ## ✨ Features
 
