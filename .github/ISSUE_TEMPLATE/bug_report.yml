@@ -1,14 +1,13 @@
 name: 🐛 Bug Report
 description: Create a report to help us improve PromptVault
-title: '[BUG] '
-labels: ['bug']
+title: "[BUG] "
+labels: ["bug"]
 assignees: []
 body:
   - type: markdown
     attributes:
       value: |
-        Thanks for taking the time to fill out this bug report! 🐛
-        
+        Thanks for taking the time to fill out this bug report! 🐛  
         Please provide as much detail as possible to help us understand and fix the issue.
   
   - type: textarea
@@ -24,11 +23,11 @@ body:
     id: steps-to-reproduce
     attributes:
       label: 🔄 Steps to Reproduce
-      description: Steps to reproduce the behavior
+      description: Steps to reproduce the behavior.
       placeholder: |
         1. Go to '...'
-        2. Click on '....'
-        3. Scroll down to '....'
+        2. Click on '...'
+        3. Scroll down to '...'
         4. See error
     validations:
       required: true
@@ -37,8 +36,8 @@ body:
     id: expected-behavior
     attributes:
       label: ✅ Expected Behavior
-      description: A clear and concise description of what you expected to happen.
-      placeholder: What should happen when you follow the steps above?
+      description: What should happen when you follow the steps above?
+      placeholder: Describe the correct behavior...
     validations:
       required: true
   
@@ -46,71 +45,98 @@ body:
     id: actual-behavior
     attributes:
       label: ❌ Actual Behavior
-      description: A clear and concise description of what actually happened.
-      placeholder: What actually happened when you followed the steps above?
+      description: What actually happened when you followed the steps above?
+      placeholder: Describe the actual behavior...
     validations:
       required: true
-  
-  - type: markdown
+
+  - type: textarea
+    id: screenshots
     attributes:
-      value: |
-        ## 📸 Screenshots
-        
-        If applicable, add screenshots to help explain your problem.
-  
-  - type: markdown
+      label: 📸 Screenshots
+      description: If applicable, add screenshots or paste image links.
+      placeholder: Drag & drop images here or paste URLs...
+
+  - type: input
+    id: environment-os
     attributes:
-      value: |
-        ## 🖥️ Environment
-        
-        Desktop (please complete the following information):
-        - OS: [e.g. Windows 11, macOS 13, Ubuntu 22.04]
-        - Browser: [e.g. Chrome 120, Firefox 121, Safari 17]
-        - Version: [e.g. 22]
-        
-        Mobile (please complete the following information):
-        - Device: [e.g. iPhone 15, Samsung Galaxy S24]
-        - OS: [e.g. iOS 17, Android 14]
-        - Browser: [e.g. Safari, Chrome]
-        - Version: [e.g. 22]
-  
-  - type: markdown
+      label: 🖥️ Operating System
+      description: OS name and version
+      placeholder: Windows 11, macOS 13, Ubuntu 22.04
+    validations:
+      required: true
+
+  - type: input
+    id: environment-browser
     attributes:
-      value: |
-        ## 📱 Application Details
-        
-        - PromptVault Version: [e.g. 1.0.0]
-        - Backend Version: [e.g. 1.0.0]
-        - Database: [e.g. SQLite, PostgreSQL]
-  
+      label: 🌐 Browser
+      description: Browser name and version
+      placeholder: Chrome 120, Firefox 121, Safari 17
+    validations:
+      required: true
+
+  - type: input
+    id: environment-device
+    attributes:
+      label: 📱 Mobile Device (if applicable)
+      description: Device name & OS version
+      placeholder: iPhone 15 / iOS 17, Samsung Galaxy S24 / Android 14
+
+  - type: input
+    id: app-version
+    attributes:
+      label: 📦 PromptVault Version
+      description: Which version of PromptVault are you using?
+      placeholder: 1.0.0
+    validations:
+      required: true
+
+  - type: input
+    id: backend-version
+    attributes:
+      label: ⚙️ Backend Version
+      description: Which backend version are you using?
+      placeholder: 1.0.0
+
+  - type: dropdown
+    id: database
+    attributes:
+      label: 🗄️ Database
+      description: Which database backend are you using?
+      options:
+        - SQLite
+        - PostgreSQL
+        - MySQL/MariaDB
+        - Other
+
   - type: textarea
     id: additional-context
     attributes:
       label: 📋 Additional Context
-      description: Add any other context about the problem here
+      description: Add any other context about the problem.
       placeholder: |
         - When did this issue start occurring?
         - Does it happen with all users or just specific ones?
         - Are there any error messages in the browser console?
         - Are there any error messages in the backend logs?
-  
+
   - type: textarea
     id: console-logs
     attributes:
-      label: 🔍 Console Logs
-      description: If applicable, please include relevant console logs
+      label: 🔍 Console/Server Logs
+      description: If applicable, please include relevant console or server logs.
       placeholder: |
         // Browser console logs
         console.error('Error message here');
-        
+
         # Backend logs
         [ERROR] Error message here
-  
+
   - type: checkboxes
     id: checklist
     attributes:
       label: 📝 Checklist
-      description: Please confirm the following
+      description: Please confirm the following:
       options:
         - label: I have searched existing issues to avoid duplicates
         - label: I have provided all the requested information
@@ -125,10 +151,10 @@ body:
       label: 🏷️ Related Issues
       description: Link any related issues here using the # symbol (e.g., #123)
       placeholder: #123, #456
-  
+
   - type: markdown
     attributes:
       value: |
         ---
-        
-        Note: Please be respectful and constructive in your bug reports. We're here to help improve PromptVault together! 🚀
+        Note: Please be respectful and constructive in your bug reports.  
+        We're here to help improve PromptVault together! 🚀
