@@ -1,0 +1,155 @@
+name: 📚 Documentation Improvement
+description: Help improve PromptVault's documentation
+title: '[DOCS] '
+labels: ['documentation']
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping improve PromptVault's documentation! 📚
+        
+        Good documentation is crucial for user adoption and community contribution.
+  
+  - type: textarea
+    id: documentation-issue
+    attributes:
+      label: 📚 Documentation Issue
+      description: A clear and concise description of what documentation needs to be improved
+      placeholder: Describe what documentation needs improvement...
+    validations:
+      required: true
+  
+  - type: textarea
+    id: current-state
+    attributes:
+      label: 🔍 Current State
+      description: Describe the current documentation and what's wrong or missing
+      placeholder: |
+        - **Location**: Where is this documentation located? (e.g., README, CONTRIBUTING.md, Wiki, inline code comments)
+        - **Current Content**: What does it currently say?
+        - **Problems**: What's unclear, outdated, or missing?
+    validations:
+      required: true
+  
+  - type: textarea
+    id: proposed-improvements
+    attributes:
+      label: ✨ Proposed Improvements
+      description: Describe what improvements you'd like to see
+      placeholder: |
+        - **Clarity**: How could it be made clearer?
+        - **Completeness**: What information is missing?
+        - **Examples**: What examples would be helpful?
+        - **Structure**: How could it be better organized?
+    validations:
+      required: true
+  
+  - type: checkboxes
+    id: target-audience
+    attributes:
+      label: 🎯 Target Audience
+      description: Who is this documentation for?
+      options:
+        - label: **New Users** - People trying PromptVault for the first time
+        - label: **Developers** - People contributing to the codebase
+        - label: **System Administrators** - People deploying and maintaining PromptVault
+        - label: **End Users** - People using PromptVault in their daily workflow
+        - label: **Other** - Please specify in additional context
+  
+  - type: textarea
+    id: specific-changes
+    attributes:
+      label: 📋 Specific Changes
+      description: List the specific changes you'd like to see
+      placeholder: |
+        1. **Change 1**: [Description]
+        2. **Change 2**: [Description]
+        3. **Change 3**: [Description]
+  
+  - type: textarea
+    id: examples
+    attributes:
+      label: 🎨 Examples
+      description: If applicable, provide examples of how the improved documentation should look
+      placeholder: |
+        **Before:**
+        ```markdown
+        # Installation
+        Install the app
+        ```
+        
+        **After:**
+        ```markdown
+        # Installation
+        
+        ## Prerequisites
+        - Node.js 18+
+        - Docker (recommended)
+        
+        ## Quick Start
+        1. Clone the repository
+        2. Run `docker-compose up -d`
+        3. Access at http://localhost:3000
+        ```
+  
+  - type: textarea
+    id: related-documentation
+    attributes:
+      label: 🔗 Related Documentation
+      description: How does this relate to other documentation?
+      placeholder: |
+        - Does this relate to other documentation sections?
+        - Are there any related issues or discussions?
+        - Does this affect multiple files or just one?
+  
+  - type: checkboxes
+    id: impact
+    attributes:
+      label: 📊 Impact
+      description: How important is this documentation improvement?
+      options:
+        - label: **Low Priority** - Nice to have, but not essential
+        - label: **Medium Priority** - Would be helpful for users
+        - label: **High Priority** - Current documentation is confusing or incomplete
+        - label: **Critical** - Users cannot complete basic tasks due to poor documentation
+  
+  - type: textarea
+    id: additional-suggestions
+    attributes:
+      label: 💡 Additional Suggestions
+      description: Any other ideas for improving the documentation
+      placeholder: |
+        - **Formatting**: Better use of headers, lists, or code blocks?
+        - **Visuals**: Would screenshots, diagrams, or videos help?
+        - **Navigation**: Better table of contents or cross-references?
+        - **Search**: Better search functionality or indexing?
+  
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: 📝 Checklist
+      description: Please confirm the following
+      options:
+        - label: I have identified the specific documentation that needs improvement
+        - label: I have described the current problems clearly
+        - label: I have provided specific suggestions for improvement
+        - label: I have considered the target audience
+        - label: I have provided examples where helpful
+        - label: I have checked if this relates to other documentation
+  
+  - type: textarea
+    id: related-issues
+    attributes:
+      label: 🏷️ Related Issues
+      description: Link any related issues here using the # symbol (e.g., #123)
+      placeholder: #123, #456
+  
+  - type: markdown
+    attributes:
+      value: |
+        ---
+        
+        **Note**: Good documentation is crucial for user adoption and community contribution. Thank you for helping make PromptVault more accessible! 📖✨
+        
+        **Tip**: If you're comfortable with markdown, consider submitting a pull request with your suggested changes directly!

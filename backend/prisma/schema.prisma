@@ -1,0 +1,98 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  name      String?
+  team      String?
+  role      Role     @default(USER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  prompts   Prompt[]
+  ratings   Rating[]
+}
+
+model Prompt {
+  id         String          @id @default(cuid())
+  title      String
+  body       String
+  variables  String?
+  notes      String?
+  modelHints String?
+  visibility Visibility      @default(PRIVATE)
+  userId     String
+  createdAt  DateTime        @default(now())
+  updatedAt  DateTime        @updatedAt
+  user       User            @relation(fields: [userId], references: [id])
+  tags       PromptTag[]
+  versions   PromptVersion[]
+  ratings    Rating[]
+}
+
+model PromptVersion {
+  id        String   @id @default(cuid())
+  promptId  String
+  title     String
+  body      String
+  notes     String?
+  createdAt DateTime @default(now())
+  prompt    Prompt   @relation(fields: [promptId], references: [id])
+}
+
+model Tag {
+  id      String      @id @default(cuid())
+  name    String      @unique
+  prompts PromptTag[]
+}
+
+model PromptTag {
+  promptId String
+  tagId    String
+  tag      Tag    @relation(fields: [tagId], references: [id])
+  prompt   Prompt @relation(fields: [promptId], references: [id])
+
+  @@id([promptId, tagId])
+}
+
+model Rating {
+  id        String   @id @default(cuid())
+  value     Int
+  promptId  String
+  userId    String
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+  prompt    Prompt   @relation(fields: [promptId], references: [id])
+
+  @@unique([userId, promptId], name: "userId_promptId")
+}
+
+model Settings {
+  id                Int      @id @default(1)
+  allowRegistration Boolean  @default(true)
+  updatedAt         DateTime @updatedAt
+}
+
+model Team {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  createdAt DateTime @default(now())
+}
+
+enum Visibility {
+  PRIVATE
+  TEAM
+  PUBLIC
+}
+
+enum Role {
+  ADMIN
+  USER
+}
