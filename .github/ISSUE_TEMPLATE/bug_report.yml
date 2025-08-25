@@ -63,12 +63,12 @@ body:
       value: |
         ## 🖥️ Environment
         
-        **Desktop (please complete the following information):**
+        Desktop (please complete the following information):
         - OS: [e.g. Windows 11, macOS 13, Ubuntu 22.04]
         - Browser: [e.g. Chrome 120, Firefox 121, Safari 17]
         - Version: [e.g. 22]
         
-        **Mobile (please complete the following information):**
+        Mobile (please complete the following information):
         - Device: [e.g. iPhone 15, Samsung Galaxy S24]
         - OS: [e.g. iOS 17, Android 14]
         - Browser: [e.g. Safari, Chrome]
@@ -79,9 +79,9 @@ body:
       value: |
         ## 📱 Application Details
         
-        - **PromptVault Version**: [e.g. 1.0.0]
-        - **Backend Version**: [e.g. 1.0.0]
-        - **Database**: [e.g. SQLite, PostgreSQL]
+        - PromptVault Version: [e.g. 1.0.0]
+        - Backend Version: [e.g. 1.0.0]
+        - Database: [e.g. SQLite, PostgreSQL]
   
   - type: textarea
     id: additional-context
@@ -131,4 +131,4 @@ body:
       value: |
         ---
         
-        **Note**: Please be respectful and constructive in your bug reports. We're here to help improve PromptVault together! 🚀
+        Note: Please be respectful and constructive in your bug reports. We're here to help improve PromptVault together! 🚀

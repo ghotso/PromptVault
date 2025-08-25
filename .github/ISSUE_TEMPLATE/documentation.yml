@@ -26,9 +26,9 @@ body:
       label: 🔍 Current State
       description: Describe the current documentation and what's wrong or missing
       placeholder: |
-        - **Location**: Where is this documentation located? (e.g., README, CONTRIBUTING.md, Wiki, inline code comments)
-        - **Current Content**: What does it currently say?
-        - **Problems**: What's unclear, outdated, or missing?
+        - Location: Where is this documentation located? (e.g., README, CONTRIBUTING.md, Wiki, inline code comments)
+        - Current Content: What does it currently say?
+        - Problems: What's unclear, outdated, or missing?
     validations:
       required: true
   
@@ -38,10 +38,10 @@ body:
       label: ✨ Proposed Improvements
       description: Describe what improvements you'd like to see
       placeholder: |
-        - **Clarity**: How could it be made clearer?
-        - **Completeness**: What information is missing?
-        - **Examples**: What examples would be helpful?
-        - **Structure**: How could it be better organized?
+        - Clarity: How could it be made clearer?
+        - Completeness: What information is missing?
+        - Examples: What examples would be helpful?
+        - Structure: How could it be better organized?
     validations:
       required: true
   
@@ -51,11 +51,11 @@ body:
       label: 🎯 Target Audience
       description: Who is this documentation for?
       options:
-        - label: **New Users** - People trying PromptVault for the first time
-        - label: **Developers** - People contributing to the codebase
-        - label: **System Administrators** - People deploying and maintaining PromptVault
-        - label: **End Users** - People using PromptVault in their daily workflow
-        - label: **Other** - Please specify in additional context
+        - label: New Users - People trying PromptVault for the first time
+        - label: Developers - People contributing to the codebase
+        - label: System Administrators - People deploying and maintaining PromptVault
+        - label: End Users - People using PromptVault in their daily workflow
+        - label: Other - Please specify in additional context
     validations:
       required: true
   
@@ -65,9 +65,9 @@ body:
       label: 📋 Specific Changes
       description: List the specific changes you'd like to see
       placeholder: |
-        1. **Change 1**: [Description]
-        2. **Change 2**: [Description]
-        3. **Change 3**: [Description]
+        1. Change 1: [Description]
+        2. Change 2: [Description]
+        3. Change 3: [Description]
     validations:
       required: true
   
@@ -77,13 +77,13 @@ body:
       label: 🎨 Examples
       description: If applicable, provide examples of how the improved documentation should look
       placeholder: |
-        **Before:**
+        Before:
         ```markdown
         # Installation
         Install the app
         ```
         
-        **After:**
+        After:
         ```markdown
         # Installation
         
@@ -113,10 +113,10 @@ body:
       label: 📊 Impact
       description: How important is this documentation improvement?
       options:
-        - label: **Low Priority** - Nice to have, but not essential
-        - label: **Medium Priority** - Would be helpful for users
-        - label: **High Priority** - Current documentation is confusing or incomplete
-        - label: **Critical** - Users cannot complete basic tasks due to poor documentation
+        - label: Low Priority - Nice to have, but not essential
+        - label: Medium Priority - Would be helpful for users
+        - label: High Priority - Current documentation is confusing or incomplete
+        - label: Critical - Users cannot complete basic tasks due to poor documentation
     validations:
       required: true
   
@@ -126,10 +126,10 @@ body:
       label: 💡 Additional Suggestions
       description: Any other ideas for improving the documentation
       placeholder: |
-        - **Formatting**: Better use of headers, lists, or code blocks?
-        - **Visuals**: Would screenshots, diagrams, or videos help?
-        - **Navigation**: Better table of contents or cross-references?
-        - **Search**: Better search functionality or indexing?
+        - Formatting: Better use of headers, lists, or code blocks?
+        - Visuals: Would screenshots, diagrams, or videos help?
+        - Navigation: Better table of contents or cross-references?
+        - Search: Better search functionality or indexing?
   
   - type: checkboxes
     id: checklist
@@ -158,6 +158,6 @@ body:
       value: |
         ---
         
-        **Note**: Good documentation is crucial for user adoption and community contribution. Thank you for helping make PromptVault more accessible! 📖✨
+        Note: Good documentation is crucial for user adoption and community contribution. Thank you for helping make PromptVault more accessible! 📖✨
         
-        **Tip**: If you're comfortable with markdown, consider submitting a pull request with your suggested changes directly!
+        Tip: If you're comfortable with markdown, consider submitting a pull request with your suggested changes directly!

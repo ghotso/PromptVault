@@ -46,9 +46,9 @@ body:
       label: 📋 Use Cases
       description: Describe specific scenarios where this feature would be useful
       placeholder: |
-        1. **Use Case 1**: [Description]
-        2. **Use Case 2**: [Description]
-        3. **Use Case 3**: [Description]
+        1. Use Case 1: [Description]
+        2. Use Case 2: [Description]
+        3. Use Case 3: [Description]
     validations:
       required: true
   
@@ -65,11 +65,11 @@ body:
       label: 🔧 Technical Considerations
       description: Any technical details or considerations that might be relevant
       placeholder: |
-        - **Frontend Changes**: What UI components would need to be modified/added?
-        - **Backend Changes**: What API endpoints would need to be created/modified?
-        - **Database Changes**: Any schema modifications required?
-        - **Performance Impact**: Any potential performance considerations?
-        - **Security Implications**: Any security considerations?
+        - Frontend Changes: What UI components would need to be modified/added?
+        - Backend Changes: What API endpoints would need to be created/modified?
+        - Database Changes: Any schema modifications required?
+        - Performance Impact: Any potential performance considerations?
+        - Security Implications: Any security considerations?
   
   - type: textarea
     id: user-experience
@@ -77,10 +77,10 @@ body:
       label: 📱 User Experience
       description: How would this feature improve the user experience?
       placeholder: |
-        - **Efficiency**: Does it save time or clicks?
-        - **Accessibility**: Does it improve accessibility for certain users?
-        - **Discoverability**: Is it easy to find and understand?
-        - **Consistency**: Does it follow existing UI patterns?
+        - Efficiency: Does it save time or clicks?
+        - Accessibility: Does it improve accessibility for certain users?
+        - Discoverability: Is it easy to find and understand?
+        - Consistency: Does it follow existing UI patterns?
   
   - type: checkboxes
     id: priority
@@ -88,10 +88,10 @@ body:
       label: 🏷️ Priority
       description: How important is this feature to you?
       options:
-        - label: **Low Priority** - Nice to have, but not essential
-        - label: **Medium Priority** - Would be helpful for my workflow
-        - label: **High Priority** - Significantly improves my experience
-        - label: **Critical** - Essential for my use case
+        - label: Low Priority - Nice to have, but not essential
+        - label: Medium Priority - Would be helpful for my workflow
+        - label: High Priority - Significantly improves my experience
+        - label: Critical - Essential for my use case
     validations:
       required: true
   
@@ -101,9 +101,9 @@ body:
       label: 📊 Impact Assessment
       description: Additional impact considerations
       placeholder: |
-        - **Target Users**: Who would benefit from this feature?
-        - **Usage Frequency**: How often would users interact with this feature?
-        - **Learning Curve**: How easy would it be for users to learn this feature?
+        - Target Users: Who would benefit from this feature?
+        - Usage Frequency: How often would users interact with this feature?
+        - Learning Curve: How easy would it be for users to learn this feature?
   
   - type: textarea
     id: related-features
@@ -149,6 +149,6 @@ body:
       value: |
         ---
         
-        **Note**: Feature requests help us understand what the community needs most. Thank you for taking the time to share your ideas! 🚀
+        Note: Feature requests help us understand what the community needs most. Thank you for taking the time to share your ideas! 🚀
         
-        **Tip**: The more detailed and well-thought-out your feature request is, the more likely it is to be implemented!
+        Tip: The more detailed and well-thought-out your feature request is, the more likely it is to be implemented!
