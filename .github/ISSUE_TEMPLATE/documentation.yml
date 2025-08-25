@@ -56,6 +56,8 @@ body:
         - label: **System Administrators** - People deploying and maintaining PromptVault
         - label: **End Users** - People using PromptVault in their daily workflow
         - label: **Other** - Please specify in additional context
+    validations:
+      required: true
   
   - type: textarea
     id: specific-changes
@@ -66,6 +68,8 @@ body:
         1. **Change 1**: [Description]
         2. **Change 2**: [Description]
         3. **Change 3**: [Description]
+    validations:
+      required: true
   
   - type: textarea
     id: examples
@@ -113,6 +117,8 @@ body:
         - label: **Medium Priority** - Would be helpful for users
         - label: **High Priority** - Current documentation is confusing or incomplete
         - label: **Critical** - Users cannot complete basic tasks due to poor documentation
+    validations:
+      required: true
   
   - type: textarea
     id: additional-suggestions
@@ -137,6 +143,8 @@ body:
         - label: I have considered the target audience
         - label: I have provided examples where helpful
         - label: I have checked if this relates to other documentation
+    validations:
+      required: true
   
   - type: textarea
     id: related-issues

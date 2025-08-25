@@ -116,6 +116,8 @@ body:
         - label: I have provided all the requested information
         - label: I can reproduce this issue consistently
         - label: This issue is not related to my local environment setup
+    validations:
+      required: true
   
   - type: textarea
     id: related-issues

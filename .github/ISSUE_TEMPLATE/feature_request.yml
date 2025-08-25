@@ -49,6 +49,8 @@ body:
         1. **Use Case 1**: [Description]
         2. **Use Case 2**: [Description]
         3. **Use Case 3**: [Description]
+    validations:
+      required: true
   
   - type: markdown
     attributes:
@@ -90,6 +92,8 @@ body:
         - label: **Medium Priority** - Would be helpful for my workflow
         - label: **High Priority** - Significantly improves my experience
         - label: **Critical** - Essential for my use case
+    validations:
+      required: true
   
   - type: textarea
     id: impact-assessment
@@ -130,6 +134,8 @@ body:
         - label: I have considered alternatives
         - label: I have provided use cases and examples
         - label: I have considered technical implications
+    validations:
+      required: true
   
   - type: textarea
     id: related-issues
