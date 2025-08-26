@@ -28,6 +28,7 @@ app.use(
   })
 );
 
+// Health check endpoint
 app.get("/health", (_req, res) => res.json({ ok: true }));
 
 // Public settings endpoint (no auth required)
@@ -47,6 +48,40 @@ app.get("/settings", async (_req, res) => {
   }
 });
 
+// Serve frontend static files BEFORE API routes
+const frontendDist = path.resolve(__dirname, "../frontend/dist");
+console.log('Frontend dist path:', frontendDist);
+console.log('Frontend dist exists:', fs.existsSync(frontendDist));
+
+if (fs.existsSync(frontendDist)) {
+  console.log('Serving frontend from:', frontendDist);
+  // Serve static files from frontend/dist
+  app.use(express.static(frontendDist));
+  
+  // Catch-all route for frontend routing (must be AFTER static files but BEFORE API routes)
+  app.get("*", (req, res, next) => {
+    // Skip API routes
+    if (req.path.startsWith('/auth') || 
+        req.path.startsWith('/prompts') || 
+        req.path.startsWith('/search') || 
+        req.path.startsWith('/ratings') || 
+        req.path.startsWith('/share') || 
+        req.path.startsWith('/import-export') || 
+        req.path.startsWith('/tags') || 
+        req.path.startsWith('/admin') ||
+        req.path === '/health' ||
+        req.path === '/settings') {
+      return next();
+    }
+    
+    // Serve index.html for all other routes (frontend routing)
+    res.sendFile(path.join(frontendDist, "index.html"));
+  });
+} else {
+  console.log('Frontend dist not found at:', frontendDist);
+}
+
+// API routes (registered AFTER static file serving)
 app.use("/auth", authRoutes);
 app.use("/prompts", promptsRoutes);
 app.use("/search", searchRoutes);
@@ -58,6 +93,7 @@ app.use("/admin", adminRoutes);
 app.use("/admin", adminTeamsRoutes);
 
 const port = Number(process.env.PORT || 8080);
+
 // Apply FTS5 setup for SQLite
 const dbUrl = process.env.DATABASE_URL || "file:./dev.db";
 if (dbUrl.startsWith("file:")) {
@@ -67,14 +103,6 @@ if (dbUrl.startsWith("file:")) {
   applyFtsIfNeeded(absDb, ftsSql);
 }
 
-// In production, serve frontend build statically
-const frontendDist = path.resolve(process.cwd(), "frontend/dist");
-if (fs.existsSync(frontendDist)) {
-  app.use(express.static(frontendDist));
-  app.get("*", (_req, res) => {
-    res.sendFile(path.join(frontendDist, "index.html"));
-  });
-}
 app.listen(port, () => console.log(`Backend listening on :${port}`));
 
 
