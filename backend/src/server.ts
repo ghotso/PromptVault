@@ -98,6 +98,71 @@ async function initializeDatabase() {
       } else {
         console.log('Database file exists');
       }
+      
+      // DEBUG: Check file permissions, ownership, and details BEFORE database connection
+      console.log('=== FILE PERMISSIONS DEBUG ===');
+      try {
+        const stats = fs.statSync(absDb);
+        console.log('Database file stats:');
+        console.log('  - Size:', stats.size, 'bytes');
+        console.log('  - Mode:', stats.mode.toString(8));
+        console.log('  - UID:', stats.uid);
+        console.log('  - GID:', stats.gid);
+        console.log('  - Created:', stats.birthtime);
+        console.log('  - Modified:', stats.mtime);
+        
+        // Check if we can read the file
+        try {
+          const fd = fs.openSync(absDb, 'r');
+          console.log('  - Can read file: YES');
+          fs.closeSync(fd);
+        } catch (e) {
+          console.log('  - Can read file: NO -', (e as Error).message);
+        }
+        
+        // Check if we can write to the file
+        try {
+          const fd = fs.openSync(absDb, 'r+');
+          console.log('  - Can write to file: YES');
+          fs.closeSync(fd);
+        } catch (e) {
+          console.log('  - Can write to file: NO -', (e as Error).message);
+        }
+        
+        // Check file permissions in human-readable format
+        const mode = stats.mode;
+        const isReadable = (mode & fs.constants.R_OK) !== 0;
+        const isWritable = (mode & fs.constants.W_OK) !== 0;
+        const isExecutable = (mode & fs.constants.X_OK) !== 0;
+        
+        console.log('  - Permissions:');
+        console.log('    Read:', isReadable ? 'YES' : 'NO');
+        console.log('    Write:', isWritable ? 'YES' : 'NO');
+        console.log('    Execute:', isExecutable ? 'YES' : 'NO');
+        
+      } catch (e) {
+        console.log('Error getting file stats:', (e as Error).message);
+      }
+      
+      // Check current user info
+      try {
+        const { execSync } = require('child_process');
+        const uid = execSync('id', { stdio: 'pipe' }).toString().trim();
+        console.log('Current user info:', uid);
+      } catch (e) {
+        console.log('Could not get user info:', (e as Error).message);
+      }
+      
+      // Check directory permissions
+      try {
+        const dirStats = fs.statSync(dataDir);
+        console.log('Data directory permissions:', dirStats.mode.toString(8));
+        console.log('Data directory owner - UID:', dirStats.uid, 'GID:', dirStats.gid);
+      } catch (e) {
+        console.log('Error getting directory stats:', (e as Error).message);
+      }
+      
+      console.log('=== END FILE PERMISSIONS DEBUG ===');
     }
     
     // Test database connection
