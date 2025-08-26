@@ -57,31 +57,11 @@ if (fs.existsSync(frontendDist)) {
   console.log('Serving frontend from:', frontendDist);
   // Serve static files from frontend/dist
   app.use(express.static(frontendDist));
-  
-  // Catch-all route for frontend routing (must be AFTER static files but BEFORE API routes)
-  app.get("/*", (req, res, next) => {
-    // Skip API routes
-    if (req.path.startsWith('/auth') || 
-        req.path.startsWith('/prompts') || 
-        req.path.startsWith('/search') || 
-        req.path.startsWith('/ratings') || 
-        req.path.startsWith('/share') || 
-        req.path.startsWith('/import-export') || 
-        req.path.startsWith('/tags') || 
-        req.path.startsWith('/admin') ||
-        req.path === '/health' ||
-        req.path === '/settings') {
-      return next();
-    }
-    
-    // Serve index.html for all other routes (frontend routing)
-    res.sendFile(path.join(frontendDist, "index.html"));
-  });
 } else {
   console.log('Frontend dist not found at:', frontendDist);
 }
 
-// API routes (registered AFTER static file serving)
+// API routes (registered BEFORE catch-all route)
 app.use("/auth", authRoutes);
 app.use("/prompts", promptsRoutes);
 app.use("/search", searchRoutes);
@@ -91,6 +71,14 @@ app.use("/import-export", importExportRoutes);
 app.use("/tags", tagsRoutes);
 app.use("/admin", adminRoutes);
 app.use("/admin", adminTeamsRoutes);
+
+// Catch-all route for frontend routing (AFTER all API routes)
+if (fs.existsSync(frontendDist)) {
+  app.get("/*", (req, res) => {
+    // Serve index.html for all unmatched routes (frontend routing)
+    res.sendFile(path.join(frontendDist, "index.html"));
+  });
+}
 
 const port = Number(process.env.PORT || 8080);
 
