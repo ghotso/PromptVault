@@ -59,7 +59,7 @@ if (fs.existsSync(frontendDist)) {
   app.use(express.static(frontendDist));
   
   // Catch-all route for frontend routing (must be AFTER static files but BEFORE API routes)
-  app.get("*", (req, res, next) => {
+  app.get("/*", (req, res, next) => {
     // Skip API routes
     if (req.path.startsWith('/auth') || 
         req.path.startsWith('/prompts') || 
