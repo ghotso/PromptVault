@@ -1,7 +1,7 @@
 {
   "name": "promptvault",
   "private": true,
-  "version": "0.1.1",
+  "version": "1.0.0",
   "description": "PromptVault - self-hosted prompt manager",
   "scripts": {
     "dev:backend": "cd backend && npm run dev",
