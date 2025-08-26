@@ -1,7 +1,6 @@
 import { Navigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import { api } from './lib/api'
-import Root from './components/Root'
 
 function App() {
   const [isHealthy, setIsHealthy] = useState<boolean>(false)
