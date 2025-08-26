@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { api } from '../lib/api'
 import { useAuth } from '../lib/auth'
@@ -9,16 +9,14 @@ import {
   Plus, 
   Search, 
   Tag, 
-  Eye, 
-  Users, 
-  Globe, 
-  Lock, 
-  Copy, 
-  Calendar, 
   Clock,
-  EyeOff,
   CheckCircle,
-  X
+  X,
+  Lock,
+  Users,
+  Globe,
+  Copy,
+  Calendar
 } from 'lucide-react'
 
 type Prompt = {

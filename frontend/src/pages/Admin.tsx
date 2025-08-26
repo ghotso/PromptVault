@@ -1,23 +1,21 @@
-import { useEffect, useState } from 'react'
-import { useAuth } from '../lib/auth'
-import { api } from '../lib/api'
+import { useState, useEffect } from 'react'
 import { Icon } from '../components/icons'
-import LoginPrompt from '../components/LoginPrompt'
 import { 
   Users, 
-  UserPlus, 
-  Edit, 
-  Trash2, 
-  Settings, 
   Building2, 
+  Shield, 
+  Tag, 
+  Settings, 
+  UserPlus, 
   Plus,
-  Tag,
-  Save,
-  X,
-  Shield,
-  CheckCircle,
-  XCircle
+  Edit,
+  Trash2,
+  Eye,
+  EyeOff
 } from 'lucide-react'
+import { useAuth } from '../lib/auth'
+import { api } from '../lib/api'
+import LoginPrompt from '../components/LoginPrompt'
 import { Modal } from '../components/Modal'
 
 interface User {
@@ -139,18 +137,6 @@ export default function Admin() {
     fetchUsers()
   }
 
-  const handleEdit = (user: User) => {
-    setEditingUser(user)
-    setUserForm({
-      email: user.email,
-      password: '',
-      name: user.name || '',
-      role: user.role,
-      team: user.team || ''
-    })
-    setShowUserModal(true)
-  }
-
   const handleDelete = async (userId: string) => {
     if (!confirm('Are you sure you want to delete this user?')) return
     try {
@@ -158,36 +144,6 @@ export default function Admin() {
       fetchUsers()
     } catch (error) {
       console.error('Failed to delete user:', error)
-    }
-  }
-
-  const handleCreateUser = async () => {
-    try {
-      await api('/admin/users', {
-        method: 'POST',
-        body: JSON.stringify(userForm)
-      })
-      setShowUserModal(false)
-      setUserForm({ email: '', name: '', password: '', team: '', role: 'USER' })
-      fetchUsers()
-    } catch (error) {
-      console.error('Failed to create user:', error)
-    }
-  }
-
-  const handleUpdateUser = async () => {
-    if (!editingUser) return
-    try {
-      await api(`/admin/users/${editingUser.id}`, {
-        method: 'PUT',
-        body: JSON.stringify(userForm)
-      })
-      setShowUserModal(false)
-      setEditingUser(null)
-      setUserForm({ email: '', name: '', password: '', team: '', role: 'USER' })
-      fetchUsers()
-    } catch (error) {
-      console.error('Failed to update user:', error)
     }
   }
 
@@ -394,9 +350,9 @@ export default function Admin() {
               
               <div className="flex items-center gap-2">
                 {settings?.allowRegistration ? (
-                  <Icon icon={CheckCircle} size={20} className="text-success" />
+                  <Icon icon={Eye} size={20} className="text-success" />
                 ) : (
-                  <Icon icon={XCircle} size={20} className="text-error" />
+                  <Icon icon={EyeOff} size={20} className="text-error" />
                 )}
               </div>
             </div>

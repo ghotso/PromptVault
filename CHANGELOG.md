@@ -1,42 +1,18 @@
-# Changelog
+# [1.0.0](https://github.com/ghotso/PromptVault/compare/v0.1.1...v1.0.0) (2025-08-26)
 
-All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
----
+### Bug Fixes
 
-## Version Numbering
+* update logo format in README from PNG to SVG for better scalability ([5b25995](https://github.com/ghotso/PromptVault/commit/5b25995da4186dee81338e48dc81ea720a99b8e3))
 
-We use [Semantic Versioning](https://semver.org/) for version numbers:
 
-- **MAJOR** version for incompatible API changes
-- **MINOR** version for added functionality in a backwards compatible manner
-- **PATCH** version for backwards compatible bug fixes
+### Features
 
-## Release Types
+* add required validations to issue templates for bug reports, documentation, and feature requests ([3138ca7](https://github.com/ghotso/PromptVault/commit/3138ca7023899f238b7148fb08b00b38a0372382))
 
-- **Major Release**: New features, breaking changes
-- **Minor Release**: New features, no breaking changes
-- **Patch Release**: Bug fixes and minor improvements
-- **Pre-release**: Alpha, beta, or release candidate versions
 
-## Migration Guides
 
-For major version releases that include breaking changes, we provide detailed migration guides in the [docs/migrations](docs/migrations/) directory.
+## 0.1.1 (2025-08-25)
 
-## Contributing
 
-To add entries to this changelog:
 
-1. Follow the existing format
-2. Use clear, concise language
-3. Group changes by type (Added, Changed, Deprecated, Removed, Fixed, Security)
-4. Include issue numbers when applicable
-5. Use emojis for better readability
-6. Keep entries in reverse chronological order
-
-## Links
-
-- [GitHub Releases](https://github.com/ghotso/PromptVault/releases)
-- [Migration Guides](docs/migrations/)
-- [API Documentation](docs/api/)
-- [Contributing Guidelines](CONTRIBUTING.md)
