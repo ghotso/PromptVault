@@ -2,29 +2,28 @@
 FROM node:20-alpine AS builder
 WORKDIR /app
 
-# Install PNPM for faster monorepo-ish install (optional). Using npm to reduce deps.
-COPY package.json package-lock.json ./
-COPY backend/package.json backend/package.json
-COPY frontend/package.json frontend/package.json
-RUN npm i --ignore-scripts
+# Copy all source code first
+COPY . .
 
-COPY backend ./backend
-COPY frontend ./frontend
-COPY scripts ./scripts
-
-# Build frontend
+# Install frontend dependencies and build
 WORKDIR /app/frontend
-RUN npm i --ignore-scripts && npm run build
+RUN npm ci --ignore-scripts
+RUN npm run build
 
-# Build backend
+# Install backend dependencies, generate Prisma client, and build
 WORKDIR /app/backend
-RUN npm i --ignore-scripts && npm run build
+RUN npm ci --ignore-scripts
+RUN npx prisma generate
+RUN npm run build
 
 FROM node:20-alpine AS runtime
 WORKDIR /app
 ENV NODE_ENV=production
 
-COPY --from=builder /app/backend /app/backend
+# Copy built application
+COPY --from=builder /app/backend/dist /app/backend/dist
+COPY --from=builder /app/backend/node_modules /app/backend/node_modules
+COPY --from=builder /app/backend/package.json /app/backend/package.json
 COPY --from=builder /app/frontend/dist /app/frontend/dist
 COPY --from=builder /app/scripts /app/scripts
 
