@@ -2,6 +2,7 @@ import { Router } from "express";
 import { prisma } from "../lib/prisma";
 import { requireAuth } from "../middleware/auth";
 import { z } from "zod";
+import { Prisma } from "@prisma/client";
 
 const router = Router();
 
@@ -19,7 +20,7 @@ router.post("/", requireAuth, async (req, res) => {
   if (!parsed.success) return res.status(400).json({ error: "Invalid input" });
   const { title, body, variables, notes, modelHints, tags } = parsed.data;
   const { userId } = req.auth!;
-  const created = await prisma.$transaction(async (tx) => {
+  const created = await prisma.$transaction(async (tx: Prisma.TransactionClient) => {
     const prompt = await tx.prompt.create({
       data: { title, body, variables, notes, modelHints, userId },
     });
@@ -52,7 +53,7 @@ router.put("/:id", requireAuth, async (req, res) => {
   if (!exists) return res.status(404).json({ error: "Not found" });
 
   const { title, body, variables, notes, modelHints, tags, visibility } = parsed.data;
-  const updated = await prisma.$transaction(async (tx) => {
+  const updated = await prisma.$transaction(async (tx: Prisma.TransactionClient) => {
     const prompt = await tx.prompt.update({
       where: { id },
       data: { title, body, variables, notes, modelHints, visibility },
@@ -82,14 +83,14 @@ router.get("/", requireAuth, async (req, res) => {
   
   // Get prompts with version counts
   const promptsWithCounts = await Promise.all(
-    prompts.map(async (p) => {
+    prompts.map(async (p: any) => {
       const versionCount = await prisma.promptVersion.count({
         where: { promptId: p.id }
       });
       
       return {
         ...p,
-        avgRating: p.ratings.length ? p.ratings.reduce((a, r) => a + r.value, 0) / p.ratings.length : 0,
+        avgRating: p.ratings.length ? p.ratings.reduce((a: number, r: any) => a + r.value, 0) / p.ratings.length : 0,
         _count: { versions: versionCount }
       };
     })
@@ -131,39 +132,32 @@ router.put("/:id/visibility", requireAuth, async (req, res) => {
   return res.json(updated);
 });
 
-// Team feed: prompts visible to the user's team (excluding private and from other teams)
+// Team feed endpoint
 router.get("/feed/team", requireAuth, async (req, res) => {
   const { userId } = req.auth!;
-  const me = await prisma.user.findUnique({ 
-    where: { id: userId }, 
-    select: { team: true } 
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+    select: { team: true }
   });
-  if (!me?.team) return res.json([]);
-  const prompts = await prisma.prompt.findMany({
+  
+  if (!user?.team) {
+    return res.status(404).json({ error: "No team assigned" });
+  }
+  
+  const teamPrompts = await prisma.prompt.findMany({
     where: { 
-      visibility: "TEAM", 
-      user: { team: me.team } 
+      user: { team: user.team },
+      visibility: "TEAM"
     },
-    include: { tags: { include: { tag: true } }, ratings: true, user: { select: { id: true, email: true, name: true } } },
-    orderBy: { updatedAt: "desc" },
-    take: 100,
+    include: { 
+      user: { select: { name: true, email: true } },
+      tags: { include: { tag: true } },
+      versions: true
+    },
+    orderBy: { updatedAt: "desc" }
   });
   
-  // Add version counts to team feed prompts
-  const promptsWithCounts = await Promise.all(
-    prompts.map(async (p) => {
-      const versionCount = await prisma.promptVersion.count({
-        where: { promptId: p.id }
-      });
-      
-      return {
-        ...p,
-        _count: { versions: versionCount }
-      };
-    })
-  );
-  
-  return res.json(promptsWithCounts);
+  return res.json(teamPrompts);
 });
 
 export default router;
