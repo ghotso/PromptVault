@@ -49,7 +49,7 @@ app.get("/settings", async (_req, res) => {
 });
 
 // Serve frontend static files BEFORE API routes
-const frontendDist = path.resolve(__dirname, "../frontend/dist");
+const frontendDist = path.resolve(__dirname, "../../frontend/dist");
 console.log('Frontend dist path:', frontendDist);
 console.log('Frontend dist exists:', fs.existsSync(frontendDist));
 
