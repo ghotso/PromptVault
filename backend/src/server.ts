@@ -74,8 +74,40 @@ app.use("/admin", adminTeamsRoutes);
 
 // Catch-all route for frontend routing (AFTER all API routes)
 if (fs.existsSync(frontendDist)) {
-  app.get("/*", (req, res) => {
-    // Serve index.html for all unmatched routes (frontend routing)
+  // Handle specific frontend routes instead of catch-all
+  app.get("/", (req, res) => {
+    res.sendFile(path.join(frontendDist, "index.html"));
+  });
+  
+  app.get("/about", (req, res) => {
+    res.sendFile(path.join(frontendDist, "index.html"));
+  });
+  
+  app.get("/login", (req, res) => {
+    res.sendFile(path.join(frontendDist, "index.html"));
+  });
+  
+  app.get("/prompts", (req, res) => {
+    res.sendFile(path.join(frontendDist, "index.html"));
+  });
+  
+  app.get("/prompts/:id", (req, res) => {
+    res.sendFile(path.join(frontendDist, "index.html"));
+  });
+  
+  app.get("/team-feed", (req, res) => {
+    res.sendFile(path.join(frontendDist, "index.html"));
+  });
+  
+  app.get("/team-feed/:id", (req, res) => {
+    res.sendFile(path.join(frontendDist, "index.html"));
+  });
+  
+  app.get("/account", (req, res) => {
+    res.sendFile(path.join(frontendDist, "index.html"));
+  });
+  
+  app.get("/admin", (req, res) => {
     res.sendFile(path.join(frontendDist, "index.html"));
   });
 }
