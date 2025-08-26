@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       branch:
-        description: 'Branch/Tag/SHA to build from (e.g. main, feature/x, v1.0.0, 9f3c… )'
+        description: 'Branch/Tag/SHA to build from (e.g. main, feature/x, v1.0.0, 9f3c…)'
         required: true
         default: 'main'
         type: string
@@ -22,18 +22,27 @@ jobs:
       packages: write
 
     steps:
-      - name: Checkout
+      - name: Checkout source
         uses: actions/checkout@v4
         with:
-          # kann Branch, Tag oder Commit-SHA sein
           ref: ${{ github.event.inputs.branch }}
           fetch-depth: 0
 
-      - name: Show build info
+      - name: Derive GHCR image name (lowercase)
+        id: img
+        shell: bash
         run: |
-          echo "Repo: ghcr.io/${{ github.repository }}"
-          echo "Ref:  ${{ github.event.inputs.branch }}"
-          echo "Tags: ${{ github.event.inputs.tags }}"
+          set -euo pipefail
+          repo_name_lower="$(echo "${{ github.event.repository.name }}" | tr '[:upper:]' '[:lower:]')"
+          image="ghcr.io/${{ github.repository_owner }}/${repo_name_lower}"
+          echo "image=${image}" | tee -a "$GITHUB_OUTPUT"
+
+      - name: Show build info
+        shell: bash
+        run: |
+          echo "Image:  ${{ steps.img.outputs.image }}"
+          echo "Ref:    ${{ github.event.inputs.branch }}"
+          echo "Tags:   ${{ github.event.inputs.tags }}"
           echo "Commit: $(git rev-parse HEAD)"
 
       - name: Set up QEMU
@@ -57,12 +66,25 @@ jobs:
           IFS=',' read -ra INPUT_TAGS <<< "${{ github.event.inputs.tags }}"
           TAGS=""
           for t in "${INPUT_TAGS[@]}"; do
-            tag="$(echo "$t" | xargs)"   # trim
+            # trim spaces, force lowercase
+            tag="$(echo "$t" | tr -d ' ' | tr '[:upper:]' '[:lower:]')"
             [[ -z "$tag" ]] && continue
-            TAGS="$TAGS,ghcr.io/${{ github.repository }}:$tag"
+
+            # optional: simple validation (semver or common words like latest/edge)
+            if [[ ! "$tag" =~ ^(latest|edge|rc|beta|alpha|v?[0-9]+(\.[0-9]+){0,2}(-[0-9A-Za-z.-]+)?)$ ]]; then
+              echo "::warning::Tag '$tag' looks unusual; GHCR requires lowercase and no spaces."
+            fi
+
+            TAGS="$TAGS,${{ steps.img.outputs.image }}:$tag"
           done
-          TAGS="${TAGS#,}"               # leading comma entfernen
-          echo "tags=$TAGS" >> "$GITHUB_OUTPUT"
+
+          TAGS="${TAGS#,}"
+          if [[ -z "$TAGS" ]]; then
+            echo "::error::No valid tags produced from input '${{ github.event.inputs.tags }}'."
+            exit 1
+          fi
+
+          echo "tags=$TAGS" | tee -a "$GITHUB_OUTPUT"
           echo "Using tags: $TAGS"
 
       - name: Build and push
@@ -73,6 +95,8 @@ jobs:
           push: true
           tags: ${{ steps.prep.outputs.tags }}
           # Optional:
+          # platforms: linux/amd64,linux/arm64
           # labels: |
           #   org.opencontainers.image.source=https://github.com/${{ github.repository }}
           #   org.opencontainers.image.revision=${{ github.sha }}
+          #   org.opencontainers.image.ref.name=${{ github.ref_name }}
