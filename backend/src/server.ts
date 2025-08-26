@@ -28,6 +28,52 @@ app.use(
   })
 );
 
+// Initialize database and create tables
+async function initializeDatabase() {
+  try {
+    console.log('Initializing database...');
+    
+    // Test database connection
+    await prisma.$connect();
+    console.log('Database connection successful');
+    
+    // Create default settings if they don't exist
+    const settings = await prisma.settings.findFirst();
+    if (!settings) {
+      console.log('Creating default settings...');
+      await prisma.settings.create({
+        data: {
+          allowRegistration: true
+        }
+      });
+      console.log('Default settings created');
+    }
+    
+    // Create default admin user if no users exist
+    const userCount = await prisma.user.count();
+    if (userCount === 0) {
+      console.log('Creating default admin user...');
+      const bcrypt = await import('bcryptjs');
+      const hashedPassword = await bcrypt.default.hash('admin123', 10);
+      
+      await prisma.user.create({
+        data: {
+          email: 'admin@promptvault.local',
+          password: hashedPassword,
+          name: 'Admin',
+          role: 'ADMIN'
+        }
+      });
+      console.log('Default admin user created (admin@promptvault.local / admin123)');
+    }
+    
+    console.log('Database initialization complete');
+  } catch (error) {
+    console.error('Database initialization failed:', error);
+    process.exit(1);
+  }
+}
+
 // Health check endpoint
 app.get("/health", (_req, res) => res.json({ ok: true }));
 
@@ -127,6 +173,12 @@ if (dbUrl.startsWith("file:")) {
   applyFtsIfNeeded(absDb, ftsSql);
 }
 
-app.listen(port, () => console.log(`Backend listening on :${port}`));
+// Start server after database initialization
+initializeDatabase().then(() => {
+  app.listen(port, () => console.log(`Backend listening on :${port}`));
+}).catch((error) => {
+  console.error('Failed to start server:', error);
+  process.exit(1);
+});
 
 
