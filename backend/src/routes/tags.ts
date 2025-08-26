@@ -116,23 +116,4 @@ router.delete("/:id", requireAuth, requireAdmin, async (req, res) => {
   }
 });
 
-// Get all tags with usage statistics (admin only)
-router.get("/admin/all", requireAuth, requireAdmin, async (req, res) => {
-  try {
-    const tags = await prisma.tag.findMany({
-      orderBy: { name: "asc" },
-      include: {
-        _count: {
-          select: { prompts: true }
-        }
-      }
-    });
-    
-    return res.json(tags);
-  } catch (error) {
-    console.error('Failed to fetch admin tags:', error);
-    return res.status(500).json({ error: "Failed to fetch tags" });
-  }
-});
-
 export default router;
