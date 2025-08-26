@@ -2,27 +2,18 @@
 FROM node:20-alpine AS builder
 WORKDIR /app
 
-# Install dependencies
-COPY package.json package-lock.json ./
-COPY backend/package.json backend/package.json
-COPY frontend/package.json frontend/package.json
-RUN npm ci --ignore-scripts
+# Copy all source code first
+COPY . .
 
-# Copy source code
-COPY backend ./backend
-COPY frontend ./frontend
-COPY scripts ./scripts
-
-# Generate Prisma client
-WORKDIR /app/backend
-RUN npx prisma generate
-
-# Build frontend
+# Install frontend dependencies and build
 WORKDIR /app/frontend
+RUN npm ci --ignore-scripts
 RUN npm run build
 
-# Build backend
+# Install backend dependencies, generate Prisma client, and build
 WORKDIR /app/backend
+RUN npm ci --ignore-scripts
+RUN npx prisma generate
 RUN npm run build
 
 FROM node:20-alpine AS runtime
