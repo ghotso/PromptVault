@@ -1,17 +1,12 @@
-name: Build and Publish Docker Image
+name: Build and Publish Docker Image (Manual)
 
 on:
   workflow_dispatch:
     inputs:
-      version:
-        description: 'Version to build (e.g., v1.0.0)'
-        required: false
+      tags:
+        description: 'Comma-separated tags to push (e.g., v1.0.0,latest)'
+        required: true
         default: 'latest'
-        type: string
-      branch:
-        description: 'Branch to build from'
-        required: false
-        default: 'main'
         type: string
 
 jobs:
@@ -23,13 +18,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event.inputs.branch }}
 
       - name: Show build info
         run: |
-          echo "Building from branch: ${{ github.event.inputs.branch }}"
-          echo "Version: ${{ github.event.inputs.version }}"
+          echo "Tags: ${{ github.event.inputs.tags }}"
+          echo "Repo: ghcr.io/${{ github.repository }}"
           echo "Commit: ${{ github.sha }}"
 
       - name: Set up QEMU
@@ -45,17 +38,23 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GHCR_TOKEN }}
 
-      - name: Extract metadata (tags, labels)
-        id: meta
-        uses: docker/metadata-action@v5
-        with:
-          images: ghcr.io/${{ github.repository }}
-          tags: |
-            type=ref,event=branch
-            type=ref,event=pr
-            type=semver,pattern={{version}}
-            type=semver,pattern={{major}}.{{minor}}
-            type=raw,value=${{ github.event.inputs.version }}
+      - name: Prepare tag list
+        id: prep
+        shell: bash
+        run: |
+          set -euo pipefail
+          IFS=',' read -ra INPUT_TAGS <<< "${{ github.event.inputs.tags }}"
+          TAGS=""
+          for t in "${INPUT_TAGS[@]}"; do
+            # trim spaces
+            tag="$(echo "$t" | xargs)"
+            [[ -z "$tag" ]] && continue
+            TAGS="$TAGS,ghcr.io/${{ github.repository }}:$tag"
+          done
+          # drop leading comma
+          TAGS="${TAGS#,}"
+          echo "tags=$TAGS" >> "$GITHUB_OUTPUT"
+          echo "Using tags: $TAGS"
 
       - name: Build and push
         uses: docker/build-push-action@v6
@@ -63,7 +62,8 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
-
-
+          tags: ${{ steps.prep.outputs.tags }}
+          # Optional: falls du Labels/Annotations willst
+          # labels: |
+          #   org.opencontainers.image.source=https://github.com/${{ github.repository }}
+          #   org.opencontainers.image.revision=${{ github.sha }}
