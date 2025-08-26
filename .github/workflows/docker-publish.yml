@@ -8,7 +8,13 @@ on:
         required: true
         default: 'main'
         type: string
+      branch:
+        description: 'Branch/Tag/SHA to build from (e.g. main, feature/x, v1.0.0, 9f3c… )'
+        required: true
+        default: 'main'
+        type: string
       tags:
+        description: 'Comma-separated tags to push (e.g. v1.0.0,latest)'
         description: 'Comma-separated tags to push (e.g. v1.0.0,latest)'
         required: true
         default: 'latest'
@@ -20,6 +26,7 @@ jobs:
     permissions:
       contents: read
       packages: write
+
 
     steps:
       - name: Checkout source
