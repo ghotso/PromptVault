@@ -1,0 +1,55 @@
+# Docker Compose Override Example
+# Copy this file to docker-compose.override.yml and modify as needed
+# This file allows you to override default settings without modifying the main docker-compose.yml
+
+version: '3.8'
+
+services:
+  promptvault:
+    # Override environment variables for your specific setup
+    environment:
+      - JWT_SECRET=your-actual-secret-key-here
+      - CLIENT_ORIGIN=http://your-domain.com:3674
+      - DATABASE_URL=file:./data/promptvault.db
+      - TZ=America/New_York
+    
+    # Override port mapping if needed
+    ports:
+      - "8080:8080"  # Example: use port 8080 instead of 3674
+    
+    # Add additional volumes if needed
+    volumes:
+      - ./data:/app/backend/data
+      - ./logs:/app/backend/logs
+      - ./backups:/app/backend/backups  # Example: add backup volume
+    
+    # Override resource limits for your server
+    deploy:
+      resources:
+        limits:
+          memory: 1G      # Example: increase memory limit
+          cpus: '1.0'     # Example: increase CPU limit
+        reservations:
+          memory: 512M
+          cpus: '0.5'
+
+# Example: Add PostgreSQL for production use
+# Uncomment and modify as needed
+#  postgres:
+#    image: postgres:15-alpine
+#    container_name: promptvault-postgres
+#    restart: unless-stopped
+#    environment:
+#      - POSTGRES_DB=promptvault
+#      - POSTGRES_USER=promptvault
+#      - POSTGRES_PASSWORD=your-secure-password
+#    volumes:
+#      - postgres_data:/var/lib/postgresql/data
+#    ports:
+#      - "5432:5432"
+#    networks:
+#      - promptvault-network
+#
+# volumes:
+#   postgres_data:
+#     driver: local

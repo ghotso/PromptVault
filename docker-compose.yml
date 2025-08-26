@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  promptvault:
+    image: promptvault:fixed
+    container_name: promptvault
+    restart: unless-stopped
+    
+    # Port mapping: external:internal
+    ports:
+      - "3674:8080"
+    
+    # Environment variables (can be overridden with .env file)
+    environment:
+      - NODE_ENV=production
+      - PORT=8080
+      - JWT_SECRET=${JWT_SECRET:-your-super-secret-jwt-key-change-this-in-production}
+      - DATABASE_URL=${DATABASE_URL:-file:/app/backend/data/promptvault.db}
+      - CLIENT_ORIGIN=${CLIENT_ORIGIN:-http://localhost:3674}
+      - TZ=${TZ:-Europe/Berlin}
+    
+    # Volume mappings for persistent data (Windows-friendly paths)
+    volumes:
+      - ./data:/app/backend/data:rw
+      - ./logs:/app/backend/logs:rw
+    
+    # Health check
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    
+    # Resource limits
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: '0.5'
+        reservations:
+          memory: 256M
+          cpus: '0.25'
+    
+    # Network configuration
+    networks:
+      - promptvault-network
+
+networks:
+  promptvault-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
