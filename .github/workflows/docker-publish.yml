@@ -3,8 +3,13 @@ name: Build and Publish Docker Image (Manual)
 on:
   workflow_dispatch:
     inputs:
+      branch:
+        description: 'Branch/Tag/SHA to build from (e.g. main, feature/x, v1.0.0, 9f3c… )'
+        required: true
+        default: 'main'
+        type: string
       tags:
-        description: 'Comma-separated tags to push (e.g., v1.0.0,latest)'
+        description: 'Comma-separated tags to push (e.g. v1.0.0,latest)'
         required: true
         default: 'latest'
         type: string
@@ -15,15 +20,21 @@ jobs:
     permissions:
       contents: read
       packages: write
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          # kann Branch, Tag oder Commit-SHA sein
+          ref: ${{ github.event.inputs.branch }}
+          fetch-depth: 0
 
       - name: Show build info
         run: |
-          echo "Tags: ${{ github.event.inputs.tags }}"
           echo "Repo: ghcr.io/${{ github.repository }}"
-          echo "Commit: ${{ github.sha }}"
+          echo "Ref:  ${{ github.event.inputs.branch }}"
+          echo "Tags: ${{ github.event.inputs.tags }}"
+          echo "Commit: $(git rev-parse HEAD)"
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -46,13 +57,11 @@ jobs:
           IFS=',' read -ra INPUT_TAGS <<< "${{ github.event.inputs.tags }}"
           TAGS=""
           for t in "${INPUT_TAGS[@]}"; do
-            # trim spaces
-            tag="$(echo "$t" | xargs)"
+            tag="$(echo "$t" | xargs)"   # trim
             [[ -z "$tag" ]] && continue
             TAGS="$TAGS,ghcr.io/${{ github.repository }}:$tag"
           done
-          # drop leading comma
-          TAGS="${TAGS#,}"
+          TAGS="${TAGS#,}"               # leading comma entfernen
           echo "tags=$TAGS" >> "$GITHUB_OUTPUT"
           echo "Using tags: $TAGS"
 
@@ -63,7 +72,7 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: ${{ steps.prep.outputs.tags }}
-          # Optional: falls du Labels/Annotations willst
+          # Optional:
           # labels: |
           #   org.opencontainers.image.source=https://github.com/${{ github.repository }}
           #   org.opencontainers.image.revision=${{ github.sha }}
