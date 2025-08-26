@@ -227,6 +227,27 @@ PromptVault/
 
 ## 🚀 Deployment
 
+### Quick Start with Docker Compose (Recommended)
+
+The easiest way to deploy PromptVault is using Docker Compose:
+
+```bash
+# Clone the repository
+git clone https://github.com/ghotso/PromptVault.git
+cd PromptVault
+
+# Create data and logs directories
+mkdir -p data logs
+
+# Start PromptVault
+docker-compose up -d
+
+# Access at http://localhost:3674
+# Default admin: admin@promptvault.local / admin123
+```
+
+For detailed Docker Compose instructions, see [DEPLOYMENT.md](DEPLOYMENT.md).
+
 ### Production Docker Deployment
 
 ```bash

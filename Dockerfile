@@ -20,17 +20,33 @@ FROM node:20-alpine AS runtime
 WORKDIR /app
 ENV NODE_ENV=production
 
-# Copy built application
-COPY --from=builder /app/backend/dist /app/backend/dist
-COPY --from=builder /app/backend/node_modules /app/backend/node_modules
-COPY --from=builder /app/backend/package.json /app/backend/package.json
-COPY --from=builder /app/frontend/dist /app/frontend/dist
-COPY --from=builder /app/scripts /app/scripts
+# Install runtime dependencies
+RUN apk add --no-cache sqlite
 
+# Create necessary directories with proper permissions
+RUN mkdir -p /app/backend/data /app/backend/logs && \
+    chown -R node:node /app
+
+# Switch to non-root user for security
+USER node
+
+# Copy built application
+COPY --from=builder --chown=node:node /app/backend/dist /app/backend/dist
+COPY --from=builder --chown=node:node /app/backend/node_modules /app/backend/node_modules
+COPY --from=builder --chown=node:node /app/backend/package.json /app/backend/package.json
+COPY --from=builder --chown=node:node /app/frontend/dist /app/frontend/dist
+COPY --from=builder --chown=node:node /app/scripts /app/scripts
+COPY --from=builder --chown=node:node /app/backend/prisma /app/backend/prisma
+
+# Set working directory to backend and ensure data path is correct
 WORKDIR /app/backend
-ENV DATABASE_URL="file:./dev.db"
+ENV DATABASE_URL="file:/app/backend/data/promptvault.db"
 ENV PORT=8080
 ENV CLIENT_ORIGIN=
+
+# Ensure the data directory exists and has correct permissions
+RUN mkdir -p /app/backend/data && \
+    chown -R node:node /app/backend/data
 
 EXPOSE 8080
 CMD ["node", "dist/server.js"]

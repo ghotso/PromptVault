@@ -33,9 +33,88 @@ async function initializeDatabase() {
   try {
     console.log('Initializing database...');
     
+    // Debug: Check current working directory and environment
+    console.log('Current working directory:', process.cwd());
+    console.log('DATABASE_URL:', process.env.DATABASE_URL);
+    
+    // Ensure data directory exists
+    const dbUrl = process.env.DATABASE_URL || "file:/app/backend/data/promptvault.db";
+    if (dbUrl.startsWith("file:")) {
+      const sqlitePath = dbUrl.replace("file:", "");
+      const absDb = path.resolve(process.cwd(), sqlitePath);
+      const dataDir = path.dirname(absDb);
+      
+      console.log('Database path:', absDb);
+      console.log('Data directory:', dataDir);
+      
+      // Debug: Check if directories exist and their permissions
+      console.log('Data directory exists:', fs.existsSync(dataDir));
+      console.log('Database file exists:', fs.existsSync(absDb));
+      
+      // List contents of current directory
+      try {
+        const currentDirContents = fs.readdirSync(process.cwd());
+        console.log('Current directory contents:', currentDirContents);
+      } catch (e) {
+        console.log('Cannot read current directory:', (e as Error).message);
+      }
+      
+      // List contents of data directory if it exists
+      if (fs.existsSync(dataDir)) {
+        try {
+          const dataDirContents = fs.readdirSync(dataDir);
+          console.log('Data directory contents:', dataDirContents);
+        } catch (e) {
+          console.log('Cannot read data directory:', (e as Error).message);
+        }
+      }
+      
+      // Create data directory if it doesn't exist
+      if (!fs.existsSync(dataDir)) {
+        console.log('Creating data directory:', dataDir);
+        fs.mkdirSync(dataDir, { recursive: true });
+        console.log('Data directory created successfully');
+      }
+      
+      // Check if database file exists
+      if (!fs.existsSync(absDb)) {
+        console.log('Database file does not exist, creating proper SQLite database...');
+        // Create a proper SQLite database file using the sqlite command
+        try {
+          const { execSync } = require('child_process');
+          execSync(`sqlite3 "${absDb}" "VACUUM;"`, { stdio: 'pipe' });
+          console.log('SQLite database file created successfully');
+        } catch (e) {
+          console.log('Error creating SQLite database:', (e as Error).message);
+          console.log('Trying fallback approach...');
+          // Fallback: create an empty file
+          try {
+            fs.writeFileSync(absDb, '');
+            console.log('Empty file created as fallback');
+          } catch (fallbackError) {
+            console.log('Fallback also failed:', (fallbackError as Error).message);
+          }
+        }
+      } else {
+        console.log('Database file exists');
+      }
+    }
+    
     // Test database connection
+    console.log('Attempting to connect to database...');
     await prisma.$connect();
     console.log('Database connection successful');
+    
+    // Run Prisma migrations to create the database schema
+    console.log('Running Prisma migrations...');
+    try {
+      const { execSync } = require('child_process');
+      execSync('npx prisma migrate deploy', { stdio: 'pipe' });
+      console.log('Prisma migrations completed successfully');
+    } catch (e) {
+      console.log('Prisma migrations failed:', (e as Error).message);
+      console.log('Continuing with database initialization...');
+    }
     
     // Create default settings if they don't exist
     const settings = await prisma.settings.findFirst();
@@ -165,12 +244,18 @@ if (fs.existsSync(frontendDist)) {
 const port = Number(process.env.PORT || 8080);
 
 // Apply FTS5 setup for SQLite
-const dbUrl = process.env.DATABASE_URL || "file:./dev.db";
+const dbUrl = process.env.DATABASE_URL || "file:/app/backend/data/promptvault.db";
 if (dbUrl.startsWith("file:")) {
-  const sqlitePath = dbUrl.replace("file:", "");
-  const absDb = path.resolve(process.cwd(), sqlitePath);
-  const ftsSql = path.resolve(process.cwd(), "scripts/sql/fts5.sql");
-  applyFtsIfNeeded(absDb, ftsSql);
+  try {
+    const sqlitePath = dbUrl.replace("file:", "");
+    const absDb = path.resolve(process.cwd(), sqlitePath);
+    const ftsSql = path.resolve(process.cwd(), "scripts/sql/fts5.sql");
+    console.log('Setting up FTS5 for database:', absDb);
+    console.log('FTS5 SQL file:', ftsSql);
+    applyFtsIfNeeded(absDb, ftsSql);
+  } catch (error) {
+    console.warn('FTS5 setup failed (this is not critical):', error);
+  }
 }
 
 // Start server after database initialization
