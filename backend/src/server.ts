@@ -83,6 +83,10 @@ if (fs.existsSync(frontendDist)) {
     res.sendFile(path.join(frontendDist, "index.html"));
   });
   
+  app.get("/auth", (req, res) => {
+    res.sendFile(path.join(frontendDist, "index.html"));
+  });
+  
   app.get("/login", (req, res) => {
     res.sendFile(path.join(frontendDist, "index.html"));
   });

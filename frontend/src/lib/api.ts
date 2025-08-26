@@ -1,4 +1,17 @@
-export const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:8080";
+// Auto-detect API base URL for Docker deployments
+const getApiBase = () => {
+  // If we have an environment variable, use it
+  if (import.meta.env.VITE_API_BASE) {
+    return import.meta.env.VITE_API_BASE;
+  }
+  
+  // Auto-detect based on current location
+  const protocol = window.location.protocol;
+  const host = window.location.host;
+  return `${protocol}//${host}`;
+};
+
+export const API_BASE = getApiBase();
 
 export async function api<T>(path: string, options: RequestInit = {}): Promise<T> {
   const res = await fetch(`${API_BASE}${path}`, {

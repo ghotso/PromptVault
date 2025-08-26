@@ -32,7 +32,7 @@ function App() {
   }
 
   if (!isHealthy) {
-    return <Navigate to="/login" replace />
+    return <Navigate to="/auth" replace />
   }
 
   return <Root />
