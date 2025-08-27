@@ -51,6 +51,19 @@ A self-hosted, privacy-friendly vault for AI prompts with advanced features incl
 - **Automatic Admin Assignment**: First registered user automatically becomes admin
 - **Default Admin Account**: System creates `admin@promptvault.local` if no users exist
 
+### 🌐 API Endpoints
+All API endpoints are now available under `/api/*`:
+- **Authentication**: `/api/auth/*`
+- **Prompts**: `/api/prompts/*`
+- **Search**: `/api/search/*`
+- **Ratings**: `/api/ratings/*`
+- **Sharing**: `/api/share/*`
+- **Import/Export**: `/api/import-export/*`
+- **Tags**: `/api/tags/*`
+- **Admin**: `/api/admin/*`
+- **Health**: `/health` (public)
+- **Settings**: `/settings` (public)
+
 ## 🚀 Quick Start
 
 ### Prerequisites

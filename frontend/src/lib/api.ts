@@ -14,7 +14,10 @@ const getApiBase = () => {
 export const API_BASE = getApiBase();
 
 export async function api<T>(path: string, options: RequestInit = {}): Promise<T> {
-  const res = await fetch(`${API_BASE}${path}`, {
+  // Ensure all API calls use /api prefix
+  const apiPath = path.startsWith('/api/') ? path : `/api${path}`;
+  
+  const res = await fetch(`${API_BASE}${apiPath}`, {
     credentials: "include",
     headers: { "Content-Type": "application/json", ...(options.headers || {}) },
     ...options,
