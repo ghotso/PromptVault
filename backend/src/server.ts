@@ -309,33 +309,37 @@ app.use("/tags", tagsRoutes);
 app.use("/admin", adminRoutes);
 app.use("/admin", adminTeamsRoutes);
 
-// Root route for frontend
-app.get("/", (req, res) => {
-  res.sendFile(path.join(frontendDist, "index.html"));
-});
+// SPA-Fallback NUR für GET und NUR für "echte" FE-Routen (keine Dateien)
+const apiPrefixes = [
+  'auth', 'prompts', 'search', 'ratings', 'share', 'import-export',
+  'tags', 'admin', 'health', 'settings'
+];
 
-// Catch-all route for frontend routing (AFTER all API routes)
+// Regex: ^/(auth|prompts|...)(/|$) - mit Wortgrenze
+const apiRe = new RegExp(`^/(?:${
+  apiPrefixes.map(p => p.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&')).join('|')
+})(?:/|$)`);
+
 if (fs.existsSync(frontendDist)) {
-  // This route MUST be last and catch everything that's not an API route
-  app.use((req, res, next) => {
-    // Skip if this is an API route
-    if (req.path.startsWith('/auth') || 
-        req.path.startsWith('/prompts') || 
-        req.path.startsWith('/search') || 
-        req.path.startsWith('/ratings') || 
-        req.path.startsWith('/share') || 
-        req.path.startsWith('/import-export') || 
-        req.path.startsWith('/tags') || 
-        req.path.startsWith('/admin') || 
-        req.path.startsWith('/health') || 
-        req.path.startsWith('/settings')) {
-      return next(); // Let Express handle this as a 404
-    }
-    
-    // Serve index.html for all other routes (frontend routes)
-    res.sendFile(path.join(frontendDist, "index.html"));
+  app.get('*', (req, res, next) => {
+    // a) Wenn API-Prefix => nicht hijacken
+    if (apiRe.test(req.path)) return next();
+
+    // b) Wenn es nach einer Datei aussieht (hat einen Punkt) => nicht hijacken
+    if (req.path.includes('.')) return next();
+
+    // c) Nur HTML akzeptieren
+    if (!req.accepts('html')) return next();
+
+    // d) SPA-Fallback: index.html servieren
+    res.sendFile(path.join(frontendDist, 'index.html'));
   });
 }
+
+// 404-Handler (für nicht gefundene API/Assets)
+app.use((req, res) => {
+  res.status(404).json({ error: 'Not found' });
+});
 
 const port = Number(process.env.PORT || 3000);
 console.log('Environment PORT:', process.env.PORT);
