@@ -12,6 +12,7 @@ import tagsRoutes from "./routes/tags";
 import path from "path";
 import { applyFtsIfNeeded } from "./lib/db";
 import fs from "fs";
+import { execSync } from "child_process";
 import adminRoutes from "./routes/admin";
 import adminTeamsRoutes from "./routes/adminTeams";
 import { prisma } from "./lib/prisma";
@@ -81,7 +82,6 @@ async function initializeDatabase() {
         console.log('Database file does not exist, creating proper SQLite database...');
         // Create a proper SQLite database file using the sqlite command
         try {
-          const { execSync } = require('child_process');
           execSync(`sqlite3 "${absDb}" "VACUUM;"`, { stdio: 'pipe' });
           console.log('SQLite database file created successfully');
         } catch (e) {
@@ -146,7 +146,6 @@ async function initializeDatabase() {
       
       // Check current user info
       try {
-        const { execSync } = require('child_process');
         const uid = execSync('id', { stdio: 'pipe' }).toString().trim();
         console.log('Current user info:', uid);
       } catch (e) {
@@ -173,9 +172,9 @@ async function initializeDatabase() {
     // Configure SQLite for better compatibility and stability
     console.log('Configuring SQLite pragmas...');
     try {
-      await prisma.$executeRawUnsafe('PRAGMA journal_mode=DELETE;');
-      await prisma.$executeRawUnsafe('PRAGMA locking_mode=NORMAL;');
-      await prisma.$executeRawUnsafe('PRAGMA busy_timeout=5000;');
+      await prisma.$executeRaw`PRAGMA journal_mode=DELETE`;
+      await prisma.$executeRaw`PRAGMA locking_mode=NORMAL`;
+      await prisma.$executeRaw`PRAGMA busy_timeout=5000`;
       console.log('SQLite pragmas configured successfully');
     } catch (e) {
       console.log('Warning: Could not configure SQLite pragmas:', (e as Error).message);
@@ -184,12 +183,18 @@ async function initializeDatabase() {
     // Run Prisma migrations to create the database schema
     console.log('Running Prisma migrations...');
     try {
-      const { execSync } = require('child_process');
       execSync('npx prisma migrate deploy', { stdio: 'pipe' });
       console.log('Prisma migrations completed successfully');
     } catch (e) {
       console.log('Prisma migrations failed:', (e as Error).message);
-      console.log('Continuing with database initialization...');
+      console.log('Trying to generate schema from Prisma...');
+      try {
+        execSync('npx prisma db push', { stdio: 'pipe' });
+        console.log('Database schema pushed successfully');
+      } catch (pushError) {
+        console.log('Database push also failed:', (pushError as Error).message);
+        console.log('Continuing with database initialization...');
+      }
     }
     
     // Create default settings if they don't exist
