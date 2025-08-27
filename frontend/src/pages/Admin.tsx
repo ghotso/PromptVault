@@ -393,11 +393,9 @@ export default function Admin() {
                 </tr>
               </thead>
               <tbody>
-                {users.length > 0 ? (
-                  users.map((u, index) => (
-                     <tr key={u.id} className={`hover:bg-surface-secondary/80 transition-colors ${
-                       index < users.length - 1 ? 'border-b border-accent-primary/50' : ''
-                     }`}>
+                                 {users.length > 0 ? (
+                   users.map((u, index) => (
+                      <tr key={u.id} className="hover:bg-surface-secondary/80 transition-colors">
                       <td className="p-3">
                         <div className="font-medium text-foreground">{u.email}</div>
                       </td>
@@ -488,11 +486,9 @@ export default function Admin() {
                 </tr>
               </thead>
               <tbody>
-                                {teams.length > 0 ? (
-                  teams.map((t, index) => (
-                    <tr key={t.id} className={`hover:bg-surface-secondary/80 transition-colors ${
-                      index < teams.length - 1 ? 'border-b border-accent-primary/50' : ''
-                    }`}>
+                                                 {teams.length > 0 ? (
+                   teams.map((t, index) => (
+                     <tr key={t.id} className="hover:bg-surface-secondary/80 transition-colors">
                       <td className="p-3">
                         <div className="font-medium text-foreground">{t.name}</div>
                       </td>
@@ -564,11 +560,9 @@ export default function Admin() {
                 </tr>
               </thead>
               <tbody>
-                {tags.length > 0 ? (
-                  tags.map((t, index) => (
-                    <tr key={t.id} className={`hover:bg-surface-secondary/80 transition-colors ${
-                      index < tags.length - 1 ? 'border-b border-accent-primary/50' : ''
-                    }`}>
+                                 {tags.length > 0 ? (
+                   tags.map((t, index) => (
+                     <tr key={t.id} className="hover:bg-surface-secondary/80 transition-colors">
                       <td className="p-3">
                         <div className="font-medium text-foreground">{t.name}</div>
                       </td>
