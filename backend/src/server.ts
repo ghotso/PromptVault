@@ -172,6 +172,16 @@ async function initializeDatabase() {
     await prisma.$connect();
     console.log('Database connection successful');
     
+    // DEBUG: Check what tables exist in the database
+    console.log('=== DATABASE SCHEMA DEBUG ===');
+    try {
+      const tables = await prisma.$queryRaw`SELECT name FROM sqlite_master WHERE type='table'`;
+      console.log('Existing tables in database:', tables);
+    } catch (e) {
+      console.log('Could not query existing tables:', (e as Error).message);
+    }
+    console.log('=== END DATABASE SCHEMA DEBUG ===');
+    
     // Run Prisma migrations to create the database schema
     console.log('Running Prisma migrations...');
     try {
@@ -216,13 +226,42 @@ async function initializeDatabase() {
           role: 'ADMIN'
         }
       });
-      console.log('Default admin user created (admin@promptvault.local / admin123)');
+          console.log('Default admin user created (admin@promptvault.local / admin123)');
+  }
+  
+  // Apply FTS5 setup AFTER database initialization is complete
+  console.log('Setting up FTS5 for full-text search...');
+  try {
+    const dbUrl = process.env.DATABASE_URL || "file:/app/backend/data/promptvault.db";
+    if (dbUrl.startsWith("file:")) {
+      const sqlitePath = dbUrl.replace("file:", "");
+      const absDb = path.resolve(process.cwd(), sqlitePath);
+      const ftsSql = path.resolve(process.cwd(), "../scripts/sql/fts5.sql");
+      console.log('FTS5 database path:', absDb);
+      console.log('FTS5 SQL file:', ftsSql);
+      applyFtsIfNeeded(absDb, ftsSql);
+      console.log('FTS5 setup completed successfully');
     }
-    
-    console.log('Database initialization complete');
+  } catch (error) {
+    console.warn('FTS5 setup failed (this is not critical):', error);
+  }
+  
+  console.log('Database initialization complete');
   } catch (error) {
     console.error('Database initialization failed:', error);
-    process.exit(1);
+    console.error('Container will continue running for debugging purposes...');
+    // Temporarily disabled: process.exit(1);
+    
+    // Try to start server anyway for debugging
+    try {
+      app.listen(port, () => console.log(`Backend listening on :${port} (DEBUG MODE - DB may not work)`));
+    } catch (serverError) {
+      console.error('Failed to start server:', serverError);
+      // Keep container alive for debugging
+      setInterval(() => {
+        console.log('Container alive for debugging...');
+      }, 30000);
+    }
   }
 }
 
@@ -316,20 +355,7 @@ if (fs.existsSync(frontendDist)) {
 
 const port = Number(process.env.PORT || 8080);
 
-// Apply FTS5 setup for SQLite
-const dbUrl = process.env.DATABASE_URL || "file:/app/backend/data/promptvault.db";
-if (dbUrl.startsWith("file:")) {
-  try {
-    const sqlitePath = dbUrl.replace("file:", "");
-    const absDb = path.resolve(process.cwd(), sqlitePath);
-    const ftsSql = path.resolve(process.cwd(), "../scripts/sql/fts5.sql");
-    console.log('Setting up FTS5 for database:', absDb);
-    console.log('FTS5 SQL file:', ftsSql);
-    applyFtsIfNeeded(absDb, ftsSql);
-  } catch (error) {
-    console.warn('FTS5 setup failed (this is not critical):', error);
-  }
-}
+// FTS5 setup will be applied AFTER database initialization
 
 // Start server after database initialization
 initializeDatabase().then(() => {
