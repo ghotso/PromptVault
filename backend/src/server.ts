@@ -309,6 +309,11 @@ app.use("/tags", tagsRoutes);
 app.use("/admin", adminRoutes);
 app.use("/admin", adminTeamsRoutes);
 
+// Root route for frontend (BEFORE other frontend routes)
+app.get("/", (req, res) => {
+  res.sendFile(path.join(frontendDist, "index.html"));
+});
+
 // Catch-all route for frontend routing (AFTER all API routes)
 if (fs.existsSync(frontendDist)) {
   // Handle specific frontend routes instead of catch-all
@@ -353,7 +358,7 @@ if (fs.existsSync(frontendDist)) {
   });
 }
 
-const port = Number(process.env.PORT || 8080);
+const port = Number(process.env.PORT || 3000);
 
 // FTS5 setup will be applied AFTER database initialization
 
