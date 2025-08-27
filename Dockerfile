@@ -38,20 +38,21 @@ RUN apk add --no-cache sqlite
 # Use existing node user (already exists in node:20-alpine image)
 # The node user already has UID 1000 and GID 1000 in the official image
 
-# Set working directory
-WORKDIR /app
+# Set working directory to backend
+WORKDIR /app/backend
 
 # Copy built application
-COPY --from=builder --chown=node:node /app/backend/dist ./backend/dist
-COPY --from=builder --chown=node:node /app/backend/node_modules ./backend/node_modules
-COPY --from=builder --chown=node:node /app/backend/package*.json ./backend/
-COPY --from=builder --chown=node:node /app/backend/prisma ./backend/prisma
-COPY --from=builder --chown=node:node /app/frontend/dist ./frontend/dist
+COPY --from=builder --chown=node:node /app/backend/dist ./dist
+COPY --from=builder --chown=node:node /app/backend/node_modules ./node_modules
+COPY --from=builder --chown=node:node /app/backend/package*.json ./
+COPY --from=builder --chown=node:node /app/backend/prisma ./prisma
+COPY --from=builder --chown=node:node /app/frontend/dist ../frontend/dist
+COPY --from=builder --chown=node:node /app/scripts ../scripts
 
 # Create data and logs directories with proper ownership
-RUN mkdir -p /app/backend/data /app/backend/logs && \
-    chown -R node:node /app/backend/data /app/backend/logs && \
-    chmod 755 /app/backend/data /app/backend/logs
+RUN mkdir -p ./data ./logs && \
+    chown -R node:node ./data ./logs && \
+    chmod 755 ./data ./logs
 
 # Switch to node user
 USER node
@@ -59,7 +60,7 @@ USER node
 # Set environment variables
 ENV NODE_ENV=production
 ENV PORT=3000
-ENV DATABASE_URL=file:/app/backend/data/promptvault.db
+ENV DATABASE_URL=file:./data/promptvault.db
 ENV CLIENT_ORIGIN=http://localhost:3000
 ENV TZ=UTC
 
@@ -71,6 +72,6 @@ HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
   CMD node -e "require('http').get('http://localhost:3000/health', (res) => { process.exit(res.statusCode === 200 ? 0 : 1) })" || exit 1
 
 # Start the application
-CMD ["node", "backend/dist/server.js"]
+CMD ["node", "dist/server.js"]
 
 
