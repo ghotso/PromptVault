@@ -45,3 +45,4 @@ echo "   1. Edit .env file with your JWT_SECRET"
 echo "   2. Run: docker-compose up -d"
 echo "   3. Access at: http://localhost:3674"
 echo "   4. Default admin: admin@promptvault.local / admin123"
+

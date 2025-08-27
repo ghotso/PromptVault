@@ -1,54 +1,78 @@
-# Multi-stage build for single-container app
+# Build stage
 FROM node:20-alpine AS builder
+
+# Install build dependencies
+RUN apk add --no-cache python3 make g++
+
+# Set working directory
 WORKDIR /app
 
-# Copy all source code first
+# Copy package files
+COPY package*.json ./
+COPY backend/package*.json ./backend/
+COPY frontend/package*.json ./frontend/
+
+# Install dependencies
+RUN npm ci
+RUN cd backend && npm ci
+RUN cd frontend && npm ci
+
+# Copy source code
 COPY . .
 
-# Install frontend dependencies and build
-WORKDIR /app/frontend
-RUN npm ci --ignore-scripts
-RUN npm run build
+# Build frontend
+RUN cd frontend && npm run build
 
-# Install backend dependencies, generate Prisma client, and build
-WORKDIR /app/backend
-RUN npm ci --ignore-scripts
-RUN npx prisma generate
-RUN npm run build
+# Build backend
+RUN cd backend && npm run build
 
+# Generate Prisma client
+RUN cd backend && npx prisma generate
+
+# Runtime stage
 FROM node:20-alpine AS runtime
-WORKDIR /app
-ENV NODE_ENV=production
 
 # Install runtime dependencies
 RUN apk add --no-cache sqlite
 
-# Create necessary directories with proper permissions
-RUN mkdir -p /app/backend/data /app/backend/logs && \
-    chown -R node:node /app
+# Create app user
+RUN addgroup -g 1000 -S node && \
+    adduser -S node -u 1000 -G node
 
-# Switch to non-root user for security
-USER node
+# Set working directory
+WORKDIR /app
 
 # Copy built application
-COPY --from=builder --chown=node:node /app/backend/dist /app/backend/dist
-COPY --from=builder --chown=node:node /app/backend/node_modules /app/backend/node_modules
-COPY --from=builder --chown=node:node /app/backend/package.json /app/backend/package.json
-COPY --from=builder --chown=node:node /app/frontend/dist /app/frontend/dist
-COPY --from=builder --chown=node:node /app/scripts /app/scripts
-COPY --from=builder --chown=node:node /app/backend/prisma /app/backend/prisma
+COPY --from=builder --chown=node:node /app/backend/dist ./backend/dist
+COPY --from=builder --chown=node:node /app/backend/node_modules ./backend/node_modules
+COPY --from=builder --chown=node:node /app/backend/package*.json ./backend/
+COPY --from=builder --chown=node:node /app/backend/prisma ./backend/prisma
+COPY --from=builder --chown=node:node /app/frontend/dist ./frontend/dist
 
-# Set working directory to backend and ensure data path is correct
-WORKDIR /app/backend
-ENV DATABASE_URL="file:/app/backend/data/promptvault.db"
-ENV PORT=8080
-ENV CLIENT_ORIGIN=
+# Create data and logs directories with proper ownership
+RUN mkdir -p /app/backend/data /app/backend/logs && \
+    chown -R node:node /app/backend/data /app/backend/logs && \
+    chmod 755 /app/backend/data /app/backend/logs
 
-# Ensure the data directory exists and has correct permissions
-RUN mkdir -p /app/backend/data && \
-    chown -R node:node /app/backend/data
+# Switch to node user
+USER node
 
-EXPOSE 8080
-CMD ["node", "dist/server.js"]
+# Set environment variables
+ENV NODE_ENV=production
+ENV PORT=3000
+ENV DATABASE_URL=file:/app/backend/data/promptvault.db
+ENV JWT_SECRET=your-secret-key-here
+ENV CLIENT_ORIGIN=http://localhost:3000
+ENV TZ=UTC
+
+# Expose port
+EXPOSE 3000
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+  CMD node -e "require('http').get('http://localhost:3000/health', (res) => { process.exit(res.statusCode === 200 ? 0 : 1) })" || exit 1
+
+# Start the application
+CMD ["node", "backend/dist/server.js"]
 
 
