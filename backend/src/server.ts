@@ -314,7 +314,7 @@ if (dbUrl.startsWith("file:")) {
   try {
     const sqlitePath = dbUrl.replace("file:", "");
     const absDb = path.resolve(process.cwd(), sqlitePath);
-    const ftsSql = path.resolve(process.cwd(), "scripts/sql/fts5.sql");
+    const ftsSql = path.resolve(process.cwd(), "../scripts/sql/fts5.sql");
     console.log('Setting up FTS5 for database:', absDb);
     console.log('FTS5 SQL file:', ftsSql);
     applyFtsIfNeeded(absDb, ftsSql);

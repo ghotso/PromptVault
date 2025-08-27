@@ -9,7 +9,7 @@ services:
     environment:
       - NODE_ENV=production
       - PORT=3000
-      - DATABASE_URL=file:/app/backend/data/promptvault.db
+      - DATABASE_URL=file:./data/promptvault.db
       - JWT_SECRET=your-secret-key-here
       - CLIENT_ORIGIN=http://localhost:3000
       - TZ=UTC
