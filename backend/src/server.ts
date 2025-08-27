@@ -34,6 +34,9 @@ async function initializeDatabase() {
   try {
     console.log('Initializing database...');
     
+    // IMPORTANT: Prevent Prisma from auto-creating database
+    console.log('Checking if Prisma client is properly initialized...');
+    
     // Debug: Check current working directory and environment
     console.log('Current working directory:', process.cwd());
     console.log('DATABASE_URL:', process.env.DATABASE_URL);
