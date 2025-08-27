@@ -170,6 +170,17 @@ async function initializeDatabase() {
     await prisma.$connect();
     console.log('Database connection successful');
     
+    // Configure SQLite for better compatibility and stability
+    console.log('Configuring SQLite pragmas...');
+    try {
+      await prisma.$executeRawUnsafe('PRAGMA journal_mode=DELETE;');
+      await prisma.$executeRawUnsafe('PRAGMA locking_mode=NORMAL;');
+      await prisma.$executeRawUnsafe('PRAGMA busy_timeout=5000;');
+      console.log('SQLite pragmas configured successfully');
+    } catch (e) {
+      console.log('Warning: Could not configure SQLite pragmas:', (e as Error).message);
+    }
+    
     // Run Prisma migrations to create the database schema
     console.log('Running Prisma migrations...');
     try {
