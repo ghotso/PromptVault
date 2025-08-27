@@ -35,9 +35,8 @@ FROM node:20-alpine AS runtime
 # Install runtime dependencies
 RUN apk add --no-cache sqlite
 
-# Create app user
-RUN addgroup -g 1000 -S node && \
-    adduser -S node -u 1000 -G node
+# Use existing node user (already exists in node:20-alpine image)
+# The node user already has UID 1000 and GID 1000 in the official image
 
 # Set working directory
 WORKDIR /app
@@ -61,7 +60,6 @@ USER node
 ENV NODE_ENV=production
 ENV PORT=3000
 ENV DATABASE_URL=file:/app/backend/data/promptvault.db
-ENV JWT_SECRET=your-secret-key-here
 ENV CLIENT_ORIGIN=http://localhost:3000
 ENV TZ=UTC
 
