@@ -309,46 +309,30 @@ app.use("/tags", tagsRoutes);
 app.use("/admin", adminRoutes);
 app.use("/admin", adminTeamsRoutes);
 
+// Root route for frontend (BEFORE catch-all route)
+app.get("/", (req, res) => {
+  res.sendFile(path.join(frontendDist, "index.html"));
+});
+
 // Catch-all route for frontend routing (AFTER all API routes)
 if (fs.existsSync(frontendDist)) {
-  // Handle specific frontend routes instead of catch-all
-  app.get("/", (req, res) => {
-    res.sendFile(path.join(frontendDist, "index.html"));
-  });
-  
-  app.get("/about", (req, res) => {
-    res.sendFile(path.join(frontendDist, "index.html"));
-  });
-  
-  app.get("/auth", (req, res) => {
-    res.sendFile(path.join(frontendDist, "index.html"));
-  });
-  
-  app.get("/login", (req, res) => {
-    res.sendFile(path.join(frontendDist, "index.html"));
-  });
-  
-  app.get("/prompts", (req, res) => {
-    res.sendFile(path.join(frontendDist, "index.html"));
-  });
-  
-  app.get("/prompts/:id", (req, res) => {
-    res.sendFile(path.join(frontendDist, "index.html"));
-  });
-  
-  app.get("/team-feed", (req, res) => {
-    res.sendFile(path.join(frontendDist, "index.html"));
-  });
-  
-  app.get("/team-feed/:id", (req, res) => {
-    res.sendFile(path.join(frontendDist, "index.html"));
-  });
-  
-  app.get("/account", (req, res) => {
-    res.sendFile(path.join(frontendDist, "index.html"));
-  });
-  
-  app.get("/admin", (req, res) => {
+  // Serve index.html for all frontend routes to enable client-side routing
+  app.get("*", (req, res) => {
+    // Skip API routes
+    if (req.path.startsWith('/auth') || 
+        req.path.startsWith('/prompts') || 
+        req.path.startsWith('/search') || 
+        req.path.startsWith('/ratings') || 
+        req.path.startsWith('/share') || 
+        req.path.startsWith('/import-export') || 
+        req.path.startsWith('/tags') || 
+        req.path.startsWith('/admin') || 
+        req.path.startsWith('/health') || 
+        req.path.startsWith('/settings')) {
+      return res.status(404).json({ error: 'API route not found' });
+    }
+    
+    // Serve index.html for all other routes (frontend routes)
     res.sendFile(path.join(frontendDist, "index.html"));
   });
 }
@@ -357,11 +341,15 @@ const port = Number(process.env.PORT || 3000);
 console.log('Environment PORT:', process.env.PORT);
 console.log('Using port:', port);
 
+// IMPORTANT: For Docker deployment, always use port 3000 internally
+const containerPort = 3000;
+console.log('Container will listen on port:', containerPort);
+
 // FTS5 setup will be applied AFTER database initialization
 
 // Start server after database initialization
 initializeDatabase().then(() => {
-  app.listen(port, () => console.log(`Backend listening on :${port}`));
+  app.listen(containerPort, () => console.log(`Backend listening on :${containerPort}`));
 }).catch((error) => {
   console.error('Failed to start server:', error);
   process.exit(1);
