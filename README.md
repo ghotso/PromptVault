@@ -48,6 +48,8 @@ A self-hosted, privacy-friendly vault for AI prompts with advanced features incl
 - **Team Administration**: Manage team creation and user assignments
 - **System Settings**: Control registration and application behavior
 - **Tag Administration**: Manage the global tag system with usage statistics
+- **Automatic Admin Assignment**: First registered user automatically becomes admin
+- **Default Admin Account**: System creates `admin@promptvault.local` if no users exist
 
 ## 🚀 Quick Start
 
@@ -195,7 +197,10 @@ PromptVault/
 ### First Time Setup
 1. Start the application using Docker
 2. Access http://localhost:8080
-3. Register your first account (automatically becomes admin)
+3. **Default Admin Account**: If no users exist, a default admin is created:
+   - **Email**: `admin@promptvault.local`
+   - **Password**: `admin123`
+   - **Role**: `ADMIN` (full system access)
 4. Create teams and invite users
 5. Start creating and organizing your prompts
 
@@ -243,7 +248,14 @@ mkdir -p data logs
 docker-compose up -d
 
 # Access at http://localhost:3674
-# Default admin: admin@promptvault.local / admin123
+
+## 🔑 Default Admin Account
+If no users exist, the system automatically creates a default admin account:
+- **Email**: `admin@promptvault.local`
+- **Password**: `admin123`
+- **Role**: `ADMIN` (full system access)
+
+**Note**: Change the default password after first login for security!
 ```
 
 For detailed Docker Compose instructions, see [DEPLOYMENT.md](DEPLOYMENT.md).
