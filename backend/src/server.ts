@@ -298,7 +298,7 @@ if (fs.existsSync(frontendDist)) {
   console.log('Frontend dist not found at:', frontendDist);
 }
 
-// API routes (registered BEFORE catch-all route)
+// API routes (registered BEFORE frontend routes)
 app.use("/auth", authRoutes);
 app.use("/prompts", promptsRoutes);
 app.use("/search", searchRoutes);
@@ -309,16 +309,16 @@ app.use("/tags", tagsRoutes);
 app.use("/admin", adminRoutes);
 app.use("/admin", adminTeamsRoutes);
 
-// Root route for frontend (BEFORE catch-all route)
+// Root route for frontend
 app.get("/", (req, res) => {
   res.sendFile(path.join(frontendDist, "index.html"));
 });
 
 // Catch-all route for frontend routing (AFTER all API routes)
 if (fs.existsSync(frontendDist)) {
-  // Serve index.html for all frontend routes to enable client-side routing
-  app.get("/*", (req, res) => {
-    // Skip API routes
+  // This route MUST be last and catch everything that's not an API route
+  app.use((req, res, next) => {
+    // Skip if this is an API route
     if (req.path.startsWith('/auth') || 
         req.path.startsWith('/prompts') || 
         req.path.startsWith('/search') || 
@@ -329,7 +329,7 @@ if (fs.existsSync(frontendDist)) {
         req.path.startsWith('/admin') || 
         req.path.startsWith('/health') || 
         req.path.startsWith('/settings')) {
-      return res.status(404).json({ error: 'API route not found' });
+      return next(); // Let Express handle this as a 404
     }
     
     // Serve index.html for all other routes (frontend routes)
