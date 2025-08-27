@@ -41,3 +41,4 @@ echo    4. Default admin: admin@promptvault.local / admin123
 echo.
 echo ⚠️  Note: Make sure Docker Desktop is running and has access to your project directory
 pause
+
