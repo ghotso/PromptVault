@@ -317,7 +317,7 @@ app.get("/", (req, res) => {
 // Catch-all route for frontend routing (AFTER all API routes)
 if (fs.existsSync(frontendDist)) {
   // Serve index.html for all frontend routes to enable client-side routing
-  app.get("*", (req, res) => {
+  app.get("/*", (req, res) => {
     // Skip API routes
     if (req.path.startsWith('/auth') || 
         req.path.startsWith('/prompts') || 
