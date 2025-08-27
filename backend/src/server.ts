@@ -281,21 +281,8 @@ app.use("/api/admin", adminTeamsRoutes);
 
 // SPA-Fallback: Serve index.html for all non-API routes
 if (fs.existsSync(frontendDist)) {
-  // Express 5 compatible splat parameter - no wildcard issues
-  app.get('/:splat(*)', (req, res, next) => {
-    // Skip API routes (/api/*, /health, /settings)
-    if (req.path.startsWith('/api/') || 
-        req.path === '/health' || 
-        req.path === '/settings') {
-      return next();
-    }
-    
-    // Skip if it looks like a file (has a dot)
-    if (req.path.includes('.')) {
-      return next();
-    }
-    
-    // Serve index.html for all frontend routes
+  // Express 5 compatible SPA fallback - use specific route patterns
+  app.get(['/', '/prompts', '/prompts/:id', '/search', '/about', '/account', '/admin', '/team-feed', '/team-feed/:id'], (req, res) => {
     res.sendFile(path.join(frontendDist, 'index.html'));
   });
 }
