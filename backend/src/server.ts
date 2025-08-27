@@ -169,17 +169,6 @@ async function initializeDatabase() {
     await prisma.$connect();
     console.log('Database connection successful');
     
-    // Configure SQLite for better compatibility and stability
-    console.log('Configuring SQLite pragmas...');
-    try {
-      await prisma.$executeRaw`PRAGMA journal_mode=DELETE`;
-      await prisma.$executeRaw`PRAGMA locking_mode=NORMAL`;
-      await prisma.$executeRaw`PRAGMA busy_timeout=5000`;
-      console.log('SQLite pragmas configured successfully');
-    } catch (e) {
-      console.log('Warning: Could not configure SQLite pragmas:', (e as Error).message);
-    }
-    
     // Run Prisma migrations to create the database schema
     console.log('Running Prisma migrations...');
     try {
@@ -189,7 +178,7 @@ async function initializeDatabase() {
       console.log('Prisma migrations failed:', (e as Error).message);
       console.log('Trying to generate schema from Prisma...');
       try {
-        execSync('npx prisma db push', { stdio: 'pipe' });
+        execSync('npx prisma db push --accept-data-loss', { stdio: 'pipe' });
         console.log('Database schema pushed successfully');
       } catch (pushError) {
         console.log('Database push also failed:', (pushError as Error).message);
