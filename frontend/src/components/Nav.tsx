@@ -4,7 +4,6 @@ import { ThemeToggle } from './ThemeToggle'
 import { Icon } from './icons'
 import { CustomIcon } from './CustomIcon'
 import { useEffect, useState } from 'react'
-import { api } from '../lib/api'
 import {
   MessageSquare,
   Users,
