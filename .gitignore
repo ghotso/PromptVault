@@ -48,6 +48,7 @@ next-env.d.ts
 /backend/prisma/*.db-journal
 /backend/prisma/*.db-wal
 /backend/prisma/*.db-shm
+/backend/prisma/dev.db
 
 # PostgreSQL data (if using in development)
 /backend/postgres-data/

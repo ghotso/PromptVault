@@ -9,7 +9,6 @@ import {
   X, 
   Eye, 
   Users, 
-  Globe, 
   Lock, 
   History, 
   Tag,
@@ -38,7 +37,9 @@ export default function PromptDetails() {
   const [showCopySuccess, setShowCopySuccess] = useState(false)
   const [showVersionHistory, setShowVersionHistory] = useState(false)
   const [currentVersionPage, setCurrentVersionPage] = useState(1)
-  const [visibility, setVisibility] = useState<'PRIVATE'|'TEAM'|'PUBLIC'>('PRIVATE')
+  const [visibility, setVisibility] = useState<'PRIVATE'|'TEAM'>('PRIVATE')
+  const [isPubliclyShared, setIsPubliclyShared] = useState(false)
+  const [publicShareId, setPublicShareId] = useState<string | null>(null)
   const [title, setTitle] = useState('')
   const [body, setBody] = useState('')
   const [notes, setNotes] = useState('')
@@ -56,7 +57,14 @@ export default function PromptDetails() {
     if (!id) return
     api(`/prompts/${id}`).then((d:any)=>{ 
       setData(d); 
+      // Handle visibility and public sharing
       setVisibility(d.visibility);
+      setIsPubliclyShared(d.isPubliclyShared || false);
+             if (d.isPubliclyShared && d.publicShareId) {
+         setPublicShareId(d.publicShareId);
+       } else {
+        setPublicShareId(null);
+      }
       setTitle(d.title || '');
       setBody(d.body || '');
       setNotes(d.notes || '');
@@ -106,6 +114,34 @@ export default function PromptDetails() {
     }
   }
 
+  const handlePublicToggle = async () => {
+    try {
+      if (isPubliclyShared) {
+        // Disable public sharing
+        await api(`/share/${id}/public`, { 
+          method: 'DELETE' 
+        })
+        setIsPubliclyShared(false)
+        setPublicShareId(null)
+        setShowSuccess(true)
+        setTimeout(() => setShowSuccess(false), 3000)
+      } else {
+        // Enable public sharing
+        const response = await api(`/share/${id}/public`, { 
+          method: 'POST' 
+        }) as { publicUrl: string }
+        setIsPubliclyShared(true)
+        // Extract share ID from URL
+        const shareId = response.publicUrl.split('/').pop()
+        setPublicShareId(shareId || null)
+        setShowSuccess(true)
+        setTimeout(() => setShowSuccess(false), 3000)
+      }
+    } catch (error) {
+      console.error('Failed to toggle public status:', error)
+    }
+  }
+
   const handleDelete = async () => {
     setIsDeleting(true)
     try {
@@ -145,7 +181,6 @@ export default function PromptDetails() {
     switch (visibility) {
       case 'PRIVATE': return <Icon icon={Lock} size={16} />
       case 'TEAM': return <Icon icon={Users} size={16} />
-      case 'PUBLIC': return <Icon icon={Globe} size={16} />
       default: return <Icon icon={Lock} size={16} />
     }
   }
@@ -154,7 +189,6 @@ export default function PromptDetails() {
     switch (visibility) {
       case 'PRIVATE': return 'Private'
       case 'TEAM': return 'Team'
-      case 'PUBLIC': return 'Public'
       default: return 'Private'
     }
   }
@@ -577,12 +611,11 @@ export default function PromptDetails() {
                 <select 
                   className="input border-accent-primary" 
                   value={visibility} 
-                  onChange={e => setVisibility(e.target.value as any)}
+                  onChange={e => setVisibility(e.target.value as 'PRIVATE' | 'TEAM')}
                   disabled={isEditing}
                 >
                   <option value="PRIVATE">Private - Only you can see</option>
                   <option value="TEAM">Team - Visible to your team</option>
-                  <option value="PUBLIC">Public - Visible to everyone</option>
                 </select>
               </div>
               
@@ -598,6 +631,45 @@ export default function PromptDetails() {
               >
                 Save Visibility
               </button>
+
+              {/* Public Sharing Toggle */}
+              <div className="pt-4 border-t border-border-primary">
+                <div className="flex items-center justify-between mb-3">
+                  <label className="text-sm font-medium text-foreground">Public Sharing</label>
+                  <button
+                    onClick={handlePublicToggle}
+                    disabled={isEditing}
+                    className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
+                      isPubliclyShared 
+                        ? 'bg-error/20 text-error hover:bg-error/30' 
+                        : 'bg-accent-primary/20 text-accent-primary hover:bg-accent-primary/30'
+                    }`}
+                  >
+                    {isPubliclyShared ? 'Disable' : 'Enable'}
+                  </button>
+                </div>
+                
+                {isPubliclyShared && publicShareId && (
+                  <div className="p-3 bg-surface-secondary rounded-lg border border-border-primary">
+                    <p className="text-xs text-muted-foreground mb-2">Public URL:</p>
+                    <div className="flex items-center gap-2">
+                      <input
+                        type="text"
+                        value={`${window.location.origin}/share/${publicShareId}`}
+                        readOnly
+                        className="input text-sm bg-background flex-1"
+                      />
+                      <button
+                        onClick={() => navigator.clipboard.writeText(`${window.location.origin}/share/${publicShareId}`)}
+                        className="p-2 rounded-lg text-accent-primary hover:bg-accent-primary/10 transition-colors"
+                        title="Copy URL"
+                      >
+                        <Icon icon={Copy} size={16} />
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
 

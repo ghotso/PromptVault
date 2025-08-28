@@ -394,7 +394,7 @@ export default function Admin() {
               </thead>
               <tbody>
                                  {users.length > 0 ? (
-                   users.map((u, index) => (
+                   users.map((u) => (
                       <tr key={u.id} className="hover:bg-surface-secondary/80 transition-colors">
                       <td className="p-3">
                         <div className="font-medium text-foreground">{u.email}</div>
@@ -487,7 +487,7 @@ export default function Admin() {
               </thead>
               <tbody>
                                                  {teams.length > 0 ? (
-                   teams.map((t, index) => (
+                   teams.map((t) => (
                      <tr key={t.id} className="hover:bg-surface-secondary/80 transition-colors">
                       <td className="p-3">
                         <div className="font-medium text-foreground">{t.name}</div>
@@ -561,7 +561,7 @@ export default function Admin() {
               </thead>
               <tbody>
                                  {tags.length > 0 ? (
-                   tags.map((t, index) => (
+                   tags.map((t) => (
                      <tr key={t.id} className="hover:bg-surface-secondary/80 transition-colors">
                       <td className="p-3">
                         <div className="font-medium text-foreground">{t.name}</div>

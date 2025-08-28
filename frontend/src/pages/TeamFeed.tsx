@@ -12,7 +12,7 @@ interface TeamPrompt {
   body: string
   notes?: string | null
   modelHints?: string | null
-  visibility: 'PRIVATE' | 'TEAM' | 'PUBLIC'
+  visibility: 'PRIVATE' | 'TEAM'
   tags: { tag: { name: string } }[]
   updatedAt: string
   createdAt: string

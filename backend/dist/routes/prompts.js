@@ -39,7 +39,7 @@ router.post("/", auth_1.requireAuth, async (req, res) => {
     return res.json(created);
 });
 const updateSchema = createSchema.partial().extend({
-    visibility: zod_1.z.enum(["PRIVATE", "TEAM", "PUBLIC"]).optional()
+    visibility: zod_1.z.enum(["PRIVATE", "TEAM"]).optional()
 });
 router.put("/:id", auth_1.requireAuth, async (req, res) => {
     const parsed = updateSchema.safeParse(req.body);
@@ -110,7 +110,7 @@ router.delete("/:id", auth_1.requireAuth, async (req, res) => {
     await prisma_1.prisma.prompt.delete({ where: { id } });
     return res.json({ ok: true });
 });
-const visibilitySchema = zod_1.z.object({ visibility: zod_1.z.enum(["PRIVATE", "TEAM", "PUBLIC"]) });
+const visibilitySchema = zod_1.z.object({ visibility: zod_1.z.enum(["PRIVATE", "TEAM"]) });
 router.put("/:id/visibility", auth_1.requireAuth, async (req, res) => {
     const { userId } = req.auth;
     const { id } = req.params;
