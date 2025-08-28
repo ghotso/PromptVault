@@ -94,7 +94,7 @@ export default function Admin() {
 
   const fetchTags = async () => {
     try {
-      const response = await api<TagData[]>('/tags/admin/all')
+      const response = await api<TagData[]>('/tags')
       setTags(response)
     } catch (error) {
       console.error('Failed to fetch tags:', error)
@@ -395,7 +395,7 @@ export default function Admin() {
               <tbody>
                                  {users.length > 0 ? (
                    users.map((u) => (
-                      <tr key={u.id} className="hover:bg-surface-secondary/80 transition-colors border-b border-accent-primary/10">
+                      <tr key={u.id} className="hover:bg-surface-secondary/80 transition-colors border-b border-accent-primary/10 last:border-b-0">
                       <td className="p-3">
                         <div className="font-medium text-foreground">{u.email}</div>
                       </td>
@@ -488,7 +488,7 @@ export default function Admin() {
                <tbody>
                                                    {teams.length > 0 ? (
                     teams.map((t) => (
-                      <tr key={t.id} className="hover:bg-surface-secondary/80 transition-colors border-b border-accent-primary/10">
+                      <tr key={t.id} className="hover:bg-surface-secondary/80 transition-colors border-b border-accent-primary/10 last:border-b-0">
                        <td className="p-3">
                          <div className="font-medium text-foreground">{t.name}</div>
                        </td>
@@ -562,7 +562,7 @@ export default function Admin() {
                <tbody>
                                    {tags.length > 0 ? (
                     tags.map((t) => (
-                      <tr key={t.id} className="hover:bg-surface-secondary/80 transition-colors border-b border-accent-primary/10">
+                      <tr key={t.id} className="hover:bg-surface-secondary/80 transition-colors border-b border-accent-primary/10 last:border-b-0">
                        <td className="p-3">
                          <div className="font-medium text-foreground">{t.name}</div>
                        </td>
@@ -580,7 +580,7 @@ export default function Admin() {
                            >
                              <Icon icon={Edit} size={16} />
                            </button>
-                           <button 
+                           <button
                              className="p-2 rounded-lg text-error hover:bg-error/20 transition-colors" 
                              onClick={() => handleDeleteTag(t.id)}
                              title="Delete tag"

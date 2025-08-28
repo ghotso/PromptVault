@@ -22,6 +22,8 @@ router.get("/", requireAuth, async (req, res) => {
   }
 });
 
+
+
 // Get tag with usage count (admin only)
 router.get("/:id", requireAuth, requireAdmin, async (req, res) => {
   try {
