@@ -42,7 +42,7 @@
     /* Light Mode Icon Colors */
     --color-icon-primary: 0 3 112;
     --color-icon-secondary: 76 201 240;
-    --color-icon-on-bg: 13 27 42;
+    --color-icon-on-bg: 255 255 255;
   }
 
   .dark {
@@ -184,6 +184,12 @@
     border-color: rgb(var(--color-accent-primary));
   }
   
+  /* Light mode border colors */
+  .border-border {
+    border-color: rgb(var(--color-accent-primary));
+  }
+  
+  /* Dark mode border colors */
   .dark .border-border-primary {
     border-color: rgb(var(--color-accent-primary)) !important;
   }
@@ -248,6 +254,24 @@
     color: rgb(255 255 255 / 0.9);
   }
   
+  /* Dark mode text on accent backgrounds */
+  .dark .text-accent-primary-on-bg {
+    color: rgb(0 3 112);
+  }
+  
+  .dark .text-accent-primary-on-bg\/90 {
+    color: rgb(0 3 112 / 0.9);
+  }
+  
+  /* Dark mode specific text utilities */
+  .dark .text-accent-primary-on-bg {
+    color: rgb(0 3 112) !important;
+  }
+  
+  .dark .text-accent-primary-on-bg\/90 {
+    color: rgb(0 3 112 / 0.9) !important;
+  }
+  
   /* Line clamp utilities */
   .line-clamp-2 {
     display: -webkit-box;
@@ -282,6 +306,15 @@
   
   .text-icon-on-bg {
     color: rgb(var(--color-icon-on-bg));
+  }
+  
+  /* Header and Footer Border Utilities */
+  .border-header-footer {
+    border-color: rgb(var(--color-accent-primary));
+  }
+  
+  .dark .border-header-footer {
+    border-color: rgb(var(--color-accent-primary));
   }
 }
 

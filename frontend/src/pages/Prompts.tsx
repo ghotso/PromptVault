@@ -252,7 +252,7 @@ export default function Prompts() {
       {/* Prompts Grid */}
       {filteredPrompts.length === 0 ? (
         <div className="text-center py-16">
-          <Icon icon={Plus} size={48} className="mx-auto text-muted-foreground mb-4" />
+          <Icon icon={Plus} size={48} variant="primary" className="mx-auto text-muted-foreground mb-4" />
           <h3 className="text-xl font-semibold text-foreground mb-2">
             {searchTerm ? 'No prompts found' : 'No prompts yet'}
           </h3>
@@ -294,7 +294,7 @@ export default function Prompts() {
                       }`}
                       title="Copy prompt content"
                     >
-                      <Icon icon={showCopySuccess === prompt.id ? CheckCircle : Copy} size={16} />
+                      <Icon icon={showCopySuccess === prompt.id ? CheckCircle : Copy} size={16} variant="primary" />
                     </button>
                     <button
                       onClick={(e) => {
@@ -304,7 +304,7 @@ export default function Prompts() {
                       className="p-2 rounded-md transition-all duration-200 hover:bg-error/20 text-error hover:text-error"
                       title="Delete prompt"
                     >
-                      <Icon icon={Trash2} size={16} />
+                      <Icon icon={Trash2} size={16} variant="primary" />
                     </button>
                   </div>
                 </div>
@@ -329,7 +329,7 @@ export default function Prompts() {
                           key={tag.tag.name}
                           className="inline-flex items-center gap-1 px-2 py-1 bg-accent-primary/10 text-accent-primary text-xs rounded-full border-2 border-accent-primary/30"
                         >
-                          <Icon icon={Tag} size={12} />
+                          <Icon icon={Tag} size={12} variant="primary" />
                           {tag.tag.name}
                         </span>
                       ))}

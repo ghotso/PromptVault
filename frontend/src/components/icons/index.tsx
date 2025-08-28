@@ -67,7 +67,7 @@ export function Icon({ icon: IconComponent, size = 20, className = '', color, va
     if (color) return color
     
     if (variant === 'on-bg') {
-      return colorMode === 'light' ? 'rgb(13 27 42)' : 'rgb(13 27 42)'
+      return colorMode === 'light' ? 'rgb(255 255 255)' : 'rgb(0 3 112)'
     }
     
     if (variant === 'secondary') {
