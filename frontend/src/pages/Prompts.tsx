@@ -174,7 +174,7 @@ export default function Prompts() {
   const filteredPrompts = prompts.filter(prompt => 
     prompt.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
     prompt.body.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    prompt.tags.some(tag => tag.tag.name.toLowerCase().includes(searchTerm.toLowerCase()))
+    (prompt.tags?.some(tag => tag.tag.name.toLowerCase().includes(searchTerm.toLowerCase())) || false)
   )
 
   if (!user) return <LoginPrompt />
@@ -283,9 +283,9 @@ export default function Prompts() {
                   {prompt.body}
                 </p>
 
-                {prompt.tags.length > 0 && (
+                {(prompt.tags?.length || 0) > 0 && (
                   <div className="flex flex-wrap gap-2 mb-4">
-                    {prompt.tags.map(tag => (
+                    {prompt.tags?.map(tag => (
                         <span
                           key={tag.tag.name}
                           className="inline-flex items-center gap-1 px-2 py-1 bg-accent-primary/10 text-accent-primary text-xs rounded-full border-2 border-accent-primary/30"

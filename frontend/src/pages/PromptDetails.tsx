@@ -23,7 +23,9 @@ import {
   ChevronLeft,
   ChevronRight,
   Plus,
-  Search
+  Search,
+  Globe,
+  Link
 } from 'lucide-react'
 import { Modal } from '../components/Modal'
 
@@ -69,7 +71,7 @@ export default function PromptDetails() {
       setBody(d.body || '');
       setNotes(d.notes || '');
       setModelHints(d.modelHints || '');
-      const tagList = Array.isArray(d.tags) ? d.tags.map((t:any)=>t.tag?.name).filter(Boolean) : [];
+      const tagList = d.tags && Array.isArray(d.tags) ? d.tags.map((t:any)=>t.tag?.name).filter(Boolean) : [];
       setSelectedTags(tagList);
     })
     
@@ -600,75 +602,113 @@ export default function PromptDetails() {
           {/* Visibility Settings Card */}
           <div className="card">
             <div className="card-header">
-                              <div className="flex items-center gap-3">
-                  <Icon icon={Eye} size={24} color="rgb(198 247 40)" />
-                  <h2 className="text-2xl font-semibold">Visibility</h2>
+              <div className="flex items-center gap-3">
+                <Icon icon={Eye} size={24} color="rgb(198 247 40)" />
+                <h2 className="text-2xl font-semibold">Visibility & Sharing</h2>
               </div>
             </div>
-            <div className="card-content space-y-4">
-              <div>
-                <label className="block text-sm font-medium mb-2 text-foreground">Sharing Settings</label>
-                <select 
-                  className="input border-accent-primary" 
-                  value={visibility} 
-                  onChange={e => setVisibility(e.target.value as 'PRIVATE' | 'TEAM')}
-                  disabled={isEditing}
-                >
-                  <option value="PRIVATE">Private - Only you can see</option>
-                  <option value="TEAM">Team - Visible to your team</option>
-                </select>
-              </div>
-              
-              <div className="flex items-center gap-3 p-3 rounded-xl border border-border-primary bg-surface-secondary">
-                {getVisibilityIcon(visibility)}
-                <span className="text-sm font-medium">{getVisibilityLabel(visibility)}</span>
-              </div>
-              
-              <button
-                onClick={handleVisibilitySave}
-                disabled={isEditing}
-                className="btn-primary w-full"
-              >
-                Save Visibility
-              </button>
-
-              {/* Public Sharing Toggle */}
-              <div className="pt-4 border-t border-border-primary">
-                <div className="flex items-center justify-between mb-3">
-                  <label className="text-sm font-medium text-foreground">Public Sharing</label>
-                  <button
-                    onClick={handlePublicToggle}
-                    disabled={isEditing}
-                    className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
-                      isPubliclyShared 
-                        ? 'bg-error/20 text-error hover:bg-error/30' 
-                        : 'bg-accent-primary/20 text-accent-primary hover:bg-accent-primary/30'
-                    }`}
-                  >
-                    {isPubliclyShared ? 'Disable' : 'Enable'}
-                  </button>
+            <div className="card-content space-y-6">
+              {/* Team Visibility Section */}
+              <div className="space-y-4">
+                <div className="flex items-center gap-3">
+                  <Icon icon={Users} size={20} className="text-accent-primary" />
+                  <h3 className="text-lg font-semibold text-foreground">Team Visibility</h3>
                 </div>
                 
-                {isPubliclyShared && publicShareId && (
-                  <div className="p-3 bg-surface-secondary rounded-lg border border-border-primary">
-                    <p className="text-xs text-muted-foreground mb-2">Public URL:</p>
-                    <div className="flex items-center gap-2">
-                      <input
-                        type="text"
-                        value={`${window.location.origin}/share/${publicShareId}`}
-                        readOnly
-                        className="input text-sm bg-background flex-1"
-                      />
-                      <button
-                        onClick={() => navigator.clipboard.writeText(`${window.location.origin}/share/${publicShareId}`)}
-                        className="p-2 rounded-lg text-accent-primary hover:bg-accent-primary/10 transition-colors"
-                        title="Copy URL"
-                      >
-                        <Icon icon={Copy} size={16} />
-                      </button>
-                    </div>
+                <div>
+                  <label className="block text-sm font-medium mb-3 text-foreground">Who can see this prompt?</label>
+                  <select 
+                    className="input border-2 border-accent-primary/30 focus:border-accent-primary transition-colors" 
+                    value={visibility} 
+                    onChange={e => setVisibility(e.target.value as 'PRIVATE' | 'TEAM')}
+                    disabled={isEditing}
+                  >
+                    <option value="PRIVATE">🔒 Private - Only you can see</option>
+                    <option value="TEAM">👥 Team - Visible to your team</option>
+                  </select>
+                </div>
+                
+                <div className="flex items-center gap-3 p-4 rounded-xl border-2 border-accent-primary/20 bg-gradient-to-r from-surface-secondary to-surface-tertiary">
+                  {getVisibilityIcon(visibility)}
+                  <div>
+                    <span className="text-sm font-medium text-foreground">{getVisibilityLabel(visibility)}</span>
+                    <p className="text-xs text-muted-foreground">
+                      {visibility === 'PRIVATE' 
+                        ? 'This prompt is only visible to you' 
+                        : 'This prompt is visible to your team members'
+                      }
+                    </p>
                   </div>
-                )}
+                </div>
+                
+                <button
+                  onClick={handleVisibilitySave}
+                  disabled={isEditing}
+                  className="btn-primary w-full bg-gradient-to-r from-accent-primary to-accent-secondary hover:from-accent-secondary hover:to-accent-primary transition-all duration-200"
+                >
+                  <Icon icon={Save} size={18} className="mr-2" />
+                  Save Visibility Settings
+                </button>
+              </div>
+
+              {/* Public Sharing Section */}
+              <div className="pt-6 border-t-2 border-accent-primary/20">
+                <div className="space-y-4">
+                  <div className="flex items-center gap-3">
+                    <Icon icon={Globe} size={20} className="text-accent-secondary" />
+                    <h3 className="text-lg font-semibold text-foreground">Public Sharing</h3>
+                  </div>
+                  
+                  <div className="flex items-center justify-between p-4 rounded-xl border-2 border-accent-secondary/20 bg-gradient-to-r from-surface-secondary to-surface-tertiary">
+                    <div>
+                      <p className="text-sm font-medium text-foreground">Share with anyone via public link</p>
+                      <p className="text-xs text-muted-foreground">
+                        {isPubliclyShared 
+                          ? 'This prompt is publicly accessible' 
+                          : 'This prompt is not publicly shared'
+                        }
+                      </p>
+                    </div>
+                    <button
+                      onClick={handlePublicToggle}
+                      disabled={isEditing}
+                      className={`px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 ${
+                        isPubliclyShared 
+                          ? 'bg-error/20 text-error hover:bg-error/30 border-2 border-error/30' 
+                          : 'bg-accent-secondary/20 text-accent-secondary hover:bg-accent-secondary/30 border-2 border-accent-secondary/30'
+                      }`}
+                    >
+                      {isPubliclyShared ? '🔒 Disable' : '🌐 Enable'}
+                    </button>
+                  </div>
+                  
+                  {isPubliclyShared && publicShareId && (
+                    <div className="p-4 bg-gradient-to-r from-accent-secondary/10 to-accent-secondary/5 rounded-xl border-2 border-accent-secondary/20">
+                      <div className="flex items-center gap-2 mb-3">
+                        <Icon icon={Link} size={16} className="text-accent-secondary" />
+                        <span className="text-sm font-medium text-accent-secondary">Public URL</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <input
+                          type="text"
+                          value={`${window.location.origin}/share/${publicShareId}`}
+                          readOnly
+                          className="input text-sm bg-background flex-1 border-2 border-accent-secondary/30"
+                        />
+                        <button
+                          onClick={() => navigator.clipboard.writeText(`${window.location.origin}/share/${publicShareId}`)}
+                          className="p-3 rounded-xl text-accent-secondary hover:bg-accent-secondary/20 transition-colors border-2 border-accent-secondary/30"
+                          title="Copy URL"
+                        >
+                          <Icon icon={Copy} size={16} />
+                        </button>
+                      </div>
+                      <p className="text-xs text-muted-foreground mt-2">
+                        Anyone with this link can view your prompt
+                      </p>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           </div>
