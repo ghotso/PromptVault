@@ -381,7 +381,7 @@ export default function Admin() {
           </div>
         </div>
                  <div className="card-content p-0">
-           <div className="overflow-x-auto rounded-b-lg">
+           <div className="overflow-x-auto">
              <table className="w-full border border-accent-primary/20 rounded-b-lg">
                <thead>
                  <tr className="border-b border-accent-primary bg-surface-secondary">
@@ -477,7 +477,7 @@ export default function Admin() {
           </div>
         </div>
                  <div className="card-content p-0">
-           <div className="overflow-x-auto rounded-b-lg">
+           <div className="overflow-x-auto">
              <table className="w-full border border-accent-primary/20 rounded-b-lg">
                <thead>
                  <tr className="border-b border-accent-primary bg-surface-secondary">
@@ -550,7 +550,7 @@ export default function Admin() {
           </div>
         </div>
                  <div className="card-content p-0">
-           <div className="overflow-x-auto rounded-b-lg">
+           <div className="overflow-x-auto">
              <table className="w-full border border-accent-primary/20 rounded-b-lg">
                <thead>
                  <tr className="border-b border-accent-primary bg-surface-secondary">

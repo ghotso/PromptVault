@@ -1,10 +1,12 @@
 import { Navigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import { api } from './lib/api'
+import { useAuth } from './lib/auth'
 
 function App() {
   const [isHealthy, setIsHealthy] = useState<boolean>(false)
   const [isLoading, setIsLoading] = useState<boolean>(true)
+  const { user } = useAuth()
 
   useEffect(() => {
     const checkHealth = async () => {
@@ -34,9 +36,12 @@ function App() {
     return <Navigate to="/auth" replace />
   }
 
-  // Always redirect to /prompts - logged in users see their prompts, 
-  // non-logged in users see the login prompt
-  return <Navigate to="/prompts" replace />
+  // If user is logged in, go to prompts, otherwise go to auth
+  if (user) {
+    return <Navigate to="/prompts" replace />
+  } else {
+    return <Navigate to="/auth" replace />
+  }
 }
 
 export default App
