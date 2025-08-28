@@ -124,7 +124,19 @@ router.delete("/:id", requireAuth, async (req, res) => {
   const { id } = req.params;
   const exists = await prisma.prompt.findFirst({ where: { id, userId } });
   if (!exists) return res.status(404).json({ error: "Not found" });
-  await prisma.prompt.delete({ where: { id } });
+  
+  // Delete related data first
+  await prisma.$transaction(async (tx) => {
+    // Delete prompt tags (only the relationships, not the tags themselves)
+    await tx.promptTag.deleteMany({ where: { promptId: id } });
+    // Delete prompt versions
+    await tx.promptVersion.deleteMany({ where: { promptId: id } });
+    // Delete ratings
+    await tx.rating.deleteMany({ where: { promptId: id } });
+    // Finally delete the prompt
+    await tx.prompt.delete({ where: { id } });
+  });
+  
   return res.json({ ok: true });
 });
 

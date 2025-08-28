@@ -15,7 +15,8 @@ import {
   Lock,
   Users,
   Copy,
-  Calendar
+  Calendar,
+  Trash2
 } from 'lucide-react'
 
 type Prompt = {
@@ -127,6 +128,23 @@ export default function Prompts() {
       
       setShowCopySuccess(promptId)
       setTimeout(() => setShowCopySuccess(null), 2000)
+    }
+  }
+
+  const handleDelete = async (promptId: string) => {
+    if (!confirm('Are you sure you want to delete this prompt? This action cannot be undone.')) {
+      return
+    }
+    
+    try {
+      await api(`/prompts/${promptId}`, { method: 'DELETE' })
+      // Remove the prompt from the local state
+      setPrompts(prompts.filter(p => p.id !== promptId))
+      // Show success message or toast
+      console.log('Prompt deleted successfully')
+    } catch (error) {
+      console.error('Failed to delete prompt:', error)
+      alert('Failed to delete prompt. Please try again.')
     }
   }
 
@@ -277,6 +295,16 @@ export default function Prompts() {
                       title="Copy prompt content"
                     >
                       <Icon icon={showCopySuccess === prompt.id ? CheckCircle : Copy} size={16} />
+                    </button>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        handleDelete(prompt.id)
+                      }}
+                      className="p-2 rounded-md transition-all duration-200 hover:bg-error/20 text-error hover:text-error"
+                      title="Delete prompt"
+                    >
+                      <Icon icon={Trash2} size={16} />
                     </button>
                   </div>
                 </div>
