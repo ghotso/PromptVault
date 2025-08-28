@@ -14,7 +14,6 @@ import {
   X,
   Lock,
   Users,
-  Globe,
   Copy,
   Calendar
 } from 'lucide-react'
@@ -25,7 +24,7 @@ type Prompt = {
   body: string
   notes?: string | null
   modelHints?: string | null
-  visibility: 'PRIVATE' | 'TEAM' | 'PUBLIC'
+  visibility: 'PRIVATE' | 'TEAM'
   tags: { tag: { name: string } }[]
   updatedAt: string
   _count?: { versions: number }
@@ -36,7 +35,7 @@ interface PromptForm {
   body: string
   notes: string
   modelHints: string
-  visibility: 'PRIVATE' | 'TEAM' | 'PUBLIC'
+  visibility: 'PRIVATE' | 'TEAM'
   tags: string[]
 }
 
@@ -160,7 +159,6 @@ export default function Prompts() {
     switch (visibility) {
       case 'PRIVATE': return <Icon icon={Lock} size={16} />
       case 'TEAM': return <Icon icon={Users} size={16} />
-      case 'PUBLIC': return <Icon icon={Globe} size={16} />
       default: return <Icon icon={Lock} size={16} />
     }
   }
@@ -169,7 +167,6 @@ export default function Prompts() {
     switch (visibility) {
       case 'PRIVATE': return 'Private'
       case 'TEAM': return 'Team'
-      case 'PUBLIC': return 'Public'
       default: return 'Private'
     }
   }
@@ -467,9 +464,8 @@ export default function Prompts() {
               onChange={(e) => setForm({ ...form, visibility: e.target.value as any })}
               className="input border-accent-primary"
             >
-              <option value="PRIVATE">Private - Only you can see</option>
-              <option value="TEAM">Team - Visible to your team</option>
-              <option value="PUBLIC">Public - Visible to everyone</option>
+                             <option value="PRIVATE">Private - Only you can see</option>
+               <option value="TEAM">Team - Visible to your team</option>
             </select>
           </div>
 

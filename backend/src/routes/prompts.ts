@@ -41,7 +41,7 @@ router.post("/", requireAuth, async (req, res) => {
 });
 
 const updateSchema = createSchema.partial().extend({
-  visibility: z.enum(["PRIVATE", "TEAM", "PUBLIC"]).optional()
+  visibility: z.enum(["PRIVATE", "TEAM"]).optional()
 });
 
 router.put("/:id", requireAuth, async (req, res) => {
@@ -119,7 +119,7 @@ router.delete("/:id", requireAuth, async (req, res) => {
   return res.json({ ok: true });
 });
 
-const visibilitySchema = z.object({ visibility: z.enum(["PRIVATE", "TEAM", "PUBLIC"]) });
+const visibilitySchema = z.object({ visibility: z.enum(["PRIVATE", "TEAM"]) });
 
 router.put("/:id/visibility", requireAuth, async (req, res) => {
   const { userId } = req.auth!;

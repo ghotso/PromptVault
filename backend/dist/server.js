@@ -303,7 +303,7 @@ app.use("/api/admin", adminTeams_1.default);
 // SPA-Fallback: Serve index.html for all non-API routes
 if (fs_1.default.existsSync(frontendDist)) {
     // Express 5 compatible SPA fallback - use specific route patterns
-    app.get(['/', '/prompts', '/prompts/:id', '/search', '/about', '/account', '/admin', '/teams', '/teams/:id'], (req, res) => {
+    app.get(['/', '/prompts', '/prompts/:id', '/search', '/about', '/account', '/admin', '/team-feed', '/team-feed/:id', '/share/:id'], (req, res) => {
         res.sendFile(path_1.default.join(frontendDist, 'index.html'));
     });
 }

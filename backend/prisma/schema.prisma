@@ -29,6 +29,8 @@ model Prompt {
   notes      String?
   modelHints String?
   visibility Visibility      @default(PRIVATE)
+  isPubliclyShared Boolean   @default(false)
+  publicShareId String?      @unique
   userId     String
   createdAt  DateTime        @default(now())
   updatedAt  DateTime        @updatedAt
@@ -100,7 +102,6 @@ model UserTeam {
 enum Visibility {
   PRIVATE
   TEAM
-  PUBLIC
 }
 
 enum Role {
