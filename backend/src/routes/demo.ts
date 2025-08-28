@@ -187,7 +187,15 @@ router.post("/seed", requireDemoKey, async (req, res) => {
     console.log("Creating users...");
     const users = await Promise.all(
       demoData.users.map(async (userData) => {
-                 const user = await prisma.user.create({
+                 console.log("Creating user with data:", {
+           email: userData.email,
+           password: userData.password,
+           name: userData.name,
+           team: userData.team,
+           role: userData.role,
+         });
+         
+         const user = await prisma.user.create({
            data: {
              email: userData.email,
              password: userData.password, // This is already a hash, don't hash again
@@ -196,6 +204,8 @@ router.post("/seed", requireDemoKey, async (req, res) => {
              role: userData.role,
            }
          });
+         
+         console.log("User created successfully:", { id: user.id, email: user.email });
 
         // Assign user to team
         const team = teams.find(t => t.name === userData.team);
