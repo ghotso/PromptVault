@@ -299,7 +299,7 @@ export default function Admin() {
       {/* Header */}
       <div className="mb-8">
         <h1 className="text-4xl font-bold text-foreground flex items-center gap-3 mb-2">
-          <Icon icon={Shield} size={36} color="rgb(198 247 40)" />
+                        <Icon icon={Shield} size={36} variant="primary" />
           Admin Dashboard
         </h1>
         <p className="text-muted-foreground text-lg">
@@ -311,7 +311,7 @@ export default function Admin() {
       <div className="card mb-8">
         <div className="card-header">
           <div className="flex items-center gap-3">
-            <Icon icon={Settings} size={24} color="rgb(198 247 40)" />
+                          <Icon icon={Settings} size={24} variant="primary" />
             <h2 className="text-2xl font-semibold">Registration Settings</h2>
           </div>
         </div>
@@ -365,7 +365,7 @@ export default function Admin() {
         <div className="card-header">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <Icon icon={Users} size={24} color="rgb(198 247 40)" />
+              <Icon icon={Users} size={24} variant="primary" />
               <h2 className="text-2xl font-semibold">Users Management</h2>
               <span className="text-sm text-muted-foreground bg-surface-secondary px-3 py-1 rounded-full">
                 {users.length} users
@@ -375,7 +375,7 @@ export default function Admin() {
               onClick={() => openUserModal()}
               className="btn-primary flex items-center gap-2"
             >
-              <Icon icon={UserPlus} size={18} color="rgb(13 27 42)" />
+                                         <Icon icon={UserPlus} size={18} variant="on-bg" />
               Add User
             </button>
           </div>
@@ -461,7 +461,7 @@ export default function Admin() {
         <div className="card-header">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <Icon icon={Building2} size={24} color="rgb(198 247 40)" />
+              <Icon icon={Building2} size={24} variant="primary" />
               <h2 className="text-2xl font-semibold">Teams Management</h2>
               <span className="text-sm text-muted-foreground bg-surface-secondary px-3 py-1 rounded-full">
                 {teams.length} teams
@@ -471,7 +471,7 @@ export default function Admin() {
               onClick={() => openTeamModal()}
               className="btn-primary flex items-center gap-2"
             >
-              <Icon icon={Plus} size={18} color="rgb(13 27 42)" />
+              <Icon icon={Plus} size={18} variant="on-bg" />
               Add Team
             </button>
           </div>
@@ -534,7 +534,7 @@ export default function Admin() {
         <div className="card-header">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <Icon icon={Tag} size={24} color="rgb(198 247 40)" />
+              <Icon icon={Tag} size={24} variant="primary" />
               <h2 className="text-2xl font-semibold">Tags Management</h2>
               <span className="text-sm text-muted-foreground bg-surface-secondary px-3 py-1 rounded-full">
                 {tags.length} tags
@@ -544,7 +544,7 @@ export default function Admin() {
               onClick={() => openTagModal()}
               className="btn-primary flex items-center gap-2"
             >
-              <Icon icon={Plus} size={18} color="rgb(13 27 42)" />
+              <Icon icon={Plus} size={18} variant="on-bg" />
               Add Tag
             </button>
           </div>

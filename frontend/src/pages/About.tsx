@@ -106,7 +106,7 @@ export default function About() {
             >
               <div className="flex items-center gap-4 mb-4">
                 <div className="p-3 bg-accent-primary/15 rounded-2xl group-hover:bg-accent-primary/25 transition-colors">
-                  <Github className="w-6 h-6" color="rgb(198 247 40)" />
+                  <Github className="w-6 h-6" color="rgb(var(--color-icon-primary))" />
                 </div>
                 <h3 className="text-xl font-bold text-foreground group-hover:text-accent-primary transition-colors">
                   GitHub Repository
@@ -125,7 +125,7 @@ export default function About() {
             >
               <div className="flex items-center gap-4 mb-4">
                 <div className="p-3 bg-accent-primary/15 rounded-2xl group-hover:bg-accent-primary/25 transition-colors">
-                  <Bug className="w-6 h-6" color="rgb(198 247 40)" />
+                  <Bug className="w-6 h-6" color="rgb(var(--color-icon-primary))" />
                 </div>
                 <h3 className="text-xl font-bold text-foreground group-hover:text-accent-primary transition-colors">
                   Report a Bug
@@ -150,7 +150,7 @@ export default function About() {
             >
               <div className="flex items-center gap-4 mb-4">
                 <div className="p-3 bg-accent-primary/15 rounded-2xl group-hover:bg-accent-primary/25 transition-colors">
-                  <BookOpen className="w-6 h-6" color="rgb(198 247 40)" />
+                  <BookOpen className="w-6 h-6" color="rgb(var(--color-icon-primary))" />
                 </div>
                 <h3 className="text-xl font-bold text-foreground group-hover:text-accent-primary transition-colors">
                   README
@@ -169,7 +169,7 @@ export default function About() {
             >
               <div className="flex items-center gap-4 mb-4">
                 <div className="p-3 bg-accent-primary/15 rounded-2xl group-hover:bg-accent-primary/25 transition-colors">
-                  <Code className="w-6 h-6" color="rgb(198 247 40)" />
+                  <Code className="w-6 h-6" color="rgb(var(--color-icon-primary))" />
                 </div>
                 <h3 className="text-xl font-bold text-foreground group-hover:text-accent-primary transition-colors">
                   Contributing Guide

@@ -253,7 +253,7 @@ export default function PromptDetails() {
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-4xl font-bold text-foreground flex items-center gap-3 mb-2">
-              <Icon icon={Edit} size={36} color="rgb(198 247 40)" />
+              <Icon icon={Edit} size={36} variant="primary" />
               {isEditing ? 'Edit Prompt' : 'Prompt Details'}
             </h1>
             <p className="text-muted-foreground text-lg">
@@ -276,7 +276,7 @@ export default function PromptDetails() {
                   onClick={() => setIsEditing(true)}
                   className="btn-primary flex items-center gap-2"
                 >
-                  <Icon icon={Edit} size={18} color="rgb(13 27 42)" />
+                  <Icon icon={Edit} size={18} variant="on-bg" />
                   Edit Prompt
                 </button>
                 <button
@@ -302,7 +302,7 @@ export default function PromptDetails() {
                   disabled={isSaving}
                   className="btn-primary flex items-center gap-2"
                 >
-                  <Icon icon={isSaving ? CheckCircle : Save} size={18} color="rgb(13 27 42)" />
+                  <Icon icon={isSaving ? CheckCircle : Save} size={18} variant="on-bg" />
                   {isSaving ? 'Saving...' : 'Save Changes'}
                 </button>
               </>
@@ -470,7 +470,7 @@ export default function PromptDetails() {
             <div className="card-header">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <Icon icon={History} size={24} color="rgb(198 247 40)" />
+                  <Icon icon={History} size={24} variant="primary" />
                   <h2 className="text-2xl font-semibold">Version History</h2>
                   <span className="text-sm text-muted-foreground bg-surface-secondary px-3 py-1 rounded-full">
                     {totalVersions} versions
@@ -603,7 +603,7 @@ export default function PromptDetails() {
           <div className="card">
             <div className="card-header">
               <div className="flex items-center gap-3">
-                <Icon icon={Eye} size={24} color="rgb(198 247 40)" />
+                <Icon icon={Eye} size={24} variant="primary" />
                 <h2 className="text-2xl font-semibold">Visibility & Sharing</h2>
               </div>
             </div>
@@ -717,7 +717,7 @@ export default function PromptDetails() {
           <div className="card">
             <div className="card-header">
               <div className="flex items-center gap-3">
-                <Icon icon={Tag} size={24} color="rgb(198 247 40)" />
+                <Icon icon={Tag} size={24} variant="primary" />
                 <h2 className="text-2xl font-semibold">Prompt Info</h2>
               </div>
             </div>

@@ -23,7 +23,7 @@
     --color-radius: 0.5rem;
     
     /* StyleGuide Colors */
-    --color-accent-primary: 198 247 40;
+    --color-accent-primary: 0 3 112;
     --color-accent-secondary: 76 201 240;
     --color-success: 74 222 128;
     --color-warning: 251 191 36;
@@ -34,6 +34,15 @@
     --color-surface-elevated: 255 255 255;
     --color-border-primary: 226 232 240;
     --color-border-secondary: 203 213 225;
+    
+    /* Light Mode Glows */
+    --glow-accent: 0 0 20px rgba(0, 3, 112, 0.3);
+    --glow-accent-strong: 0 0 30px rgba(0, 3, 112, 0.5);
+    
+    /* Light Mode Icon Colors */
+    --color-icon-primary: 0 3 112;
+    --color-icon-secondary: 76 201 240;
+    --color-icon-on-bg: 13 27 42;
   }
 
   .dark {
@@ -80,6 +89,11 @@
     --glow-accent: 0 0 20px rgba(198, 247, 40, 0.3);
     --glow-accent-strong: 0 0 30px rgba(198, 247, 40, 0.5);
     --glow-secondary: 0 0 20px rgba(76, 201, 240, 0.2);
+    
+    /* Dark Mode Icon Colors */
+    --color-icon-primary: 198 247 40;
+    --color-icon-secondary: 76 201 240;
+    --color-icon-on-bg: 13 27 42;
   }
 
   * {
@@ -227,11 +241,11 @@
   }
   
   .text-accent-primary-on-bg {
-    color: rgb(13 27 42);
+    color: rgb(255 255 255);
   }
   
   .text-accent-primary-on-bg\/90 {
-    color: rgb(13 27 42 / 0.9);
+    color: rgb(255 255 255 / 0.9);
   }
   
   /* Line clamp utilities */
@@ -255,6 +269,19 @@
   
   .focus\:ring-error\/20:focus {
     --tw-ring-color: rgb(var(--color-error) / 0.2);
+  }
+  
+  /* Icon Color Utilities */
+  .text-icon-primary {
+    color: rgb(var(--color-icon-primary));
+  }
+  
+  .text-icon-secondary {
+    color: rgb(var(--color-icon-secondary));
+  }
+  
+  .text-icon-on-bg {
+    color: rgb(var(--color-icon-on-bg));
   }
 }
 

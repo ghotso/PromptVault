@@ -51,7 +51,7 @@ export default function Account() {
       {/* Header */}
       <div className="mb-8">
         <h1 className="text-4xl font-bold text-foreground flex items-center gap-3 mb-2">
-          <Icon icon={User} size={36} color="rgb(198 247 40)" />
+                     <Icon icon={User} size={36} variant="primary" />
           Account Settings
         </h1>
         <p className="text-muted-foreground text-lg">
@@ -63,7 +63,7 @@ export default function Account() {
       <div className="card mb-6">
         <div className="card-header">
           <div className="flex items-center gap-3">
-            <Icon icon={User} size={24} color="rgb(198 247 40)" />
+                         <Icon icon={User} size={24} variant="primary" />
             <h2 className="text-2xl font-semibold">Profile Information</h2>
           </div>
         </div>
@@ -125,7 +125,7 @@ export default function Account() {
           onClick={handleSave}
           disabled={isSaving}
         >
-          <Icon icon={isSaving ? CheckCircle : Save} size={20} color="rgb(13 27 42)" />
+                         <Icon icon={isSaving ? CheckCircle : Save} size={20} variant="on-bg" />
           {isSaving ? 'Saving...' : 'Save Changes'}
         </button>
         

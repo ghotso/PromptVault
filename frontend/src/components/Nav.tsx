@@ -77,37 +77,37 @@ export function Nav() {
                     : 'text-accent-primary hover:text-accent-primary/80 hover:bg-surface-secondary hover:shadow-sm'
                 }`}
               >
-                <Icon icon={item.icon} size={16} color={isActive(item.path) ? 'rgb(13 27 42)' : 'rgb(198 247 40)'} />
+                                 <Icon icon={item.icon} size={16} variant={isActive(item.path) ? 'on-bg' : 'primary'} />
                 {item.label}
               </Link>
             ))}
             
             {/* About Link - Always Visible */}
-            <Link
-              to="/about"
-              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 ${
-                isActive('/about')
-                  ? 'bg-accent-primary text-accent-primary-on-bg shadow-md hover:shadow-lg transform hover:scale-105'
-                  : 'text-accent-primary hover:text-accent-primary/80 hover:bg-surface-secondary hover:shadow-sm'
-              }`}
-            >
-              <Icon icon={Info} size={16} color={isActive('/about') ? 'rgb(13 27 42)' : 'rgb(198 247 40)'} />
-              About
-            </Link>
+                         <Link
+               to="/about"
+               className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 ${
+                 isActive('/about')
+                   ? 'bg-accent-primary text-accent-primary-on-bg shadow-md hover:shadow-lg transform hover:scale-105'
+                   : 'text-accent-primary hover:text-accent-primary/80 hover:bg-surface-secondary hover:shadow-sm'
+               }`}
+             >
+               <Icon icon={Info} size={16} variant={isActive('/about') ? 'on-bg' : 'primary'} />
+               About
+             </Link>
           </div>
 
           {/* Mobile Navigation */}
           <div className="md:hidden flex items-center gap-2">
-            <Link
-              to="/about"
-              className={`flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium transition-all duration-200 ${
-                isActive('/about')
-                  ? 'bg-accent-primary text-accent-primary-on-bg shadow-md'
-                  : 'text-accent-primary hover:text-accent-primary/80 hover:bg-surface-secondary'
-              }`}
-            >
-              <Icon icon={Info} size={16} color={isActive('/about') ? 'rgb(13 27 42)' : 'rgb(198 247 40)'} />
-            </Link>
+                         <Link
+               to="/about"
+               className={`flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium transition-all duration-200 ${
+                 isActive('/about')
+                   ? 'bg-accent-primary text-accent-primary-on-bg shadow-md'
+                   : 'text-accent-primary hover:text-accent-primary/80 hover:bg-surface-secondary'
+               }`}
+             >
+               <Icon icon={Info} size={16} variant={isActive('/about') ? 'on-bg' : 'primary'} />
+             </Link>
           </div>
 
           {/* Right Side Actions */}
@@ -116,17 +116,17 @@ export function Nav() {
             
             {user ? (
               <div className="flex items-center gap-2">
-                <Link
-                  to="/account"
-                  className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 ${
-                    isActive('/account')
-                      ? 'bg-accent-primary text-accent-primary-on-bg shadow-md hover:shadow-lg transform hover:scale-105'
-                      : 'text-accent-primary hover:text-accent-primary/80 hover:bg-surface-secondary hover:shadow-sm'
-                  }`}
-                >
-                  <Icon icon={User} size={16} color={isActive('/account') ? 'rgb(13 27 42)' : 'rgb(198 247 40)'} />
-                  <span className="hidden sm:inline">Account</span>
-                </Link>
+                                 <Link
+                   to="/account"
+                   className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 ${
+                     isActive('/account')
+                       ? 'bg-accent-primary text-accent-primary-on-bg shadow-md hover:shadow-lg transform hover:scale-105'
+                       : 'text-accent-primary hover:text-accent-primary/80 hover:bg-surface-secondary hover:shadow-sm'
+                   }`}
+                 >
+                   <Icon icon={User} size={16} variant={isActive('/account') ? 'on-bg' : 'primary'} />
+                   <span className="hidden sm:inline">Account</span>
+                 </Link>
                 <button
                   onClick={logout}
                   className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-surface-secondary hover:shadow-sm transition-all duration-200"
@@ -149,7 +149,7 @@ export function Nav() {
                     to="/auth?register=true"
                     className="btn-primary bg-accent-primary hover:bg-accent-primary shadow-md hover:shadow-lg transform hover:scale-105"
                   >
-                    <Icon icon={UserPlus} size={16} color="rgb(13 27 42)" />
+                    <Icon icon={UserPlus} size={16} variant="on-bg" />
                     <span className="hidden sm:inline">Register</span>
                   </Link>
                 )}
