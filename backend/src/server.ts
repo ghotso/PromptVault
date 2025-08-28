@@ -15,6 +15,7 @@ import fs from "fs";
 import { execSync } from "child_process";
 import adminRoutes from "./routes/admin";
 import adminTeamsRoutes from "./routes/adminTeams";
+import demoRoutes from "./routes/demo";
 import { prisma } from "./lib/prisma";
 
 dotenv.config();
@@ -28,6 +29,67 @@ app.use(
     credentials: true,
   })
 );
+
+// Demo seeding function
+async function seedDemoData() {
+  try {
+    console.log('Starting automatic demo data seeding...');
+    
+    // Check if we're in demo mode
+    if (process.env.NODE_ENV === 'production' && !process.env.DEMO_MODE) {
+      console.log('Skipping demo seeding in production mode');
+      return;
+    }
+
+    // Check if demo data already exists
+    const existingUsers = await prisma.user.count();
+    if (existingUsers > 0) {
+      console.log('Demo data already exists, skipping automatic seeding');
+      return;
+    }
+
+    console.log('No existing demo data found, seeding will be done manually via API');
+    console.log('Use POST /api/demo/seed with x-demo-api-key header to seed demo data');
+
+  } catch (error) {
+    console.error('Demo seeding check failed:', error);
+  }
+}
+
+// Auto-reseed function (runs every 6 hours)
+function startAutoReseed() {
+  const RESEED_INTERVAL = 6 * 60 * 60 * 1000; // 6 hours in milliseconds
+  
+  console.log('Starting auto-reseed scheduler...');
+  
+  // Initial seeding
+  seedDemoData();
+  
+  // Schedule periodic reseeding
+  setInterval(async () => {
+    console.log('Running scheduled demo reseeding...');
+    try {
+      // Clear existing data and reseed
+      await prisma.$transaction(async (tx) => {
+        await tx.rating.deleteMany();
+        await tx.promptVersion.deleteMany();
+        await tx.promptTag.deleteMany();
+        await tx.prompt.deleteMany();
+        await tx.userTeam.deleteMany();
+        await tx.user.deleteMany();
+        await tx.team.deleteMany();
+        await tx.tag.deleteMany();
+      });
+      
+      await seedDemoData();
+      console.log('Scheduled demo reseeding completed');
+    } catch (error) {
+      console.error('Scheduled demo reseeding failed:', error);
+    }
+  }, RESEED_INTERVAL);
+  
+  console.log(`Auto-reseed scheduled every ${RESEED_INTERVAL / (60 * 60 * 1000)} hours`);
+}
 
 // Initialize database and create tables
 async function initializeDatabase() {
@@ -278,6 +340,7 @@ app.use("/api/import-export", importExportRoutes);
 app.use("/api/tags", tagsRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/admin", adminTeamsRoutes);
+app.use("/api/demo", demoRoutes);
 
 // SPA-Fallback: Serve index.html for all non-API routes
 if (fs.existsSync(frontendDist)) {
@@ -302,7 +365,14 @@ console.log('Container will listen on port:', containerPort);
 
 // Start server after database initialization
 initializeDatabase().then(() => {
-  app.listen(containerPort, () => console.log(`Backend listening on :${containerPort}`));
+  app.listen(containerPort, () => {
+    console.log(`Backend listening on :${containerPort}`);
+    
+    // Start demo auto-reseeding if in demo mode
+    if (process.env.DEMO_MODE || process.env.NODE_ENV !== 'production') {
+      startAutoReseed();
+    }
+  });
 }).catch((error) => {
   console.error('Failed to start server:', error);
   process.exit(1);
