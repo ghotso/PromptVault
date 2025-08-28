@@ -126,7 +126,7 @@ router.delete("/:id", requireAuth, async (req, res) => {
   if (!exists) return res.status(404).json({ error: "Not found" });
   
   // Delete related data first
-  await prisma.$transaction(async (tx) => {
+  await prisma.$transaction(async (tx: Prisma.TransactionClient) => {
     // Delete prompt tags (only the relationships, not the tags themselves)
     await tx.promptTag.deleteMany({ where: { promptId: id } });
     // Delete prompt versions
