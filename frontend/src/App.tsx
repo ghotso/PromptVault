@@ -11,8 +11,12 @@ function App() {
   useEffect(() => {
     const checkHealth = async () => {
       try {
-        await api('/health')
-        setIsHealthy(true)
+        const response = await fetch(`${window.location.protocol}//${window.location.host}/health`)
+        if (response.ok) {
+          setIsHealthy(true)
+        } else {
+          setIsHealthy(false)
+        }
       } catch (error) {
         setIsHealthy(false)
       } finally {
