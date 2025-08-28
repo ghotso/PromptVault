@@ -1,0 +1,22 @@
+[33mcommit 48db4bb706499296980d57849304d806634cd599[m
+Author: ghotso <168240713+ghotso@users.noreply.github.com>
+Date:   Thu Aug 28 13:23:56 2025 +0200
+
+    feat: implement public sharing functionality for prompts, including unique share ID generation and visibility adjustments; update related routes and frontend components
+
+.gitignore
+backend/.gitignore
+backend/dist/routes/prompts.js
+backend/dist/routes/share.js
+backend/dist/server.js
+backend/prisma/dev.db
+backend/prisma/schema.prisma
+backend/src/routes/prompts.ts
+backend/src/routes/share.ts
+backend/src/server.ts
+frontend/.gitignore
+frontend/src/pages/Admin.tsx
+frontend/src/pages/PromptDetails.tsx
+frontend/src/pages/Prompts.tsx
+frontend/src/pages/TeamFeed.tsx
+frontend/src/pages/TeamPromptDetail.tsx
