@@ -41,7 +41,7 @@ interface PromptForm {
 
 export default function Prompts() {
   const navigate = useNavigate()
-  const { user } = useAuth()
+  const { user, loading } = useAuth()
   const [prompts, setPrompts] = useState<Prompt[]>([])
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false)
   const [existingTags, setExistingTags] = useState<string[]>([])
@@ -176,6 +176,17 @@ export default function Prompts() {
     prompt.body.toLowerCase().includes(searchTerm.toLowerCase()) ||
     (prompt.tags?.some(tag => tag.tag.name.toLowerCase().includes(searchTerm.toLowerCase())) || false)
   )
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-accent-primary mx-auto mb-4"></div>
+          <p className="text-muted-foreground">Loading...</p>
+        </div>
+      </div>
+    )
+  }
 
   if (!user) return <LoginPrompt />
 

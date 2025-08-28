@@ -29,8 +29,9 @@ export function Nav() {
     const checkRegistration = async () => {
       try {
         setIsLoadingSettings(true)
-        const response = await api<{ allowRegistration: boolean }>('/settings')
-        setAllowRegistration(response.allowRegistration)
+        const response = await fetch(`${window.location.protocol}//${window.location.host}/settings`)
+        const data = await response.json()
+        setAllowRegistration(data.allowRegistration)
       } catch (error) {
         console.error('Failed to check registration settings:', error)
         // Default to allowing registration if we can't check

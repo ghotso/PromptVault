@@ -380,9 +380,9 @@ export default function Admin() {
             </button>
           </div>
         </div>
-                 <div className="card-content p-0">
+                                  <div className="card-content p-0">
            <div className="overflow-x-auto">
-             <table className="w-full border border-accent-primary/20 rounded-b-lg">
+             <table className="w-full rounded-b-lg">
                <thead>
                  <tr className="border-b border-accent-primary bg-surface-secondary">
                    <th className="text-left p-3 font-semibold text-foreground">User</th>
@@ -395,7 +395,7 @@ export default function Admin() {
               <tbody>
                                  {users.length > 0 ? (
                    users.map((u) => (
-                      <tr key={u.id} className="hover:bg-surface-secondary/80 transition-colors">
+                      <tr key={u.id} className="hover:bg-surface-secondary/80 transition-colors border-b border-accent-primary/10">
                       <td className="p-3">
                         <div className="font-medium text-foreground">{u.email}</div>
                       </td>
@@ -451,9 +451,9 @@ export default function Admin() {
                   </tr>
                 )}
               </tbody>
-            </table>
-          </div>
-        </div>
+             </table>
+           </div>
+         </div>
       </div>
 
       {/* Teams Management */}
@@ -476,57 +476,57 @@ export default function Admin() {
             </button>
           </div>
         </div>
-                 <div className="card-content p-0">
-           <div className="overflow-x-auto">
-             <table className="w-full border border-accent-primary/20 rounded-b-lg">
-               <thead>
-                 <tr className="border-b border-accent-primary bg-surface-secondary">
-                   <th className="text-left p-3 font-semibold text-foreground">Team Name</th>
-                   <th className="text-left p-3 font-semibold text-foreground">Actions</th>
-                 </tr>
-               </thead>
-              <tbody>
-                                                 {teams.length > 0 ? (
-                   teams.map((t) => (
-                     <tr key={t.id} className="hover:bg-surface-secondary/80 transition-colors">
-                      <td className="p-3">
-                        <div className="font-medium text-foreground">{t.name}</div>
-                      </td>
-                      <td className="p-3">
-                        <div className="flex items-center gap-2">
-                          <button 
-                            className="p-2 rounded-lg text-accent-primary hover:bg-accent-primary/10 transition-colors" 
-                            onClick={() => openTeamModal(t)}
-                            title="Edit team"
-                          >
-                            <Icon icon={Edit} size={16} />
-                          </button>
-                          <button 
-                            className="p-2 rounded-lg text-error hover:bg-error/20 transition-colors" 
-                            onClick={() => handleDeleteTeam(t.id)}
-                            title="Delete team"
-                          >
-                            <Icon icon={Trash2} size={16} />
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  ))
-                ) : (
-                  <tr>
-                    <td colSpan={2} className="p-8 text-center text-muted-foreground">
-                      <div className="flex flex-col items-center gap-2">
-                        <Icon icon={Building2} size={32} className="opacity-50" />
-                        <p className="text-lg font-medium">No teams found</p>
-                        <p className="text-sm">Create your first team to get started</p>
-                      </div>
-                    </td>
+                                   <div className="card-content p-0">
+            <div className="overflow-x-auto">
+              <table className="w-full rounded-b-lg">
+                <thead>
+                  <tr className="border-b border-accent-primary bg-surface-secondary">
+                    <th className="text-left p-3 font-semibold text-foreground">Team Name</th>
+                    <th className="text-left p-3 font-semibold text-foreground">Actions</th>
                   </tr>
-                )}
-              </tbody>
-            </table>
-          </div>
-        </div>
+                </thead>
+               <tbody>
+                                                   {teams.length > 0 ? (
+                    teams.map((t) => (
+                      <tr key={t.id} className="hover:bg-surface-secondary/80 transition-colors border-b border-accent-primary/10">
+                       <td className="p-3">
+                         <div className="font-medium text-foreground">{t.name}</div>
+                       </td>
+                       <td className="p-3">
+                         <div className="flex items-center gap-2">
+                           <button 
+                             className="p-2 rounded-lg text-accent-primary hover:bg-accent-primary/10 transition-colors" 
+                             onClick={() => openTeamModal(t)}
+                             title="Edit team"
+                           >
+                             <Icon icon={Edit} size={16} />
+                           </button>
+                           <button 
+                             className="p-2 rounded-lg text-error hover:bg-error/20 transition-colors" 
+                             onClick={() => handleDeleteTeam(t.id)}
+                             title="Delete team"
+                           >
+                             <Icon icon={Trash2} size={16} />
+                           </button>
+                         </div>
+                       </td>
+                     </tr>
+                   ))
+                 ) : (
+                   <tr>
+                     <td colSpan={2} className="p-8 text-center text-muted-foreground">
+                       <div className="flex flex-col items-center gap-2">
+                         <Icon icon={Building2} size={32} className="opacity-50" />
+                         <p className="text-lg font-medium">No teams found</p>
+                         <p className="text-sm">Create your first team to get started</p>
+                       </div>
+                     </td>
+                   </tr>
+                 )}
+               </tbody>
+             </table>
+           </div>
+         </div>
       </div>
 
       {/* Tags Management */}
@@ -549,63 +549,63 @@ export default function Admin() {
             </button>
           </div>
         </div>
-                 <div className="card-content p-0">
-           <div className="overflow-x-auto">
-             <table className="w-full border border-accent-primary/20 rounded-b-lg">
-               <thead>
-                 <tr className="border-b border-accent-primary bg-surface-secondary">
-                   <th className="text-left p-3 font-semibold text-foreground">Tag Name</th>
-                   <th className="text-left p-3 font-semibold text-foreground">Prompts</th>
-                   <th className="text-left p-3 font-semibold text-foreground">Actions</th>
-                 </tr>
-               </thead>
-              <tbody>
-                                 {tags.length > 0 ? (
-                   tags.map((t) => (
-                     <tr key={t.id} className="hover:bg-surface-secondary/80 transition-colors">
-                      <td className="p-3">
-                        <div className="font-medium text-foreground">{t.name}</div>
-                      </td>
-                      <td className="p-3">
-                        <span className="text-sm text-muted-foreground">
-                          {t._count.prompts} prompts
-                        </span>
-                      </td>
-                      <td className="p-3">
-                        <div className="flex items-center gap-2">
-                          <button 
-                            className="p-2 rounded-lg text-accent-primary hover:bg-accent-primary/10 transition-colors" 
-                            onClick={() => openTagModal(t)}
-                            title="Edit tag"
-                          >
-                            <Icon icon={Edit} size={16} />
-                          </button>
-                          <button 
-                            className="p-2 rounded-lg text-error hover:bg-error/20 transition-colors" 
-                            onClick={() => handleDeleteTag(t.id)}
-                            title="Delete tag"
-                          >
-                            <Icon icon={Trash2} size={16} />
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  ))
-                ) : (
-                  <tr>
-                    <td colSpan={3} className="p-8 text-center text-muted-foreground">
-                      <div className="flex flex-col items-center gap-2">
-                        <Icon icon={Tag} size={32} className="opacity-50" />
-                        <p className="text-lg font-medium">No tags found</p>
-                        <p className="text-sm">Create your first tag to get started</p>
-                      </div>
-                    </td>
+                                   <div className="card-content p-0">
+            <div className="overflow-x-auto">
+              <table className="w-full rounded-b-lg">
+                <thead>
+                  <tr className="border-b border-accent-primary bg-surface-secondary">
+                    <th className="text-left p-3 font-semibold text-foreground">Tag Name</th>
+                    <th className="text-left p-3 font-semibold text-foreground">Prompts</th>
+                    <th className="text-left p-3 font-semibold text-foreground">Actions</th>
                   </tr>
-                )}
-              </tbody>
-            </table>
-          </div>
-        </div>
+                </thead>
+               <tbody>
+                                   {tags.length > 0 ? (
+                    tags.map((t) => (
+                      <tr key={t.id} className="hover:bg-surface-secondary/80 transition-colors border-b border-accent-primary/10">
+                       <td className="p-3">
+                         <div className="font-medium text-foreground">{t.name}</div>
+                       </td>
+                       <td className="p-3">
+                         <span className="text-sm text-muted-foreground">
+                           {t._count.prompts} prompts
+                         </span>
+                       </td>
+                       <td className="p-3">
+                         <div className="flex items-center gap-2">
+                           <button 
+                             className="p-2 rounded-lg text-accent-primary hover:bg-accent-primary/10 transition-colors" 
+                             onClick={() => openTagModal(t)}
+                             title="Edit tag"
+                           >
+                             <Icon icon={Edit} size={16} />
+                           </button>
+                           <button 
+                             className="p-2 rounded-lg text-error hover:bg-error/20 transition-colors" 
+                             onClick={() => handleDeleteTag(t.id)}
+                             title="Delete tag"
+                           >
+                             <Icon icon={Trash2} size={16} />
+                           </button>
+                         </div>
+                       </td>
+                     </tr>
+                   ))
+                 ) : (
+                   <tr>
+                     <td colSpan={3} className="p-8 text-center text-muted-foreground">
+                       <div className="flex flex-col items-center gap-2">
+                         <Icon icon={Tag} size={32} className="opacity-50" />
+                         <p className="text-lg font-medium">No tags found</p>
+                         <p className="text-sm">Create your first tag to get started</p>
+                       </div>
+                     </td>
+                   </tr>
+                 )}
+               </tbody>
+             </table>
+           </div>
+         </div>
       </div>
 
       {/* Create/Edit User Modal */}

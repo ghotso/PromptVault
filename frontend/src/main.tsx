@@ -22,7 +22,8 @@ const router = createBrowserRouter([
     path: '/',
     element: <Root />,
     children: [
-      { index: true, element: <App /> },
+      { index: true, element: <Prompts /> },
+      { path: 'health', element: <App /> },
       { path: 'auth', element: <Login /> },
       { path: 'prompts', element: <Prompts /> },
       { path: 'prompts/:id', element: <PromptDetails /> },
