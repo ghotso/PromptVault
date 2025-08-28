@@ -1,6 +1,7 @@
-name: Build and Publish Docker Image (Manual)
+name: Build and Publish Docker Image
 
 on:
+  # Manual trigger
   workflow_dispatch:
     inputs:
       branch:
@@ -13,10 +14,19 @@ on:
         required: true
         default: 'latest'
         type: string
+  
+  # Automatic trigger on PR from dev to main (only when merged)
+  pull_request:
+    branches:
+      - main
+    types:
+      - closed
 
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
+    # Only run on manual trigger or when PR is merged
+    if: github.event_name == 'workflow_dispatch' || (github.event_name == 'pull_request' && github.event.pull_request.merged == true)
     permissions:
       contents: read
       packages: write
@@ -25,7 +35,7 @@ jobs:
       - name: Checkout source
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.inputs.branch }}
+          ref: ${{ github.event.inputs.branch || github.event.pull_request.head.sha }}
           fetch-depth: 0
 
       - name: Derive GHCR image name (lowercase)
@@ -41,8 +51,8 @@ jobs:
         shell: bash
         run: |
           echo "Image:  ${{ steps.img.outputs.image }}"
-          echo "Ref:    ${{ github.event.inputs.branch }}"
-          echo "Tags:   ${{ github.event.inputs.tags }}"
+          echo "Ref:    ${{ github.event.inputs.branch || format('PR-{0}', github.event.pull_request.number) }}"
+          echo "Tags:   ${{ github.event.inputs.tags || 'auto-generated' }}"
           echo "Commit: $(git rev-parse HEAD)"
 
       - name: Set up QEMU
@@ -63,24 +73,47 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          IFS=',' read -ra INPUT_TAGS <<< "${{ github.event.inputs.tags }}"
-          TAGS=""
-          for t in "${INPUT_TAGS[@]}"; do
-            # trim spaces, force lowercase
-            tag="$(echo "$t" | tr -d ' ' | tr '[:upper:]' '[:lower:]')"
-            [[ -z "$tag" ]] && continue
+          
+          # Determine tags based on trigger type
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            # Manual trigger - use input tags
+            IFS=',' read -ra INPUT_TAGS <<< "${{ github.event.inputs.tags }}"
+            TAGS=""
+            for t in "${INPUT_TAGS[@]}"; do
+              # trim spaces, force lowercase
+              tag="$(echo "$t" | tr -d ' ' | tr '[:upper:]' '[:lower:]')"
+              [[ -z "$tag" ]] && continue
 
-            # optional: simple validation (semver or common words like latest/edge)
-            if [[ ! "$tag" =~ ^(latest|edge|rc|beta|alpha|v?[0-9]+(\.[0-9]+){0,2}(-[0-9A-Za-z.-]+)?)$ ]]; then
-              echo "::warning::Tag '$tag' looks unusual; GHCR requires lowercase and no spaces."
+              # optional: simple validation (semver or common words like latest/edge)
+              if [[ ! "$tag" =~ ^(latest|edge|rc|beta|alpha|v?[0-9]+(\.[0-9]+){0,2}(-[0-9A-Za-z.-]+)?)$ ]]; then
+                echo "::warning::Tag '$tag' looks unusual; GHCR requires lowercase and no spaces."
+              fi
+
+              TAGS="$TAGS,${{ steps.img.outputs.image }}:$tag"
+            done
+          else
+            # Automatic trigger - generate latest and version tags
+            TAGS="${{ steps.img.outputs.image }}:latest"
+            
+            # Get current date for version tag
+            DATE_TAG="$(date +'%Y%m%d')"
+            TAGS="$TAGS,${{ steps.img.outputs.image }}:$DATE_TAG"
+            
+            # Try to get highest semantic version from git tags
+            if git tag --list "v*" | sort -V | tail -1 | grep -q .; then
+              HIGHEST_VERSION="$(git tag --list "v*" | sort -V | tail -1)"
+              # Remove 'v' prefix and create tag
+              VERSION_NUMBER="${HIGHEST_VERSION#v}"
+              TAGS="$TAGS,${{ steps.img.outputs.image }}:$VERSION_NUMBER"
+              echo "Found highest version: $HIGHEST_VERSION -> $VERSION_NUMBER"
+            else
+              echo "No semantic version tags found, using date only"
             fi
-
-            TAGS="$TAGS,${{ steps.img.outputs.image }}:$tag"
-          done
+          fi
 
           TAGS="${TAGS#,}"
           if [[ -z "$TAGS" ]]; then
-            echo "::error::No valid tags produced from input '${{ github.event.inputs.tags }}'."
+            echo "::error::No valid tags produced."
             exit 1
           fi
 
