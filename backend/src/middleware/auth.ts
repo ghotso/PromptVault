@@ -16,14 +16,29 @@ declare global {
 }
 
 export function requireAuth(req: Request, res: Response, next: NextFunction) {
+  console.log("=== AUTH MIDDLEWARE DEBUG ===");
+  console.log("Cookies:", req.cookies);
+  console.log("Token exists:", !!req.cookies?.token);
+  console.log("Token length:", req.cookies?.token?.length);
+  
   const token = req.cookies?.token;
-  if (!token) return res.status(401).json({ error: "Unauthorized" });
+  if (!token) {
+    console.log("No token found in cookies");
+    return res.status(401).json({ error: "Unauthorized" });
+  }
 
   try {
-    const payload = jwt.verify(token, getJwtSecret()) as AuthPayload;
+    console.log("Verifying JWT token...");
+    const jwtSecret = getJwtSecret();
+    console.log("JWT Secret length:", jwtSecret.length);
+    
+    const payload = jwt.verify(token, jwtSecret) as AuthPayload;
+    console.log("Token verified successfully:", { userId: payload.userId, role: payload.role });
+    
     req.auth = payload;
     next();
-  } catch {
+  } catch (error) {
+    console.log("Token verification failed:", error);
     return res.status(401).json({ error: "Invalid token" });
   }
 }

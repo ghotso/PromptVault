@@ -31,27 +31,59 @@ router.post("/register", async (req, res) => {
   res.cookie("token", token, {
     httpOnly: true,
     sameSite: "lax",
-    secure: false,
+    secure: process.env.NODE_ENV === "production",
     maxAge: 7 * 24 * 3600 * 1000,
+    path: "/",
   });
   return res.json({ id: user.id, email: user.email, name: user.name, team: user.team ?? null, role: user.role });
 });
 
 router.post("/login", async (req, res) => {
+  console.log("=== LOGIN ATTEMPT DEBUG ===");
+  console.log("Email:", req.body?.email);
+  console.log("Body:", req.body);
+  
   const parsed = credsSchema.pick({ email: true, password: true }).safeParse(req.body);
-  if (!parsed.success) return res.status(400).json({ error: "Invalid input" });
+  if (!parsed.success) {
+    console.log("Validation failed:", parsed.error);
+    return res.status(400).json({ error: "Invalid input" });
+  }
+  
   const { email, password } = parsed.data;
+  console.log("Looking for user:", email);
+  
   const user = await prisma.user.findUnique({ where: { email } });
-  if (!user) return res.status(401).json({ error: "Invalid credentials" });
+  if (!user) {
+    console.log("User not found:", email);
+    return res.status(401).json({ error: "Invalid credentials" });
+  }
+  
+  console.log("User found:", { id: user.id, email: user.email, role: user.role });
+  
   const ok = await bcrypt.compare(password, user.password);
-  if (!ok) return res.status(401).json({ error: "Invalid credentials" });
-  const token = jwt.sign({ userId: user.id, role: user.role }, getJwtSecret(), { expiresIn: "7d" });
+  if (!ok) {
+    console.log("Password mismatch for user:", email);
+    return res.status(401).json({ error: "Invalid credentials" });
+  }
+  
+  console.log("Password verified, generating JWT...");
+  const jwtSecret = getJwtSecret();
+  console.log("JWT Secret length:", jwtSecret.length);
+  
+  const token = jwt.sign({ userId: user.id, role: user.role }, jwtSecret, { expiresIn: "7d" });
+  console.log("JWT Token generated, length:", token.length);
+  
   res.cookie("token", token, {
     httpOnly: true,
     sameSite: "lax",
-    secure: false,
+    secure: process.env.NODE_ENV === "production",
     maxAge: 7 * 24 * 3600 * 1000,
+    path: "/",
   });
+  
+  console.log("Cookie set, sending response");
+  console.log("=== END LOGIN DEBUG ===");
+  
   return res.json({ id: user.id, email: user.email, name: user.name, team: user.team ?? null, role: user.role });
 });
 
@@ -76,7 +108,7 @@ router.post("/team", async (req, res) => {
   const token = req.cookies?.token as string | undefined;
   if (!token) return res.status(401).json({ error: "Unauthorized" });
   try {
-    const payload = jwt.verify(token, process.env.JWT_SECRET as string) as { userId: string };
+    const payload = jwt.verify(token, getJwtSecret()) as { userId: string };
     const team = (req.body?.team as string | undefined)?.trim() || null;
     const user = await prisma.user.update({ where: { id: payload.userId }, data: { team }, select: { id: true, email: true, name: true, team: true } });
     return res.json({ user });
