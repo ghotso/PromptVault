@@ -21,7 +21,16 @@ router.post("/", auth_1.requireAuth, async (req, res) => {
     const { userId } = req.auth;
     const created = await prisma_1.prisma.$transaction(async (tx) => {
         const prompt = await tx.prompt.create({
-            data: { title, body, variables, notes, modelHints, userId },
+            data: {
+                title,
+                body,
+                variables,
+                notes,
+                modelHints,
+                userId,
+                isPubliclyShared: false,
+                visibility: 'PRIVATE'
+            },
         });
         await tx.promptVersion.create({ data: { promptId: prompt.id, title, body, notes } });
         if (tags && tags.length) {
