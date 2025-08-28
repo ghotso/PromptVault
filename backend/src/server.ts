@@ -70,7 +70,7 @@ function startAutoReseed() {
     console.log('Running scheduled demo reseeding...');
     try {
       // Clear existing data and reseed
-      await prisma.$transaction(async (tx) => {
+      await prisma.$transaction(async (tx: any) => {
         await tx.rating.deleteMany();
         await tx.promptVersion.deleteMany();
         await tx.promptTag.deleteMany();

@@ -151,7 +151,7 @@ router.post("/seed", requireDemoKey, async (req, res) => {
     console.log("Starting demo data seeding...");
     
     // Clear existing data (except settings)
-    await prisma.$transaction(async (tx) => {
+    await prisma.$transaction(async (tx: any) => {
       console.log("Clearing existing data...");
       await tx.rating.deleteMany();
       await tx.promptVersion.deleteMany();
