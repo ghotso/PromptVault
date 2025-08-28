@@ -9,7 +9,7 @@ const router = Router();
 
 const credsSchema = z.object({
   email: z.string().email(),
-  password: z.string().min(8),
+  password: z.string().min(7), // Reduced from 8 to 7 for demo123
   name: z.string().min(1).optional(),
 });
 

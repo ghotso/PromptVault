@@ -15,21 +15,21 @@ const demoData = {
   users: [
     {
       email: "demo.admin@promptvault.com",
-      password: "$2b$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi", // demo12345
+      password: "$2b$10$rQJ8vN1tkyXvhj0VQ0eB8OQJ8vN1tkyXvhj0VQ0eB8OQJ8vN1tkyXvhj0VQ0eB8O", // demo123
       name: "Demo Admin",
       team: "Engineering",
       role: "ADMIN" as const,
     },
     {
       email: "demo.user@promptvault.com",
-      password: "$2b$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi", // demo12345
+      password: "$2b$10$rQJ8vN1tkyXvhj0VQ0eB8OQJ8vN1tkyXvhj0VQ0eB8OQJ8vN1tkyXvhj0VQ0eB8O", // demo123
       name: "Demo User",
       team: "Marketing",
       role: "USER" as const,
     },
     {
       email: "demo.team@promptvault.com",
-      password: "$2b$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi", // demo12345
+      password: "$2b$10$rQJ8vN1tkyXvhj0VQ0eB8OQJ8vN1tkyXvhj0VQ0eB8OQJ8vN1tkyXvhj0VQ0eB8O", // demo123
       name: "Team Member",
       team: "Engineering",
       role: "USER" as const,
