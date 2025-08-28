@@ -242,7 +242,7 @@ async function initializeDatabase() {
 app.get("/health", (_req, res) => res.json({ ok: true }));
 
 // Public settings endpoint (no auth required)
-app.get("/api/settings", async (_req, res) => {
+app.get("/settings", async (_req, res) => {
   try {
     const settings = await prisma.settings.findFirst();
     if (settings) {

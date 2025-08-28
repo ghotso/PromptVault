@@ -8,7 +8,7 @@ export default function PublicPrompt() {
   const [err, setErr] = useState<string | null>(null)
   useEffect(() => {
     if (!id) return
-    fetch(`${API_BASE}/share/public/${id}`).then(r=>r.json()).then(setData).catch(e=>setErr(String(e)))
+    fetch(`${API_BASE}/api/share/public/${id}`).then(r=>r.json()).then(setData).catch(e=>setErr(String(e)))
   }, [id])
   if (err) return <div className="p-6">Error</div>
   if (!data) return <div className="p-6">Loading...</div>
