@@ -380,18 +380,18 @@ export default function Admin() {
             </button>
           </div>
         </div>
-        <div className="card-content p-0">
-          <div className="overflow-x-auto rounded-b-lg border border-accent-primary/20">
-            <table className="w-full">
-              <thead>
-                <tr className="border-b border-accent-primary bg-surface-secondary">
-                  <th className="text-left p-3 font-semibold text-foreground">User</th>
-                  <th className="text-left p-3 font-semibold text-foreground">Name</th>
-                  <th className="text-left p-3 font-semibold text-foreground">Team</th>
-                  <th className="text-left p-3 font-semibold text-foreground">Role</th>
-                  <th className="text-left p-3 font-semibold text-foreground">Actions</th>
-                </tr>
-              </thead>
+                 <div className="card-content p-0">
+           <div className="overflow-x-auto rounded-b-lg">
+             <table className="w-full border border-accent-primary/20 rounded-b-lg">
+               <thead>
+                 <tr className="border-b border-accent-primary bg-surface-secondary">
+                   <th className="text-left p-3 font-semibold text-foreground">User</th>
+                   <th className="text-left p-3 font-semibold text-foreground">Name</th>
+                   <th className="text-left p-3 font-semibold text-foreground">Team</th>
+                   <th className="text-left p-3 font-semibold text-foreground">Role</th>
+                   <th className="text-left p-3 font-semibold text-foreground">Actions</th>
+                 </tr>
+               </thead>
               <tbody>
                                  {users.length > 0 ? (
                    users.map((u) => (
@@ -476,15 +476,15 @@ export default function Admin() {
             </button>
           </div>
         </div>
-        <div className="card-content p-0">
-          <div className="overflow-x-auto rounded-b-lg border border-accent-primary/20">
-            <table className="w-full">
-              <thead>
-                <tr className="border-b border-accent-primary bg-surface-secondary">
-                  <th className="text-left p-3 font-semibold text-foreground">Team Name</th>
-                  <th className="text-left p-3 font-semibold text-foreground">Actions</th>
-                </tr>
-              </thead>
+                 <div className="card-content p-0">
+           <div className="overflow-x-auto rounded-b-lg">
+             <table className="w-full border border-accent-primary/20 rounded-b-lg">
+               <thead>
+                 <tr className="border-b border-accent-primary bg-surface-secondary">
+                   <th className="text-left p-3 font-semibold text-foreground">Team Name</th>
+                   <th className="text-left p-3 font-semibold text-foreground">Actions</th>
+                 </tr>
+               </thead>
               <tbody>
                                                  {teams.length > 0 ? (
                    teams.map((t) => (
@@ -549,16 +549,16 @@ export default function Admin() {
             </button>
           </div>
         </div>
-        <div className="card-content p-0">
-          <div className="overflow-x-auto rounded-b-lg border border-accent-primary/20">
-            <table className="w-full">
-              <thead>
-                <tr className="border-b border-accent-primary bg-surface-secondary">
-                  <th className="text-left p-3 font-semibold text-foreground">Tag Name</th>
-                  <th className="text-left p-3 font-semibold text-foreground">Prompts</th>
-                  <th className="text-left p-3 font-semibold text-foreground">Actions</th>
-                </tr>
-              </thead>
+                 <div className="card-content p-0">
+           <div className="overflow-x-auto rounded-b-lg">
+             <table className="w-full border border-accent-primary/20 rounded-b-lg">
+               <thead>
+                 <tr className="border-b border-accent-primary bg-surface-secondary">
+                   <th className="text-left p-3 font-semibold text-foreground">Tag Name</th>
+                   <th className="text-left p-3 font-semibold text-foreground">Prompts</th>
+                   <th className="text-left p-3 font-semibold text-foreground">Actions</th>
+                 </tr>
+               </thead>
               <tbody>
                                  {tags.length > 0 ? (
                    tags.map((t) => (
