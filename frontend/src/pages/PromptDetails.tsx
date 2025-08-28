@@ -69,7 +69,7 @@ export default function PromptDetails() {
       setBody(d.body || '');
       setNotes(d.notes || '');
       setModelHints(d.modelHints || '');
-      const tagList = Array.isArray(d.tags) ? d.tags.map((t:any)=>t.tag?.name).filter(Boolean) : [];
+      const tagList = d.tags && Array.isArray(d.tags) ? d.tags.map((t:any)=>t.tag?.name).filter(Boolean) : [];
       setSelectedTags(tagList);
     })
     

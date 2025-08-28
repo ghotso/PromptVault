@@ -155,9 +155,9 @@ export default function TeamFeed() {
                 </div>
 
                 {/* Tags */}
-                {prompt.tags && prompt.tags.length > 0 && (
+                {(prompt.tags?.length || 0) > 0 && (
                   <div className="flex flex-wrap gap-2 mb-4">
-                    {prompt.tags.slice(0, 3).map((tag) => (
+                    {prompt.tags?.slice(0, 3).map((tag) => (
                       <span
                         key={tag.tag.name}
                         className="inline-flex items-center gap-1 px-2 py-1 bg-accent-primary/10 text-accent-primary text-xs rounded-full border border-accent-primary/30"
@@ -166,9 +166,9 @@ export default function TeamFeed() {
                         {tag.tag.name}
                       </span>
                     ))}
-                    {prompt.tags.length > 3 && (
+                    {(prompt.tags?.length || 0) > 3 && (
                       <span className="text-xs text-muted-foreground px-2 py-1">
-                        +{prompt.tags.length - 3} more
+                        +{(prompt.tags?.length || 0) - 3} more
                       </span>
                     )}
                   </div>

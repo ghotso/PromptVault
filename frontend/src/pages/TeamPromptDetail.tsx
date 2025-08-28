@@ -261,11 +261,11 @@ export default function TeamPromptDetail() {
           </div>
           
           {/* Tags */}
-          {data.tags && data.tags.length > 0 && (
+          {(data.tags?.length || 0) > 0 && (
             <div className="mt-6">
               <h4 className="font-medium text-foreground mb-3">Tags</h4>
               <div className="flex flex-wrap gap-2">
-                {data.tags.map((tag) => (
+                {data.tags?.map((tag) => (
                   <span
                     key={tag.tag.name}
                     className="inline-flex items-center gap-1 px-3 py-1 bg-accent-primary/10 text-accent-primary text-sm rounded-full border border-accent-primary/30"
