@@ -20,7 +20,7 @@ export default function About() {
 
         {/* Features Grid */}
         <div className="grid md:grid-cols-2 gap-8 mb-16">
-                     <div className="bg-surface-primary p-8 rounded-3xl border-2 border-accent-primary shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_20px_rgba(198,247,40,0.3)] dark:hover:shadow-[0_0_30px_rgba(198,247,40,0.5)]">
+                     <div className="bg-surface-primary p-8 rounded-3xl border-2 border-accent-primary shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] hover:shadow-[var(--glow-accent)] dark:hover:shadow-[var(--glow-accent-strong)]">
              <div className="flex items-center gap-4 mb-4">
                <div className="p-3 bg-accent-primary/15 rounded-2xl">
                  <Shield className="w-6 h-6 text-accent-primary" />
@@ -32,7 +32,7 @@ export default function About() {
              </p>
            </div>
 
-                     <div className="bg-surface-primary p-8 rounded-3xl border-2 border-accent-primary shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_20px_rgba(198,247,40,0.3)] dark:hover:shadow-[0_0_30px_rgba(198,247,40,0.5)]">
+                     <div className="bg-surface-primary p-8 rounded-3xl border-2 border-accent-primary shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] hover:shadow-[var(--glow-accent)] dark:hover:shadow-[var(--glow-accent-strong)]">
              <div className="flex items-center gap-4 mb-4">
                <div className="p-3 bg-accent-primary/15 rounded-2xl">
                  <Zap className="w-6 h-6 text-accent-primary" />
@@ -44,7 +44,7 @@ export default function About() {
              </p>
            </div>
 
-                     <div className="bg-surface-primary p-8 rounded-3xl border-2 border-accent-primary shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_20px_rgba(198,247,40,0.3)] dark:hover:shadow-[0_0_30px_rgba(198,247,40,0.5)]">
+                     <div className="bg-surface-primary p-8 rounded-3xl border-2 border-accent-primary shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] hover:shadow-[var(--glow-accent)] dark:hover:shadow-[var(--glow-accent-strong)]">
              <div className="flex items-center gap-4 mb-4">
                <div className="p-3 bg-accent-primary/15 rounded-2xl">
                  <Users className="w-6 h-6 text-accent-primary" />
@@ -56,7 +56,7 @@ export default function About() {
              </p>
            </div>
 
-                     <div className="bg-surface-primary p-8 rounded-3xl border-2 border-accent-primary shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_20px_rgba(198,247,40,0.3)] dark:hover:shadow-[0_0_30px_rgba(198,247,40,0.5)]">
+                                          <div className="bg-surface-primary p-8 rounded-3xl border-2 border-accent-primary shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] hover:shadow-[var(--glow-accent)] dark:hover:shadow-[var(--glow-accent-strong)]">
              <div className="flex items-center gap-4 mb-4">
                <div className="p-3 bg-accent-primary/15 rounded-2xl">
                  <Code className="w-6 h-6 text-accent-primary" />
@@ -70,7 +70,7 @@ export default function About() {
         </div>
 
         {/* Tech Stack */}
-        <div className="bg-surface-primary p-10 rounded-3xl border-2 border-accent-primary shadow-lg mb-16 hover:shadow-[0_0_20px_rgba(198,247,40,0.3)] dark:hover:shadow-[0_0_30px_rgba(198,247,40,0.5)] transition-all duration-300">
+        <div className="bg-surface-primary p-10 rounded-3xl border-2 border-accent-primary shadow-lg mb-16 hover:shadow-[var(--glow-accent)] dark:hover:shadow-[var(--glow-accent-strong)] transition-all duration-300">
           <h2 className="text-3xl font-bold text-foreground mb-8 text-center">Built with Modern Technologies</h2>
           <div className="grid md:grid-cols-3 gap-8">
             <div className="text-center">
@@ -95,14 +95,14 @@ export default function About() {
         </div>
 
         {/* Links Section */}
-        <div className="bg-surface-primary p-10 rounded-3xl border-2 border-accent-primary shadow-lg mb-16 hover:shadow-[0_0_20px_rgba(198,247,40,0.3)] dark:hover:shadow-[0_0_30px_rgba(198,247,40,0.5)] transition-all duration-300">
+        <div className="bg-surface-primary p-10 rounded-3xl border-2 border-accent-primary shadow-lg mb-16 hover:shadow-[var(--glow-accent)] dark:hover:shadow-[var(--glow-accent-strong)] transition-all duration-300">
           <h2 className="text-3xl font-bold text-foreground mb-8 text-center">Get Involved</h2>
           <div className="grid md:grid-cols-2 gap-8">
             <a
               href="https://github.com/ghotso/PromptVault"
               target="_blank"
               rel="noopener noreferrer"
-              className="group bg-surface-secondary border-2 border-accent-primary rounded-3xl p-8 hover:border-accent-primary transition-all duration-300 hover:shadow-xl hover:scale-[1.02] hover:shadow-[0_0_20px_rgba(198,247,40,0.3)] dark:hover:shadow-[0_0_30px_rgba(198,247,40,0.5)]"
+              className="group bg-surface-secondary border-2 border-accent-primary rounded-3xl p-8 hover:border-accent-primary transition-all duration-300 hover:shadow-xl hover:scale-[1.02] hover:shadow-[var(--glow-accent)] dark:hover:shadow-[var(--glow-accent-strong)]"
             >
               <div className="flex items-center gap-4 mb-4">
                 <div className="p-3 bg-accent-primary/15 rounded-2xl group-hover:bg-accent-primary/25 transition-colors">
@@ -121,7 +121,7 @@ export default function About() {
               href="https://github.com/ghotso/PromptVault/issues/new?template=bug_report.md"
               target="_blank"
               rel="noopener noreferrer"
-              className="group bg-surface-secondary border-2 border-accent-primary rounded-3xl p-8 hover:border-accent-primary transition-all duration-300 hover:shadow-xl hover:scale-[1.02] hover:shadow-[0_0_20px_rgba(198,247,40,0.3)] dark:hover:shadow-[0_0_30px_rgba(198,247,40,0.5)]"
+              className="group bg-surface-secondary border-2 border-accent-primary rounded-3xl p-8 hover:border-accent-primary transition-all duration-300 hover:shadow-xl hover:scale-[1.02] hover:shadow-[var(--glow-accent)] dark:hover:shadow-[var(--glow-accent-strong)]"
             >
               <div className="flex items-center gap-4 mb-4">
                 <div className="p-3 bg-accent-primary/15 rounded-2xl group-hover:bg-accent-primary/25 transition-colors">
@@ -139,14 +139,14 @@ export default function About() {
         </div>
 
         {/* Documentation */}
-        <div className="bg-surface-primary p-10 rounded-3xl border-2 border-accent-primary shadow-lg mb-16 hover:shadow-[0_0_20px_rgba(198,247,40,0.3)] dark:hover:shadow-[0_0_30px_rgba(198,247,40,0.5)] transition-all duration-300">
+        <div className="bg-surface-primary p-10 rounded-3xl border-2 border-accent-primary shadow-lg mb-16 hover:shadow-[var(--glow-accent)] dark:hover:shadow-[var(--glow-accent-strong)] transition-all duration-300">
           <h2 className="text-3xl font-bold text-foreground mb-8 text-center">Documentation</h2>
           <div className="grid md:grid-cols-2 gap-8">
             <a
               href="https://github.com/ghotso/PromptVault/blob/main/README.md"
               target="_blank"
               rel="noopener noreferrer"
-              className="group bg-surface-secondary border-2 border-accent-primary rounded-3xl p-8 hover:border-accent-primary transition-all duration-300 hover:shadow-xl hover:scale-[1.02] hover:shadow-[0_0_20px_rgba(198,247,40,0.3)] dark:hover:shadow-[0_0_30px_rgba(198,247,40,0.5)]"
+              className="group bg-surface-secondary border-2 border-accent-primary rounded-3xl p-8 hover:border-accent-primary transition-all duration-300 hover:shadow-xl hover:scale-[1.02] hover:shadow-[var(--glow-accent)] dark:hover:shadow-[var(--glow-accent-strong)]"
             >
               <div className="flex items-center gap-4 mb-4">
                 <div className="p-3 bg-accent-primary/15 rounded-2xl group-hover:bg-accent-primary/25 transition-colors">
@@ -165,7 +165,7 @@ export default function About() {
               href="https://github.com/ghotso/PromptVault/blob/main/CONTRIBUTING.md"
               target="_blank"
               rel="noopener noreferrer"
-              className="group bg-surface-secondary border-2 border-accent-primary rounded-3xl p-8 hover:border-accent-primary transition-all duration-300 hover:shadow-xl hover:scale-[1.02] hover:shadow-[0_0_20px_rgba(198,247,40,0.5)]"
+              className="group bg-surface-secondary border-2 border-accent-primary rounded-3xl p-8 hover:border-accent-primary transition-all duration-300 hover:shadow-xl hover:scale-[1.02] hover:shadow-[var(--glow-accent)]"
             >
               <div className="flex items-center gap-4 mb-4">
                 <div className="p-3 bg-accent-primary/15 rounded-2xl group-hover:bg-accent-primary/25 transition-colors">
@@ -188,7 +188,7 @@ export default function About() {
             Made with <Heart className="w-5 h-5 text-red-500" /> by the PromptVault community
           </p>
           <p className="text-base">
-            Version 1.0.0 • MIT License
+            Version 1.0.0 • GNU General Public License v3.0
           </p>
         </div>
       </div>

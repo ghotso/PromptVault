@@ -181,9 +181,9 @@ export default function PromptDetails() {
 
   const getVisibilityIcon = (visibility: string) => {
     switch (visibility) {
-      case 'PRIVATE': return <Icon icon={Lock} size={16} />
-      case 'TEAM': return <Icon icon={Users} size={16} />
-      default: return <Icon icon={Lock} size={16} />
+      case 'PRIVATE': return <Icon icon={Lock} size={16} variant="primary" />
+      case 'TEAM': return <Icon icon={Users} size={16} variant="primary" />
+      default: return <Icon icon={Lock} size={16} variant="primary" />
     }
   }
 
@@ -246,7 +246,7 @@ export default function PromptDetails() {
           onClick={() => navigate('/prompts')}
           className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors mb-4"
         >
-          <Icon icon={ArrowLeft} size={20} />
+          <Icon icon={ArrowLeft} size={20} variant="primary" />
           Back to Prompts
         </button>
         
@@ -269,7 +269,7 @@ export default function PromptDetails() {
                   className="btn-outline flex items-center gap-2"
                   title="Copy prompt content to clipboard"
                 >
-                  <Icon icon={showCopySuccess ? CheckCircle : Copy} size={18} />
+                  <Icon icon={showCopySuccess ? CheckCircle : Copy} size={18} variant="primary" />
                   {showCopySuccess ? 'Copied!' : 'Copy Content'}
                 </button>
                 <button
@@ -283,7 +283,7 @@ export default function PromptDetails() {
                   onClick={() => setShowDeleteModal(true)}
                   className="btn-destructive flex items-center gap-2"
                 >
-                  <Icon icon={Trash2} size={18} />
+                  <Icon icon={Trash2} size={18} variant="primary" />
                   Delete Prompt
                 </button>
               </>
@@ -294,7 +294,7 @@ export default function PromptDetails() {
                   onClick={() => setIsEditing(false)}
                   className="btn-outline flex items-center gap-2"
                 >
-                  <Icon icon={X} size={18} />
+                  <Icon icon={X} size={18} variant="primary" />
                   Cancel
                 </button>
                 <button
@@ -314,14 +314,14 @@ export default function PromptDetails() {
       {/* Success Messages */}
       {showSuccess && (
         <div className="mb-6 p-4 bg-success/10 border border-success/20 rounded-xl flex items-center gap-2 text-success">
-          <Icon icon={CheckCircle} size={20} />
+          <Icon icon={CheckCircle} size={20} variant="primary" />
           <span className="font-medium">Changes saved successfully!</span>
         </div>
       )}
       
       {showCopySuccess && (
         <div className="mb-6 p-4 bg-success/10 border border-success/20 rounded-xl flex items-center gap-2 text-success">
-          <Icon icon={CheckCircle} size={20} />
+          <Icon icon={CheckCircle} size={20} variant="primary" />
           <span className="font-medium">Prompt content copied to clipboard!</span>
         </div>
       )}
@@ -333,7 +333,7 @@ export default function PromptDetails() {
           <div className="card">
             <div className="card-header">
               <div className="flex items-center gap-3">
-                <Icon icon={Edit} size={24} color="rgb(198 247 40)" />
+                <Icon icon={Edit} size={24} variant="primary" />
                 <h2 className="text-2xl font-semibold">Prompt Content</h2>
               </div>
             </div>
@@ -446,7 +446,7 @@ export default function PromptDetails() {
                         key={tag}
                         className="flex items-center gap-2 bg-accent-primary/10 text-accent-primary text-sm font-medium px-3 py-1.5 rounded-full border-2 border-accent-primary/30 hover:bg-accent-primary/20 transition-colors"
                       >
-                        <Icon icon={Tag} size={14} />
+                        <Icon icon={Tag} size={14} variant="primary" />
                         {tag}
                         {isEditing && (
                           <button
@@ -454,7 +454,7 @@ export default function PromptDetails() {
                             className="text-accent-primary hover:text-accent-primary/80 transition-colors"
                             title="Remove tag"
                           >
-                            <Icon icon={X} size={14} />
+                            <Icon icon={X} size={14} variant="primary" />
                           </button>
                         )}
                       </span>
@@ -481,7 +481,7 @@ export default function PromptDetails() {
                   className="flex items-center gap-2 text-sm text-accent-primary hover:text-accent-primary/80 transition-colors"
                 >
                   {showVersionHistory ? 'Hide Details' : 'Show Details'}
-                  <Icon icon={showVersionHistory ? ChevronUp : ChevronDown} size={16} />
+                  <Icon icon={showVersionHistory ? ChevronUp : ChevronDown} size={16} variant="primary" />
                 </button>
               </div>
             </div>
@@ -497,9 +497,9 @@ export default function PromptDetails() {
                         <div key={v.id} className="p-4 rounded-2xl border-2 border-accent-primary bg-surface-secondary hover:bg-surface-tertiary transition-colors">
                           <div className="flex items-center justify-between mb-3">
                             <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                              <Icon icon={Calendar} size={14} />
+                              <Icon icon={Calendar} size={14} variant="primary" />
                               {new Date(v.createdAt).toLocaleDateString()}
-                              <Icon icon={Clock} size={14} />
+                              <Icon icon={Clock} size={14} variant="primary" />
                               {new Date(v.createdAt).toLocaleTimeString()}
                             </div>
                             <div className="flex items-center gap-2">
@@ -530,7 +530,7 @@ export default function PromptDetails() {
                                 className="p-1.5 rounded-xl hover:bg-accent-primary/20 text-accent-primary hover:text-accent-primary border border-border-primary transition-all duration-200"
                                 title="Copy this version's content"
                               >
-                                <Icon icon={Copy} size={14} />
+                                <Icon icon={Copy} size={14} variant="primary" />
                               </button>
                             </div>
                           </div>
@@ -560,7 +560,7 @@ export default function PromptDetails() {
                               disabled={currentVersionPage === 1}
                               className="p-2 rounded-lg border border-border-primary hover:bg-surface-secondary disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                             >
-                              <Icon icon={ChevronLeft} size={16} />
+                              <Icon icon={ChevronLeft} size={16} variant="primary" />
                             </button>
                             
                             <div className="flex items-center gap-1">
@@ -655,11 +655,11 @@ export default function PromptDetails() {
               <div className="pt-6 border-t-2 border-accent-primary/20">
                 <div className="space-y-4">
                   <div className="flex items-center gap-3">
-                    <Icon icon={Globe} size={20} className="text-accent-secondary" />
+                    <Icon icon={Globe} size={20} variant="primary" />
                     <h3 className="text-lg font-semibold text-foreground">Public Sharing</h3>
                   </div>
                   
-                  <div className="flex items-center justify-between p-4 rounded-xl border-2 border-accent-secondary/20 bg-gradient-to-r from-surface-secondary to-surface-tertiary">
+                  <div className="flex items-center justify-between p-4 rounded-xl border-2 border-accent-primary/20 bg-gradient-to-r from-surface-secondary to-surface-tertiary">
                     <div>
                       <p className="text-sm font-medium text-foreground">Share with anyone via public link</p>
                       <p className="text-xs text-muted-foreground">
@@ -675,7 +675,7 @@ export default function PromptDetails() {
                       className={`px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 ${
                         isPubliclyShared 
                           ? 'bg-error/20 text-error hover:bg-error/30 border-2 border-error/30' 
-                          : 'bg-accent-secondary/20 text-accent-secondary hover:bg-accent-secondary/30 border-2 border-accent-secondary/30'
+                          : 'bg-accent-primary/20 text-accent-primary hover:bg-accent-primary/30 border-2 border-accent-primary/30'
                       }`}
                     >
                       {isPubliclyShared ? '🔒 Disable' : '🌐 Enable'}
@@ -683,24 +683,24 @@ export default function PromptDetails() {
                   </div>
                   
                   {isPubliclyShared && publicShareId && (
-                    <div className="p-4 bg-gradient-to-r from-accent-secondary/10 to-accent-secondary/5 rounded-xl border-2 border-accent-secondary/20">
+                    <div className="p-4 bg-gradient-to-r from-accent-primary/10 to-accent-primary/5 rounded-xl border-2 border-accent-primary/20">
                       <div className="flex items-center gap-2 mb-3">
-                        <Icon icon={Link} size={16} className="text-accent-secondary" />
-                        <span className="text-sm font-medium text-accent-secondary">Public URL</span>
+                        <Icon icon={Link} size={16} variant="primary" />
+                        <span className="text-sm font-medium text-accent-primary">Public URL</span>
                       </div>
                       <div className="flex items-center gap-2">
                         <input
                           type="text"
                           value={`${window.location.origin}/share/${publicShareId}`}
                           readOnly
-                          className="input text-sm bg-background flex-1 border-2 border-accent-secondary/30"
+                          className="input text-sm bg-background flex-1 border-2 border-accent-primary/30"
                         />
                         <button
                           onClick={() => navigator.clipboard.writeText(`${window.location.origin}/share/${publicShareId}`)}
-                          className="p-3 rounded-xl text-accent-secondary hover:bg-accent-secondary/20 transition-colors border-2 border-accent-secondary/30"
+                          className="p-3 rounded-xl text-accent-primary hover:bg-accent-primary/20 transition-colors border-2 border-accent-primary/30"
                           title="Copy URL"
                         >
-                          <Icon icon={Copy} size={16} />
+                          <Icon icon={Copy} size={16} variant="primary" />
                         </button>
                       </div>
                       <p className="text-xs text-muted-foreground mt-2">
@@ -723,15 +723,15 @@ export default function PromptDetails() {
             </div>
             <div className="card-content space-y-4">
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                <Icon icon={Calendar} size={14} />
+                <Icon icon={Calendar} size={14} variant="primary" />
                 <span>Created: {new Date(data.createdAt).toLocaleDateString()}</span>
               </div>
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                <Icon icon={Clock} size={14} />
+                <Icon icon={Clock} size={14} variant="primary" />
                 <span>Updated: {new Date(data.updatedAt).toLocaleDateString()}</span>
               </div>
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                <Icon icon={History} size={14} />
+                <Icon icon={History} size={14} variant="primary" />
                 <span>{totalVersions} versions</span>
               </div>
             </div>
@@ -747,7 +747,7 @@ export default function PromptDetails() {
       >
         <div className="space-y-6">
           <div className="flex items-center gap-3 p-4 bg-error/10 border border-error/20 rounded-xl">
-            <Icon icon={AlertTriangle} size={24} className="text-error" />
+            <Icon icon={AlertTriangle} size={24} variant="primary" />
             <div>
               <h3 className="font-semibold text-error">Warning: This action cannot be undone</h3>
               <p className="text-sm text-muted-foreground mt-1">
@@ -782,7 +782,7 @@ export default function PromptDetails() {
               disabled={isDeleting}
               className="btn-destructive flex items-center gap-2"
             >
-              <Icon icon={isDeleting ? CheckCircle : Trash2} size={18} />
+              <Icon icon={isDeleting ? CheckCircle : Trash2} size={18} variant="primary" />
               {isDeleting ? 'Deleting...' : 'Delete Prompt'}
             </button>
           </div>

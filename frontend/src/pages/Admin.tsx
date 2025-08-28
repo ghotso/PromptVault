@@ -415,7 +415,7 @@ export default function Admin() {
                              ? 'bg-accent-primary/10 text-accent-primary border border-accent-primary/20' 
                              : 'bg-surface-tertiary text-muted-foreground border border-accent-primary'
                          }`}>
-                          <Icon icon={u.role === 'ADMIN' ? Shield : Users} size={14} />
+                          <Icon icon={u.role === 'ADMIN' ? Shield : Users} size={14} variant="primary" />
                           {u.role}
                         </span>
                       </td>
@@ -426,14 +426,14 @@ export default function Admin() {
                             onClick={() => openUserModal(u)}
                             title="Edit user"
                           >
-                            <Icon icon={Edit} size={16} />
+                            <Icon icon={Edit} size={16} variant="primary" />
                           </button>
                           <button 
                             className="p-2 rounded-lg text-error hover:bg-error/20 transition-colors" 
                             onClick={() => handleDelete(u.id)}
                             title="Delete user"
                           >
-                            <Icon icon={Trash2} size={16} />
+                            <Icon icon={Trash2} size={16} variant="primary" />
                           </button>
                         </div>
                       </td>
@@ -443,7 +443,7 @@ export default function Admin() {
                   <tr>
                     <td colSpan={5} className="p-8 text-center text-muted-foreground">
                       <div className="flex flex-col items-center gap-2">
-                        <Icon icon={Users} size={32} className="opacity-50" />
+                                                 <Icon icon={Users} size={32} variant="primary" className="opacity-50" />
                         <p className="text-lg font-medium">No users found</p>
                         <p className="text-sm">Create your first user to get started</p>
                       </div>
@@ -499,14 +499,14 @@ export default function Admin() {
                              onClick={() => openTeamModal(t)}
                              title="Edit team"
                            >
-                             <Icon icon={Edit} size={16} />
+                             <Icon icon={Edit} size={16} variant="primary" />
                            </button>
                            <button 
                              className="p-2 rounded-lg text-error hover:bg-error/20 transition-colors" 
                              onClick={() => handleDeleteTeam(t.id)}
                              title="Delete team"
                            >
-                             <Icon icon={Trash2} size={16} />
+                             <Icon icon={Trash2} size={16} variant="primary" />
                            </button>
                          </div>
                        </td>
@@ -516,7 +516,7 @@ export default function Admin() {
                    <tr>
                      <td colSpan={2} className="p-8 text-center text-muted-foreground">
                        <div className="flex flex-col items-center gap-2">
-                         <Icon icon={Building2} size={32} className="opacity-50" />
+                         <Icon icon={Building2} size={32} variant="primary" className="opacity-50" />
                          <p className="text-lg font-medium">No teams found</p>
                          <p className="text-sm">Create your first team to get started</p>
                        </div>
@@ -578,14 +578,14 @@ export default function Admin() {
                              onClick={() => openTagModal(t)}
                              title="Edit tag"
                            >
-                             <Icon icon={Edit} size={16} />
+                             <Icon icon={Edit} size={16} variant="primary" />
                            </button>
                            <button
                              className="p-2 rounded-lg text-error hover:bg-error/20 transition-colors" 
                              onClick={() => handleDeleteTag(t.id)}
                              title="Delete tag"
                            >
-                             <Icon icon={Trash2} size={16} />
+                             <Icon icon={Trash2} size={16} variant="primary" />
                            </button>
                          </div>
                        </td>

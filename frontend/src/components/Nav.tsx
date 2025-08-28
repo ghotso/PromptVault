@@ -147,7 +147,7 @@ export function Nav() {
                 {!isLoadingSettings && allowRegistration && (
                   <Link
                     to="/auth?register=true"
-                    className="btn-primary bg-accent-primary hover:bg-accent-primary shadow-md hover:shadow-lg transform hover:scale-105"
+                    className="btn-primary bg-accent-primary hover:bg-accent-primary shadow-md hover:shadow-lg transform hover:scale-105 flex items-center gap-2"
                   >
                     <Icon icon={UserPlus} size={16} variant="on-bg" />
                     <span className="hidden sm:inline">Register</span>
