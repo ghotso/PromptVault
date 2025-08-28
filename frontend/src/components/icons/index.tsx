@@ -57,17 +57,32 @@ interface IconProps {
   size?: number
   className?: string
   color?: string
+  variant?: 'primary' | 'secondary' | 'on-bg'
 }
 
-export function Icon({ icon: IconComponent, size = 20, className = '', color }: IconProps) {
-  const { currentColors } = useTheme()
-  const iconColor = color || currentColors.text.secondary
+export function Icon({ icon: IconComponent, size = 20, className = '', color, variant }: IconProps) {
+  const { colorMode } = useTheme()
+  
+  const getIconColor = () => {
+    if (color) return color
+    
+    if (variant === 'on-bg') {
+      return colorMode === 'light' ? 'rgb(13 27 42)' : 'rgb(13 27 42)'
+    }
+    
+    if (variant === 'secondary') {
+      return colorMode === 'light' ? 'rgb(76 201 240)' : 'rgb(76 201 240)'
+    }
+    
+    // primary variant (default)
+    return colorMode === 'light' ? 'rgb(0 3 112)' : 'rgb(198 247 40)'
+  }
 
   return (
     <IconComponent
       size={size}
       className={className}
-      color={iconColor}
+      color={getIconColor()}
       strokeWidth={1.5}
     />
   )

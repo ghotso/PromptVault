@@ -99,7 +99,7 @@ export default function TeamPromptDetail() {
           to="/prompts"
           className="btn-primary flex items-center justify-center gap-2 h-12 text-base font-medium mx-auto"
         >
-          <Icon icon={ArrowLeft} size={20} color="rgb(13 27 42)" />
+                     <Icon icon={ArrowLeft} size={20} variant="on-bg" />
           Back to Prompts
         </Link>
       </div>
@@ -142,13 +142,13 @@ export default function TeamPromptDetail() {
             to="/team-feed"
             className="btn-outline flex items-center gap-2"
           >
-            <Icon icon={ArrowLeft} size={18} color="rgb(198 247 40)" />
+            <Icon icon={ArrowLeft} size={18} variant="primary" />
             Back to Team Feed
           </Link>
         </div>
         
         <h1 className="text-4xl font-bold text-foreground flex items-center gap-3 mb-2">
-          <Icon icon={Users} size={36} color="rgb(198 247 40)" />
+                     <Icon icon={Users} size={36} variant="primary" />
           Team Prompt Details
         </h1>
         <p className="text-muted-foreground text-lg">
@@ -161,7 +161,7 @@ export default function TeamPromptDetail() {
         <div className="card-header">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <Icon icon={Eye} size={24} color="rgb(198 247 40)" />
+              <Icon icon={Eye} size={24} variant="primary" />
               <h2 className="text-2xl font-semibold">Prompt Content</h2>
             </div>
             <button
@@ -170,9 +170,9 @@ export default function TeamPromptDetail() {
               title="Copy prompt content"
             >
               {showCopySuccess === 'content' ? (
-                <Icon icon={CheckCircle} size={18} color="rgb(13 27 42)" />
+                <Icon icon={CheckCircle} size={18} variant="on-bg" />
               ) : (
-                <Icon icon={Copy} size={18} color="rgb(13 27 42)" />
+                                  <Icon icon={Copy} size={18} variant="on-bg" />
               )}
               Copy Content
             </button>
@@ -212,7 +212,7 @@ export default function TeamPromptDetail() {
       <div className="card mb-8">
         <div className="card-header">
           <div className="flex items-center gap-3">
-            <Icon icon={Tag} size={24} color="rgb(198 247 40)" />
+                           <Icon icon={Tag} size={24} variant="primary" />
             <h2 className="text-2xl font-semibold">Prompt Info</h2>
           </div>
         </div>
@@ -286,7 +286,7 @@ export default function TeamPromptDetail() {
           <div className="card-header">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <Icon icon={History} size={24} color="rgb(198 247 40)" />
+                <Icon icon={History} size={24} variant="primary" />
                 <h2 className="text-2xl font-semibold">Version History</h2>
                 <span className="text-sm text-muted-foreground bg-surface-secondary px-3 py-1 rounded-full">
                   {totalVersions} versions

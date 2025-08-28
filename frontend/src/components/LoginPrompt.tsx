@@ -62,7 +62,7 @@ export default function LoginPrompt({
             to="/auth"
             className="btn-primary flex items-center justify-center gap-3 h-14 text-lg font-medium"
           >
-            <Icon icon={LogIn} size={22} color="rgb(13 27 42)" />
+                         <Icon icon={LogIn} size={22} variant="on-bg" />
             Sign In
           </Link>
           

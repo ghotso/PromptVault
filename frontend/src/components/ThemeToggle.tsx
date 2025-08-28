@@ -17,7 +17,7 @@ export function ThemeToggle() {
         style={{ borderRadius: '8px' }}
         title="Light mode"
       >
-        <Icon icon={Sun} size={16} color={colorMode === 'light' ? 'rgb(13 27 42)' : 'rgb(198 247 40)'} />
+        <Icon icon={Sun} size={16} variant={colorMode === 'light' ? 'on-bg' : 'primary'} />
       </button>
       
       <button
@@ -30,7 +30,7 @@ export function ThemeToggle() {
         style={{ borderRadius: '8px' }}
         title="Dark mode"
       >
-        <Icon icon={Moon} size={16} color={colorMode === 'dark' ? 'rgb(13 27 42)' : 'rgb(198 247 40)'} />
+        <Icon icon={Moon} size={16} variant={colorMode === 'dark' ? 'on-bg' : 'primary'} />
       </button>
     </div>
   )

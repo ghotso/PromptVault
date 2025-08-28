@@ -183,7 +183,7 @@ export default function Login() {
               type="submit"
               disabled={isLoading}
             >
-              <Icon icon={mode === 'login' ? LogIn : UserPlus} size={22} color="rgb(13 27 42)" />
+                             <Icon icon={mode === 'login' ? LogIn : UserPlus} size={22} variant="on-bg" />
               {isLoading 
                 ? 'Please wait...' 
                 : mode === 'login' 

@@ -66,7 +66,7 @@ export default function TeamFeed() {
           to="/prompts"
           className="btn-primary flex items-center justify-center gap-2 h-12 text-base font-medium mx-auto"
         >
-          <Icon icon={ArrowLeft} size={20} color="rgb(13 27 42)" />
+                     <Icon icon={ArrowLeft} size={20} variant="on-bg" />
           Back to Prompts
         </Link>
       </div>
@@ -78,7 +78,7 @@ export default function TeamFeed() {
       {/* Header */}
       <div className="mb-8">
         <h1 className="text-4xl font-bold text-foreground flex items-center gap-3 mb-2">
-          <Icon icon={Users} size={36} color="rgb(198 247 40)" />
+                     <Icon icon={Users} size={36} variant="primary" />
           Team Feed
         </h1>
         <p className="text-muted-foreground text-lg">
@@ -90,7 +90,7 @@ export default function TeamFeed() {
       {items.length === 0 ? (
         <div className="text-center py-16">
           <div className="inline-flex items-center justify-center w-24 h-24 bg-accent-primary/10 rounded-3xl mb-6">
-            <Icon icon={Users} size={48} color="rgb(198 247 40)" />
+            <Icon icon={Users} size={48} variant="primary" />
           </div>
           <h2 className="text-2xl font-bold text-foreground mb-3">No Team Prompts Yet</h2>
           <p className="text-muted-foreground text-lg mb-8">
@@ -100,7 +100,7 @@ export default function TeamFeed() {
             to="/prompts"
             className="btn-primary flex items-center justify-center gap-2 h-12 text-base font-medium mx-auto"
           >
-            <Icon icon={ArrowLeft} size={20} color="rgb(13 27 42)" />
+            <Icon icon={ArrowLeft} size={20} variant="on-bg" />
             Create Your First Prompt
           </Link>
         </div>

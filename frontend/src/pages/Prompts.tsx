@@ -213,7 +213,7 @@ export default function Prompts() {
       {/* Header */}
       <div className="mb-8">
         <h1 className="text-4xl font-bold text-foreground flex items-center gap-3 mb-2">
-          <Icon icon={Plus} size={36} color="rgb(198 247 40)" />
+                     <Icon icon={Plus} size={36} variant="primary" />
           My Prompts
         </h1>
         <p className="text-muted-foreground text-lg">
@@ -244,7 +244,7 @@ export default function Prompts() {
           onClick={() => setIsCreateModalOpen(true)}
           className="btn-primary flex items-center gap-2 px-6"
         >
-          <Icon icon={Plus} size={18} color="rgb(13 27 42)" />
+                       <Icon icon={Plus} size={18} variant="on-bg" />
           New Prompt
         </button>
       </div>
