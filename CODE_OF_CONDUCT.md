@@ -90,7 +90,7 @@ If you feel you have been falsely or unfairly accused of violating this Code of 
 ## Additional Resources
 
 * [Contributing Guidelines](CONTRIBUTING.md)
-* [Project Documentation](docs/)
+* [Project Documentation](docs/docs/)
 * [Community Discussions](https://github.com/yourusername/PromptVault/discussions)
 
 ## License and Attribution

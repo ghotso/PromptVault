@@ -1,37 +1,35 @@
-# Table of contents
+# Summary
 
-* [PromptVault](README.md)
-* [1.0.0 (2025-08-26)](../CHANGELOG.md)
-* [Code of Conduct](../CODE_OF_CONDUCT.md)
-* [Contributing to PromptVault](../CONTRIBUTING.md)
-* [PromptVault Deployment Guide](../DEPLOYMENT.md)
-* [Security Policy](../SECURITY.md)
-* [.github](.github/README.md)
-  * [Pull Request](../.github/pull_request_template.md)
-* [PromptVault Documentation](<README (1).md>)
-  * [Summary](SUMMARY.md)
-  * [Account Management](account-management.md)
-  * [Admin Panel](admin-panel.md)
-  * [API Reference](api-reference.md)
-  * [Architecture](architecture.md)
-  * [Backup & Recovery](backup-recovery.md)
-  * [Configuration](configuration.md)
-  * [Contributing to PromptVault](contributing.md)
-  * [Creating Prompts](creating-prompts.md)
-  * [Database Management](database-management.md)
-  * [Development Setup](development-setup.md)
-  * [Docker Deployment](docker-deployment.md)
-  * [Installation Guide](installation.md)
-  * [PromptVault Overview](overview.md)
-  * [Production Setup](production-setup.md)
-  * [Quick Start Guide](quick-start.md)
-  * [Search & Organization](search-organization.md)
-  * [Security](security.md)
-  * [Team Collaboration](team-collaboration.md)
-  * [Troubleshooting](troubleshooting.md)
-  * [User Interface Guide](user-interface.md)
-* [React + TypeScript + Vite](../frontend/README.md)
-* [reqs](reqs/README.md)
-  * [Docker Troubleshooting Guide](../reqs/DockerTroubleshooting.md)
-  * [Product Requirements Document (PRD)](../reqs/PRD.md)
-  * [StyleGuide](../reqs/StyleGuide.md)
+## Introduction
+
+* [Overview](overview.md)
+* [Quick Start](quick-start.md)
+* [Installation](installation.md)
+
+## Setup & Configuration
+
+* [Configuration](configuration.md)
+* [Development Setup](development-setup.md)
+* [Production Setup](production-setup.md)
+* [Docker Deployment](docker-deployment.md)
+* [Database Management](database-management.md)
+* [Backup & Recovery](backup-recovery.md)
+* [Security](security.md)
+
+## Usage
+
+* [Account Management](account-management.md)
+* [Team Collaboration](team-collaboration.md)
+* [Admin Panel](admin-panel.md)
+* [User Interface](user-interface.md)
+
+## Reference
+
+* [API Reference](api-reference.md)
+* [Architecture](architecture.md)
+* [Search & Organization](search-organization.md)
+* [Troubleshooting](troubleshooting.md)
+
+## Community & Contributions
+
+* [Contributing](contributing.md)
